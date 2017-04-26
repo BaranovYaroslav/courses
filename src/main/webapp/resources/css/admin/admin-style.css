@@ -1,0 +1,197 @@
+p {
+    margin-top: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.logout {
+    margin-left: 5px;
+    margin-top: 10px;
+    float: left;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.logout img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.logout img:hover {
+    cursor: pointer;
+}
+
+.backgroundLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 2000px;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.confirmationForm {
+    position: fixed;
+    width: 300px;
+    height: 150px;
+    padding: 20px;
+    top: 300px;
+    left: calc(50% - 160px);
+    display: none;
+    background-color: #a0a0a0;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.confirmButton {
+    width: 100px;
+    height: 35px;
+    margin-left: 35px;
+    margin-top: 30px;
+    float: left;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #82574f;
+}
+
+.confirmButton:hover {
+    cursor: pointer;
+    background-color: #b97b72;
+}
+
+.cancelButton {
+    width: 100px;
+    height: 35px;
+    margin-top: 30px;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #54674b;
+}
+
+.cancelButton:hover {
+    cursor: pointer;
+    background-color: #768a60;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    width: 100%;
+    height: 75px;
+    background: black;
+}
+
+.header img {
+    max-width: 80px;
+    max-height: 50px;
+    margin-left: calc(50% - 40px);
+    margin-top: 10px;
+}
+
+.header img:hover {
+    cursor: pointer;
+}
+
+.wrapper {
+    width: 800px;
+    margin-left: calc(50vw - 450px);
+    margin-top: 10px;
+}
+
+.actionBar {
+    width: 200px;
+    height: 170px;
+    padding: 20px;
+    float: left;
+    border-radius: 5px;
+    background-color: lightgrey;
+}
+
+.action {
+    width: 180px;
+    height: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #acacac;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.action:hover {
+    cursor: pointer;
+    background-color: #a0a0a0;
+}
+
+.courseContainer {
+    width: 610px;
+    min-height: 700px;
+    margin-left: 250px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: lightgrey;
+}
+
+.course {
+    width: 580px;
+    height: 290px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #a0a0a0;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: left;
+}
+
+.course p{
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.updateButton {
+    width: 100px;
+    height: 40px;
+    float: left;
+    margin-top: 30px;
+    margin-left: 150px;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid black;;
+    background-color: #54674b;
+}
+
+.updateButton:hover {
+    cursor: pointer;
+    background-color: #768a60;
+}
+
+.deleteButton {
+    width: 100px;
+    height: 40px;
+    margin-top: 30px;
+    margin-left: 80px;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid black;
+    background-color: #82574f;
+}
+
+.deleteButton:hover {
+    cursor: pointer;
+    background-color: #b97b72;
+}
+
+.hidden {
+    display: none;
+}
+
+form {
+    margin-bottom: 0;
+}

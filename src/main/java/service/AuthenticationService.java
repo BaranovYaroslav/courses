@@ -1,0 +1,19 @@
+package service;
+
+import entities.User;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Created by Ярослав on 13.04.2017.
+ */
+public interface AuthenticationService {
+
+    public void login(HttpServletRequest request, String login);
+
+    public void logout(HttpServletRequest request);
+
+    boolean register(User user);
+
+    public boolean checkLoginWithPassword(String login, String password);
+}

@@ -1,0 +1,115 @@
+p {
+    font-family: "Roboto", sans-serif;
+    margin-top: 0;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.logout {
+    margin-left: 5px;
+    margin-top: 10px;
+    float: left;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.logout img {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.logout img:hover {
+    cursor: pointer;
+}
+
+.header{
+    width: 100%;
+    height: 75px;
+    background: black;
+}
+
+.header img{
+    max-width: 80px;
+    max-height: 50px;
+    margin-left: calc(50% - 40px);
+    margin-top: 10px;
+}
+
+.header img:hover{
+    cursor: pointer;
+}
+
+.wrapper {
+    width: 820px;
+    margin-left: calc(50vw - 450px);
+    margin-top: 10px;
+}
+
+.actionBar {
+    width: 205px;
+    height: 550px;
+    padding: 20px;
+    float: left;
+    border-radius: 5px;
+    background-color: lightgrey;
+    text-align: center;
+}
+
+.action {
+    width: 180px;
+    height: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #dbe0d9;
+}
+
+.action:hover {
+    cursor: pointer;
+    background-color: #f7f7f7;
+}
+
+.courseContainer {
+    width: 515px;
+    min-height: 700px;
+    margin-top: 20px;
+    margin-left: calc(50% - 135px);
+    padding: 20px;
+    background-color: lightgrey;
+    border-radius: 5px;
+}
+
+.course {
+    width: 470px;
+    height: 275px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #a0a0a0;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: left;
+}
+
+.course input[type="text"] {
+    display: none;
+}
+
+.registerButton {
+    width: 120px;
+    height: 40px;
+    margin-left: 170px;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid black;;
+    background-color: #54674b;
+    text-align: center;
+}
+
+.registerButton:hover {
+    cursor: pointer;
+    background-color: #768a60;;
+}

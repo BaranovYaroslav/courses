@@ -1,0 +1,102 @@
+p {
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    width: 100%;
+    height: 75px;
+    background: black;
+}
+
+.header img{
+    max-width: 80px;
+    max-height: 50px;
+    margin-left: calc(50% - 40px);
+    margin-top: 10px;
+}
+
+.header img:hover{
+    cursor: pointer;
+}
+
+.container{
+    width: 1000px;
+    min-height: calc(100vh - 165px);
+    max-height: calc(100vh - 165px);
+    margin-left: calc(50% - 500px);
+    padding-top: 40px;
+    text-align: center;
+    z-index: 1;
+}
+
+.container p{
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.container p:last-child{
+    margin-top: 40px;
+}
+
+.number{
+    font-size: 18px;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 40px;
+    color: #f3ae35;
+}
+
+.controlButtons{
+    width: 390px;
+    height: 70px;
+    margin-left: calc(50% - 195px);
+    margin-top: 170px;
+}
+
+.controlButtons input[type="submit"]{
+    width: 170px;
+    margin-right: 50px;
+    height: 70px;
+    outline: none;
+    border: #2f2f2f 2px;
+    border-radius: 10px;
+    background-color: rgba(119, 119, 119, 0.75);
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+}
+
+.controlButtons input[type="submit"]:last-child {
+    margin-right: 0;
+}
+
+.controlButtons input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: rgba(129, 129, 129, 0.75);
+    color: #f3ae35;
+}
+
+#registration {
+    margin-left: 50px;
+}
+
+.footer {
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    z-index: 1;
+}
+
+p {
+    font-family: "Roboto", sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+form {
+    float: left;
+}

@@ -1,0 +1,132 @@
+p {
+    font-family: "Roboto", sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.backgroundLayer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2000px;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.header{
+    width: 100%;
+    height: 75px;
+    background: black;
+}
+
+.header img{
+    max-width: 80px;
+    max-height: 50px;
+    margin-left: calc(50% - 40px);
+    margin-top: 10px;
+}
+
+.header img:hover{
+    cursor: pointer;
+}
+
+.form{
+    width: 300px;
+    height: 540px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: solid black 5px;
+    border-radius: 10px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.form p{
+    max-height: 16px;
+    font-size: 16px;
+}
+
+.form input{
+    width: 300px;
+}
+
+.form [type="submit"] {
+    width: 100px;
+    height: 30px;
+    margin-left: 100px;
+    margin-top: 30px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.form [type="submit"]:hover {
+    cursor: pointer;
+}
+
+
+.hidden {
+    display: none;
+}
+
+#location {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#location:hover {
+    cursor: pointer;
+    color: orange;
+}
+
+#map {
+    width: 800px;
+    height: 500px;
+    padding: 20px;
+    display: none;
+    position: fixed;
+    margin-left: calc(50% - 400px);
+    top: 100px;
+    border: 2px solid #4d4d4d;
+    border-radius: 5px;
+    z-index: 999999;
+    background-color: #616161;
+    text-align: center;
+}
+#map p{
+    margin-top: 10px;
+    color: #bcbcbc;
+}
+#map input[type="button"]{
+    width: 100px;
+    height: 40px;
+    margin-top: 15px;
+    background-color: #bcbcbc;
+    border: 2px solid #464646;
+    border-radius: 3px;
+}
+#map input[type="button"]:hover{
+    cursor: pointer;
+}
+#mapCanvas{
+    width: 800px;
+    height: 400px;
+    position: relative;
+}
+#coordinates{
+    font-size: 12px;
+    float: left;
+}
+#cleanCoordinates{
+    margin-left: 155px;
+    font-size: 12px;
+    color: red;
+}
+#cleanCoordinates:hover{
+    cursor: pointer;
+}

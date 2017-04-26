@@ -1,0 +1,122 @@
+p {
+    font-family: "Roboto", sans-serif;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.backgroundLayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 2000px;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.confirmationForm {
+    position: fixed;
+    width: 300px;
+    height: 150px;
+    padding: 20px;
+    top: 300px;
+    left: calc(50% - 160px);
+    display: none;
+    background-color: #a0a0a0;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.confirmButton {
+    width: 100px;
+    height: 35px;
+    margin-left: 35px;
+    margin-top: 30px;
+    float: left;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #82574f;
+}
+
+.confirmButton:hover {
+    cursor: pointer;
+    background-color: #b97b72;
+}
+
+.cancelButton {
+    width: 100px;
+    height: 35px;
+    margin-top: 30px;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #54674b;
+}
+
+.cancelButton:hover {
+    cursor: pointer;
+    background-color: #768a60;
+}
+
+.header{
+    width: 100%;
+    height: 75px;
+    background: black;
+}
+
+.header img{
+    max-width: 80px;
+    max-height: 50px;
+    margin-left: calc(50% - 40px);
+    margin-top: 10px;
+}
+
+.header img:hover{
+    cursor: pointer;
+}
+
+.courseContainer {
+    width: 514px;
+    min-height: 700px;
+    margin-top: 20px;
+    margin-left: calc(50% - 257px);
+    padding: 20px;
+    background-color: lightgrey;
+    border-radius: 5px;
+}
+
+.course {
+    width: 470px;
+    height: 295px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #a0a0a0;
+    border-radius: 5px;
+    border: 2px solid black;
+    text-align: left;
+}
+
+.course input[type="text"] {
+    display: none;
+}
+
+.unregisterButton {
+    width: 120px;
+    height: 40px;
+    margin-left: 170px;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid black;;
+    background-color: #82574f;
+    text-align: center;
+}
+
+.unregisterButton:hover {
+    cursor: pointer;
+    background-color: #b97b72;;
+}

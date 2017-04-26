@@ -1,0 +1,75 @@
+p {
+    font-family: "Roboto", sans-serif;
+    text-align: left;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    width: 100%;
+    height: 75px;
+    background: black;
+}
+
+.header img {
+    max-width: 80px;
+    max-height: 50px;
+    margin-left: calc(50% - 40px);
+    margin-top: 10px;
+}
+
+.header img:hover {
+    cursor: pointer;
+}
+
+.feedBackForm {
+    width: 250px;
+    height: 400px;
+    margin-top: 100px;
+    margin-left: calc(50% - 135px);
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #bcbcbc;
+}
+
+.feedBackForm p {
+    margin-top: 30px;
+}
+
+.feedBackForm p:first-child {
+    margin-top: 0;
+}
+
+.feedBackForm input {
+    width: 250px;
+}
+
+.feedBackForm textarea {
+    width: 250px;
+    height: 160px;
+    resize: none;
+}
+
+.feedBackForm input[type="submit"] {
+    width: 100px;
+    height: 40px;
+    margin-left: 75px;
+    margin-top: 25px;
+    border: 2px solid black;
+    border-radius: 5px;
+    outline: none;
+    background-color: #54674b;
+}
+
+.feedBackForm input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: #768a60;
+}
+
+.hidden {
+    display: none;
+}
