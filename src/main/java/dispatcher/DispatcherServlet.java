@@ -2,7 +2,6 @@ package dispatcher;
 
 import application.MessagesConstants;
 import controller.*;
-import entities.Student;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
 import persistence.dao.factory.DaoFactory;
@@ -26,7 +25,7 @@ public class DispatcherServlet extends HttpServlet {
 
     private static Logger LOGGER = Logger.getLogger(DispatcherServlet.class);
 
-    private ArrayList<HttpMatcherEntry> httpMatchers;
+    private ArrayList<HttpMatcherEntry> httpMatcher;
 
     public DispatcherServlet() {
 
@@ -54,7 +53,7 @@ public class DispatcherServlet extends HttpServlet {
         ServiceLoader.getInstance().loadService(StudentService.class, studentService);
         ServiceLoader.getInstance().loadService(AuthenticationService.class, authenticationService);
 
-        httpMatchers = new ArrayList<HttpMatcherEntry>();
+        httpMatcher = new ArrayList<HttpMatcherEntry>();
         addMatcherEntry("/", new BaseUrlController());
         addMatcherEntry("/registration", new RegistrationPageController());
         addMatcherEntry("/registration/apply", new StudentRegistrationController());
@@ -80,36 +79,50 @@ public class DispatcherServlet extends HttpServlet {
         addMatcherEntry("/student/courses/unregister", new UnregisterStudentController());
         addMatcherEntry("/student/feedbacks", new LoadStudentsFeedbacksPageController());
         addMatcherEntry("/locale", new LocaleController());
-
-        ResourceToRoleMapper resourceToRoleMapper = ResourceToRoleMapper.getInstance();
     }
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpMatcherEntry entry = getMatcherEntry(req.getPathInfo());
         HttpWrapper httpWrapper = new HttpWrapper(req, resp);
-
-        if(entry != null){
-            entry.executeController(httpWrapper);
-        }
-
-        else {
-            NotificationService.notify(httpWrapper, MessagesConstants.MESSAGE_404);
-        }
-
+        dispatchRequest(httpWrapper);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpWrapper httpWrapper = new HttpWrapper(req, resp);
+        dispatchRequest(httpWrapper);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpWrapper httpWrapper = new HttpWrapper(req, resp);
+        dispatchRequest(httpWrapper);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpWrapper httpWrapper = new HttpWrapper(req, resp);
+        dispatchRequest(httpWrapper);
+    }
+
+    private void dispatchRequest(HttpWrapper httpWrapper) {
+        HttpMatcherEntry entry = getMatcherEntry(httpWrapper.getRequest().getPathInfo());
+
+        if(entry != null) {
+            entry.executeController(httpWrapper);
+        }
+        else {
+            NotificationService.notify(httpWrapper, MessagesConstants.MESSAGE_404);
+        }
     }
 
     public void addMatcherEntry(String url, Controller controller){
-        this.httpMatchers.add(new HttpMatcherEntry(url, controller));
+        this.httpMatcher.add(new HttpMatcherEntry(url, controller));
     }
 
     public HttpMatcherEntry getMatcherEntry(String url){
-        for(HttpMatcherEntry entry: httpMatchers){
+        for(HttpMatcherEntry entry: httpMatcher){
             if(entry.getUrl().equals(url)){
                 return entry;
             }

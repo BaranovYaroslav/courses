@@ -1,6 +1,8 @@
 package dispatcher;
 
+import application.MessagesConstants;
 import org.apache.log4j.Logger;
+import service.NotificationService;
 
 /**
  * Created by Ярослав on 11.04.2017.
@@ -13,16 +15,16 @@ public class Controller {
         String method = httpWrapper.getRequest().getMethod();
 
         switch (method) {
-            case "GET":
+            case HttpMethods.GET:
                 get(httpWrapper);
                 break;
-            case "POST":
+            case HttpMethods.POST:
                 post(httpWrapper);
                 break;
-            case "PUT":
+            case HttpMethods.PUT:
                 put(httpWrapper);
                 break;
-            case "DELETE":
+            case HttpMethods.DELETE:
                 delete(httpWrapper);
                 break;
             default:
@@ -30,11 +32,19 @@ public class Controller {
         }
     }
 
-    public void get(HttpWrapper reqService) {}
+    public void get(HttpWrapper httpWrapper) {
+        NotificationService.notify(httpWrapper, MessagesConstants.MESSAGE_404);
+    }
 
-    public void post(HttpWrapper reqService) {}
+    public void post(HttpWrapper httpWrapper) {
+        NotificationService.notify(httpWrapper, MessagesConstants.MESSAGE_404);
+    }
 
-    public void put(HttpWrapper reqService) {}
+    public void put(HttpWrapper httpWrapper) {
+        NotificationService.notify(httpWrapper, MessagesConstants.MESSAGE_404);
+    }
 
-    public void delete(HttpWrapper reqService) {}
+    public void delete(HttpWrapper httpWrapper) {
+        NotificationService.notify(httpWrapper, MessagesConstants.MESSAGE_404);
+    }
 }

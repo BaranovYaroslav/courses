@@ -1,12 +1,8 @@
 package filter;
 
-import application.ApplicationConstants;
 import dispatcher.HttpWrapper;
 import security.ApplicationSecurityContext;
-import security.ResourceToRoleMapper;
 import security.SimpleSecuredAccessStrategy;
-import service.NavigationService;
-import service.UserService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

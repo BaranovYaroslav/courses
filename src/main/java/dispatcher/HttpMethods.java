@@ -12,5 +12,4 @@ public interface HttpMethods {
     String PUT = "PUT";
 
     String DELETE = "DELETE";
-
 }
