@@ -18,10 +18,6 @@ public class PropertiesLoader {
 
     private static Logger LOGGER = Logger.getLogger(PropertiesLoader.class);
 
-    public static InputStream getResourceInputStream(String path) {
-        return PropertiesLoader.class.getClassLoader().getResourceAsStream("resources/" + path);
-    }
-
     public static Properties fromFile(String path) {
         Properties properties = new Properties();
 

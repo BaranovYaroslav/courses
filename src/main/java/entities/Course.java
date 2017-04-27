@@ -110,7 +110,7 @@ public class Course {
         return xCoordinate;
     }
 
-    public void setXCoordinate(double xCoordinate) {
+    public void setxCoordinate(double xCoordinate) {
         this.xCoordinate = xCoordinate;
     }
 
