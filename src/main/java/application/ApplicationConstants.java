@@ -12,4 +12,6 @@ public interface ApplicationConstants {
     String PAGES_LOCATION = "/pages";
 
     String URL_FOR_LOGIN = "/app/login";
+
+    String HASHING_ALGORITHM = "SHA-256";
 }
