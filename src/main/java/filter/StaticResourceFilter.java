@@ -52,6 +52,9 @@ public class StaticResourceFilter implements Filter {
         else if(path.indexOf(".jsp") > 0){
             chain.doFilter(request, response);
         }
+        else  if(path.indexOf(".js") > 0) {
+            chain.doFilter(request, response);
+        }
         else {
             request.getRequestDispatcher(path).forward(request, response);
         }

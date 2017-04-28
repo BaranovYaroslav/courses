@@ -20,7 +20,7 @@
     <input id="cancelDeleting" type="button" class="cancelButton" value="<fmt:message key="admin.cancel" bundle="${rb}"/>"/>
   </div>
 
-  <div class="header">
+  <div class="header" onclick="bra()">
     <img src="<c:url value="/resources/images/team_icon.png"/>"/>
   </div>
 
@@ -30,14 +30,7 @@
     </form>
   </div>
 
-  <div class="languageSelectionArea">
-    <div id="uaLang" class="language">
-      <p>ua</p>
-    </div>
-    <div id="enLang" class="language">
-      <p>en</p>
-    </div>
-  </div>
+  <c:import url="/resources/components/locale-component.jsp"/>
 
   <div class="wrapper">
     <div class="actionBar">
@@ -116,19 +109,8 @@
           $("#confirmationForm").fadeIn(1000);
         }
       }
-
-      $("#uaLang").click(function(){
-        $.get("<c:url value="/app/locale"/>", {lang: 'ua'}).done(function() {
-          location.reload();
-        });
-      });
-      $("#enLang").click(function(){
-        $.get("<c:url value="/app/locale"/>", {lang: 'en'}).done(function() {
-          location.reload();
-        });
-      });
-
     </script>
+    <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>
   </div>
 
 </body>
