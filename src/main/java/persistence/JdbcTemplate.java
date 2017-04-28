@@ -61,20 +61,6 @@ public class JdbcTemplate {
         }
     }
 
-    public ResultSet queryEntities(String query){
-        Connection connection = connectionManager.getConnection();
-
-        try{
-            java.sql.Statement statement = connection.createStatement();
-            statement.executeQuery(query);
-            return statement.getResultSet();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
     public void query(String query, ResultSetFunction fn, Object... params) {
         Connection conn = connectionManager.getConnection();
 
@@ -105,7 +91,6 @@ public class JdbcTemplate {
             }
         }
     }
-
 
     public <R> R queryObject(String query, EntityExtractor<R> producer, Object... params) {
         Object[] r = new Object[]{null};

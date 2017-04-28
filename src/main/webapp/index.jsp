@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="user" uri="/WEB-INF/usertag.tld" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,8 @@
         <div class="header">
             <img src="<c:url value="/resources/images/team_icon.png"/>"/>
         </div>
+
+        <user:login></user:login>
 
         <div class="container">
             <p>Number of courses:</p>

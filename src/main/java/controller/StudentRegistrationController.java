@@ -5,21 +5,13 @@ import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Role;
 import entities.Student;
-import persistence.ConnectionManager;
-import persistence.dao.UserDao;
-import persistence.dao.factory.JdbcDaoFactory;
-
 import org.apache.log4j.Logger;
 import security.UserRoles;
 import service.NavigationService;
 import service.ServiceLoader;
-import service.StudentService;
 import service.UserService;
-import service.impl.UserServiceImpl;
 import util.EncodingProvider;
-
 import javax.servlet.http.HttpServletRequest;
-
 
 public class StudentRegistrationController extends Controller {
 
