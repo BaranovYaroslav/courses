@@ -9,10 +9,9 @@ import java.util.List;
  */
 public interface FeedbackService {
 
-    public Feedback getFeedbackById(int id);
+    public Feedback getFeedback(int id);
 
-    public void updateFeedBack(Feedback feedback);
+    public void updateFeedback(Feedback feedback);
 
-    public List<Feedback> getFeedbacksByStudentLogin(String login);
-
+    public List<Feedback> getFeedbacksForStudent(String login);
 }

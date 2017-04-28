@@ -3,10 +3,8 @@ package service.impl;
 import entities.Role;
 import entities.User;
 import org.apache.log4j.Logger;
-import persistence.ConnectionManager;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
-import persistence.dao.impl.UserJdbcDao;
 import service.UserService;
 
 import java.util.List;
@@ -28,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByLogin(String login) {
-        User user = userDao.getUserByLogin(login);
+        User user = userDao.getUser(login);
         if(user == null) {
             return null;
         }
@@ -67,6 +65,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getRole(String login) {
-        return userDao.getUserRoleByLogin(login);
+        return userDao.getUserRole(login);
     }
 }

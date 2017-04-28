@@ -33,7 +33,7 @@ public class UserJdbcDao implements UserDao {
         int id = jdbcTemplate.insert("INSERT INTO `user` (`login`, `full_name`, `email`, `password`) " +
                             "VALUES (?, ?, ?, ?);", user.getLogin(), user.getFullName(),
                             user.getEmail(), user.getPassword());
-        setRole(id, user.getRole());
+        addRole(id, user.getRole());
         return id;
     }
 
@@ -58,7 +58,7 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public User getUserByLogin(String login) {
+    public User getUser(String login) {
         return jdbcTemplate.queryObject("SELECT * FROM `user` WHERE `login`= ?;", UserMapper::map, login);
     }
 
@@ -68,13 +68,13 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public void setRole(int id, Role role) {
+    public void addRole(int id, Role role) {
         jdbcTemplate.insert("INSERT INTO `user_group` (`user_id`, `group`) VALUES (?, ?);", id, role.getRole());
     }
 
     @Override
-    public String getUserRoleByLogin(String login) {
-        User user = getUserByLogin(login);
+    public String getUserRole(String login) {
+        User user = getUser(login);
         return jdbcTemplate.queryObject("SELECT * FROM `user_group` WHERE user_id=?;", StringMapper::map, user.getId());
     }
 

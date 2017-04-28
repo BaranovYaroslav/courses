@@ -1,5 +1,6 @@
 package service;
 
+import dispatcher.HttpWrapper;
 import entities.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,4 +17,8 @@ public interface AuthenticationService {
     boolean register(User user);
 
     public boolean checkLoginWithPassword(String login, String password);
+
+    public void processCorrectLogin(HttpWrapper httpWrapper, String login);
+
+    public void processIncorrectLogin(HttpWrapper httpWrapper);
 }

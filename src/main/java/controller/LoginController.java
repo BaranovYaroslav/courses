@@ -34,23 +34,11 @@ public class LoginController extends Controller {
         String password = httpWrapper.getRequest().getParameter("password");
 
         if(!authenticationService.checkLoginWithPassword(login, password)) {
-            processIncorrectLogin(httpWrapper);
+            authenticationService.processIncorrectLogin(httpWrapper);
         }
 
         else{
-            processCorrectLogin(httpWrapper, login);
+            authenticationService.processCorrectLogin(httpWrapper, login);
         }
-    }
-
-    private void processCorrectLogin(HttpWrapper httpWrapper, String login) {
-        LOGGER.error("in process correct" + authenticationService + " " + BaseResourceToRoleMapper.getInstance());
-        authenticationService.login(httpWrapper.getRequest(),login);
-        String baseUrl = BaseResourceToRoleMapper.getInstance().getBaseUrlForRole(userService.getRole(login));
-        NavigationService.redirectTo(httpWrapper, baseUrl);
-    }
-
-    private void processIncorrectLogin(HttpWrapper httpWrapper) {
-        httpWrapper.getRequest().setAttribute("message", "Incorrect login or password");
-        NavigationService.navigateTo(httpWrapper, "/app/login");
     }
 }

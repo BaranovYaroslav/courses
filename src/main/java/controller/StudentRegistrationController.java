@@ -16,6 +16,7 @@ import service.ServiceLoader;
 import service.StudentService;
 import service.UserService;
 import service.impl.UserServiceImpl;
+import util.EncodingProvider;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -49,7 +50,7 @@ public class StudentRegistrationController extends Controller {
         student.setLogin(request.getParameter("login"));
         student.setFullName(request.getParameter("fullName"));
         student.setEmail(request.getParameter("email"));
-        student.setPassword(request.getParameter("password"));
+        student.setPassword(EncodingProvider.encode(request.getParameter("password")));
         student.setRole(new Role(UserRoles.STUDENT));
 
         return student;

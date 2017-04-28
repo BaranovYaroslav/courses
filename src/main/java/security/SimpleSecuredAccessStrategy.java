@@ -40,7 +40,6 @@ public class SimpleSecuredAccessStrategy implements SecuredAccessStrategy {
         }
 
         else {
-            LOGGER.error("vvvvvvvvvvvvvv " + accessibleRole + " " + securityContext.getCurrentUser(httpWrapper.getRequest()));
             if(securityContext.isUserInRole(securityContext.getCurrentUser(httpWrapper.getRequest()), accessibleRole)){
                 filterChain.doFilter(httpWrapper.getRequest(), httpWrapper.getResponse());
             }

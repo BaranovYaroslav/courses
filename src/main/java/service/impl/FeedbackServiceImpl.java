@@ -21,17 +21,17 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public Feedback getFeedbackById(int id) {
+    public Feedback getFeedback(int id) {
         return feedbackDao.find(id);
     }
 
     @Override
-    public void updateFeedBack(Feedback feedback) {
+    public void updateFeedback(Feedback feedback) {
         feedbackDao.update(feedback);
     }
 
     @Override
-    public List<Feedback> getFeedbacksByStudentLogin(String login) {
+    public List<Feedback> getFeedbacksForStudent(String login) {
         return feedbackDao.getFeedBacksForStudentByLogin(login);
     }
 }

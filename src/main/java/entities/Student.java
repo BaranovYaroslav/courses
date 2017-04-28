@@ -18,6 +18,10 @@ public class Student extends User {
         super(id, login, fullName, email, password, role);
     }
 
+    public static Student create(User user) {
+        return new Student(user.getId(), user.getLogin(), user.getFullName(), user.getEmail(), user.getPassword(), user.getRole());
+    }
+
     public Student(User user) {
         setId(user.getId());
     }

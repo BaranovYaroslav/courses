@@ -8,12 +8,11 @@ import entities.User;
  */
 public interface UserDao extends AbstractDao<User>{
 
-    public User getUserByLogin(String login);
+    public User getUser(String login);
 
     public Role getUserRole(int id);
 
-    public String getUserRoleByLogin(String login);
+    public String getUserRole(String login);
 
-    public void setRole(int id, Role role);
-
+    public void addRole(int id, Role role);
 }

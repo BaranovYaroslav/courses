@@ -81,7 +81,6 @@ public class DispatcherServlet extends HttpServlet {
         addMatcherEntry("/locale", new LocaleController());
     }
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpWrapper httpWrapper = new HttpWrapper(req, resp);

@@ -2,16 +2,11 @@ package service.impl;
 
 import entities.Course;
 import entities.Feedback;
-import entities.Student;
 import entities.User;
-import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
-import persistence.dao.impl.CourseJdbcDao;
-import persistence.dao.impl.FeedbackJdbcDao;
-import persistence.dao.impl.UserJdbcDao;
 import service.CourseService;
 
 import java.util.List;
@@ -74,7 +69,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getCoursesForStudent(String login) {
         List<Course> courses = courseDao.findAll();
-        User user = userDao.getUserByLogin(login);
+        User user = userDao.getUser(login);
         return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
     }
 

@@ -1,16 +1,10 @@
 package service.impl;
 
 import entities.Course;
-import entities.Student;
 import entities.User;
-import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
-import persistence.dao.StudentDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
-import persistence.dao.impl.CourseJdbcDao;
-import persistence.dao.impl.StudentJdbcDao;
-import persistence.dao.impl.UserJdbcDao;
 import service.StudentService;
 
 import java.util.List;

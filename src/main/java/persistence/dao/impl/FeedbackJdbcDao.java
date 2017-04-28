@@ -1,7 +1,6 @@
 package persistence.dao.impl;
 
 import entities.Feedback;
-import entities.Student;
 import entities.User;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
@@ -89,7 +88,7 @@ public class FeedbackJdbcDao implements FeedbackDao {
 
     @Override
     public List<Feedback> getFeedBacksForStudentByLogin(String login) {
-        User student = userDao.getUserByLogin(login);
+        User student = userDao.getUser(login);
         List<Feedback> feedbacks = jdbcTemplate.queryObjects("SELECT * FROM `feedback` WHERE `user_id`=?;",
                                                              FeedbackMapper::map, student.getId());
 

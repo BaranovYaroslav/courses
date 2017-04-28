@@ -12,6 +12,7 @@ import service.NotificationService;
 import service.ServiceLoader;
 import service.UserService;
 import service.impl.UserServiceImpl;
+import util.EncodingProvider;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,7 +48,7 @@ public class NewProfessorController extends Controller {
         user.setLogin(request.getParameter("login"));
         user.setFullName(request.getParameter("fullName"));
         user.setEmail(request.getParameter("email"));
-        user.setPassword(request.getParameter("password"));
+        user.setPassword(EncodingProvider.encode(request.getParameter("password")));
 
         return user;
     }

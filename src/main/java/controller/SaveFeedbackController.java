@@ -6,7 +6,6 @@ import entities.Feedback;
 import service.FeedbackService;
 import service.NavigationService;
 import service.ServiceLoader;
-import service.impl.FeedbackServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +19,7 @@ public class SaveFeedbackController extends Controller {
     @Override
     public void get(HttpWrapper reqService) {
         int courseId = Integer.parseInt(reqService.getRequest().getParameter("courseId"));
-        feedbackService.updateFeedBack(extractFeedback(reqService.getRequest()));
+        feedbackService.updateFeedback(extractFeedback(reqService.getRequest()));
         NavigationService.redirectTo(reqService, "/app/professor/feedbacks?id=" + courseId);
     }
 
