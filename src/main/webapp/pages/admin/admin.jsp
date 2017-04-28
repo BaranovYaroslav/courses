@@ -20,16 +20,8 @@
     <input id="cancelDeleting" type="button" class="cancelButton" value="<fmt:message key="admin.cancel" bundle="${rb}"/>"/>
   </div>
 
-  <div class="header" onclick="bra()">
-    <img src="<c:url value="/resources/images/team_icon.png"/>"/>
-  </div>
-
-  <div class="logout">
-    <form method="get" action="<c:url value="/app/logout"/>">
-      <img src="<c:url value="/resources/images/logout.png"/>" onclick="this.parentNode.submit()"/>
-    </form>
-  </div>
-
+  <c:import url="/resources/components/header-component.jsp"/>
+  <c:import url="/resources/components/logout-component.jsp"/>
   <c:import url="/resources/components/locale-component.jsp"/>
 
   <div class="wrapper">
