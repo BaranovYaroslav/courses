@@ -79,6 +79,7 @@ public class DispatcherServlet extends HttpServlet {
         addMatcherEntry("/student/courses/unregister", new UnregisterStudentController());
         addMatcherEntry("/student/feedbacks", new LoadStudentsFeedbacksPageController());
         addMatcherEntry("/locale", new LocaleController());
+        addMatcherEntry("/index", new IndexPageController());
     }
 
     @Override

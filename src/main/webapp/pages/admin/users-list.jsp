@@ -7,9 +7,12 @@
 <head>
     <title>users</title>
     <link href="<c:url value="/resources/css/admin/users-list-style.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/css/locale-style.css"/>" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <c:import url="/resources/components/header-component.jsp"/>
+    <c:import url="/resources/components/locale-component.jsp"/>
 
     <div class="usersList">
         <table>
@@ -17,19 +20,19 @@
                 <th><fmt:message key="admin.users.id" bundle="${rb}"/></th>
                 <th><fmt:message key="admin.users.login" bundle="${rb}"/></th>
                 <th><fmt:message key="admin.users.name" bundle="${rb}"/></th>
-                <th><fmt:message key="admin.users.password" bundle="${rb}"/></th>
                 <th><fmt:message key="admin.users.role" bundle="${rb}"/></th>
             </tr>
-            <c:forEach items="${users}" var="student">
+            <c:forEach items="${users}" var="user">
                 <tr>
-                    <td>${student.id}</td>
-                    <td>${student.login}</td>
-                    <td>${student.fullName}</td>
-                    <td>${student.password}</td>
-                    <td>${student.role.role}</td>
+                    <td>${user.id}</td>
+                    <td>${user.login}</td>
+                    <td>${user.fullName}</td>
+                    <td>${user.role.role}</td>
                 </tr>
             </c:forEach>
         </table>
     </div>
+
+    <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>
 </body>
 </html>

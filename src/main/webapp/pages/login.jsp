@@ -8,10 +8,12 @@
     <title>login</title>
     <link href="<c:url value="/resources/css/login-style.css"/>" rel="stylesheet">
     <link href="<c:url value="https://fonts.googleapis.com/css?family=Roboto"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/locale-style.css"/>" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-
     <c:import url="/resources/components/header-component.jsp"/>
+    <c:import url="/resources/components/locale-component.jsp"/>
 
     <form method="get" action="<c:url value="/"/>">
         <a onclick="this.parentNode.submit()"><p>Go back</p></a>
@@ -29,5 +31,7 @@
   </div>
 
   <p id="message">${message}</p>
+
+    <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>
 </body>
 </html>

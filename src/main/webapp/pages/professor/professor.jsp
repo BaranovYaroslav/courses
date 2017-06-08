@@ -7,6 +7,7 @@
 <head>
     <title>welcome </title>
     <link href="<c:url value="/resources/css/professor/professor-style.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/css/locale-style.css"/>" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
@@ -19,6 +20,7 @@
     </div>
 
     <c:import url="/resources/components/header-component.jsp"/>
+    <c:import url="/resources/components/locale-component.jsp"/>
 
     <div class="logout">
         <form method="get" action="<c:url value="/app/logout"/>">
@@ -78,6 +80,8 @@
             });
         });
     </script>
+
+    <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>
 
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsKmMo3J76lTSMoV3AQKviaPKJq62vTvY">

@@ -1,8 +1,8 @@
 <div class="languageSelectionArea">
     <div id="uaLang" class="language">
-        <p>ua</p>
+        ua
     </div>
     <div id="enLang" class="language">
-        <p>en</p>
+        en
     </div>
 </div>

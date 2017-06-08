@@ -7,9 +7,12 @@
 <head>
     <title>new professor</title>
     <link href="<c:url value="/resources/css/admin/new-professor-style.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/locale-style.css"/>" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
     <c:import url="/resources/components/header-component.jsp"/>
+    <c:import url="/resources/components/locale-component.jsp"/>
 
     <div class="form">
         <form method="get" action="<c:url value="/app/admin/new-professor/save"/>">
@@ -26,5 +29,7 @@
     </div>
 
     <p id="message">${message}</p>
+
+    <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>
 </body>
 </html>

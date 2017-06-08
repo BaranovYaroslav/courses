@@ -7,6 +7,7 @@
 <head>
     <title>courses</title>
     <link href="<c:url value="/resources/css/student/student-courses-style.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/css/locale-style.css"/>" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
@@ -20,6 +21,7 @@
   </div>
 
   <c:import url="/resources/components/header-component.jsp"/>
+  <c:import url="/resources/components/locale-component.jsp"/>
 
   <div id="courseContainer" class="courseContainer">
     <c:forEach items="${courses}" var="course">
@@ -72,7 +74,8 @@
         $("#confirmationForm").fadeIn(1000);
       }
     }
-
   </script>
+
+  <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>
 </body>
 </html>
