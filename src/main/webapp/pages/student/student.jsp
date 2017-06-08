@@ -9,6 +9,9 @@
     <link href="<c:url value="/resources/css/student/student-style.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/resources/css/locale-style.css"/>" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
     <c:import url="/resources/components/header-component.jsp"/>
@@ -21,17 +24,55 @@
     </div>
 
     <div class="wrapper">
-        <div class="actionBar">
-            <form method="get" action="<c:url value="/app/student/courses"/>">
-                <div class="action" onclick="submitForm(this.parentNode)">
-                    <p><fmt:message key="student.courses" bundle="${rb}"/></p>
-                </div>
-            </form>
-            <form method="get" action="<c:url value="/app/student/feedbacks"/>">
-                <div class="action" onclick="submitForm(this.parentNode)">
-                    <p><fmt:message key="student.feedbacks" bundle="${rb}"/></p>
-                </div>
-            </form>
+        <div class="userOptionsBar">
+            <div class="actionBar">
+                <form method="get" action="<c:url value="/app/student/courses"/>">
+                    <div class="action" onclick="submitForm(this.parentNode)">
+                        <p><fmt:message key="student.courses" bundle="${rb}"/></p>
+                    </div>
+                </form>
+                <form method="get" action="<c:url value="/app/student/feedbacks"/>">
+                    <div class="action" onclick="submitForm(this.parentNode)">
+                        <p><fmt:message key="student.feedbacks" bundle="${rb}"/></p>
+                    </div>
+                </form>
+            </div>
+            <div class="searchForm">
+                <form method="get">
+                    <p>Choose type:</p>
+                    <select id="typeToSearch">
+                        <option> </option>
+                        <option>Math</option>
+                        <option>IT</option>
+                        <option>Natural</option>
+                        <option>Humanistic</option>
+                    </select>
+                    <p>Choose location:</p>
+                    <select id="locationToSearch">
+                        <option> </option>
+                        <option>Kiev</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                    <p>Select price:</p>
+                    <div id=slider class="slider">
+                        <div id="min" class="rangeValue">
+                        </div>
+                        <div id="slider-range"></div>
+                        <div id="max" class="rangeValue">
+                        </div>
+                    </div>
+                    <div id="coursesForFree">
+                        <div class="onlyFree">
+                            <input type="checkbox" id="onlyFreeCheckbox">
+                            <label for="onlyFreeCheckbox"></label>
+                        </div>
+                        <p>Only free courses</p>
+                    </div>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
         </div>
 
         <div id="courseContainer" class="courseContainer">
@@ -59,6 +100,25 @@
         function submitForm(form) {
             form.submit();
         }
+
+        var min = 0;
+        var max = 400;
+
+        $( function() {
+            $("#min").html(min);
+            $("#max").html(max);
+            $( "#slider-range" ).slider({
+                range: true,
+                min: min,
+                max: max,
+                values: [ min, max ],
+                slide: function( event, ui ) {
+                    $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                    $("#min").html(ui.values[0]);
+                    $("#max").html(ui.values[1]);
+                }
+            });
+        } );
     </script>
 </body>
 </html>

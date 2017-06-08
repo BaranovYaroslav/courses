@@ -9,6 +9,7 @@
         <title>index</title>
         <link href="<c:url value="/resources/css/registration-style.css"/>" rel="stylesheet">
         <link href="<c:url value="https://fonts.googleapis.com/css?family=Roboto"/>" rel="stylesheet">
+        <link href="<c:url value="/resources/css/locale-style.css"/>" rel="stylesheet"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
 
