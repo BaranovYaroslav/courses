@@ -10,7 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-
     <div id="backgroundLayer" class="backgroundLayer">
     </div>
 
@@ -19,9 +18,7 @@
         <input id="closeMap" type="button" value="Close">
     </div>
 
-    <div class="header">
-        <img src="<c:url value="/resources/images/team_icon.png"/>"/>
-    </div>
+    <c:import url="/resources/components/header-component.jsp"/>
 
     <div class="logout">
         <form method="get" action="<c:url value="/app/logout"/>">

@@ -12,10 +12,7 @@
     </head>
 
     <body>
-        <div class="header">
-            <img src="<c:url value="/resources/images/team_icon.png"/>"/>
-        </div>
-
+        <c:import url="/resources/components/header-component.jsp"/>
 
         <form method="get" action="<c:url value="/"/>">
             <a onclick="this.parentNode.submit()"><p>Go back</p></a>

@@ -21,9 +21,7 @@
         <input type="button" value="<fmt:message key="admin.map.ok" bundle="${rb}"/>" onclick="saveCoordinates()">
     </div>
 
-    <div class="header">
-        <img src="<c:url value="/resources/images/team_icon.png"/>"/>
-    </div>
+    <c:import url="/resources/components/header-component.jsp"/>
 
     <div class="form">
         <form method="get" action="<c:url value="/app/admin/new-course/save"/>">

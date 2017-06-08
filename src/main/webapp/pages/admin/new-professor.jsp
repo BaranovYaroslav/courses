@@ -9,9 +9,7 @@
     <link href="<c:url value="/resources/css/admin/new-professor-style.css"/>" rel="stylesheet">
 </head>
 <body>
-    <div class="header">
-        <img src="<c:url value="/resources/images/team_icon.png"/>"/>
-    </div>
+    <c:import url="/resources/components/header-component.jsp"/>
 
     <div class="form">
         <form method="get" action="<c:url value="/app/admin/new-professor/save"/>">

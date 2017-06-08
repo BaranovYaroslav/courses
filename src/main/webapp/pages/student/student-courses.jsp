@@ -9,8 +9,8 @@
     <link href="<c:url value="/resources/css/student/student-courses-style.css"/>" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-  <body>
-    <div id="backgroundLayer" class="backgroundLayer">
+<body>
+  <div id="backgroundLayer" class="backgroundLayer">
   </div>
 
   <div id="confirmationForm" class="confirmationForm">
@@ -19,9 +19,7 @@
     <input id="cancelUnregister" type="button" class="cancelButton" value="<fmt:message key="student.courses.notification.cancel" bundle="${rb}"/>"/>
   </div>
 
-  <div class="header">
-    <img src="<c:url value="/resources/images/team_icon.png"/>"/>
-  </div>
+  <c:import url="/resources/components/header-component.jsp"/>
 
   <div id="courseContainer" class="courseContainer">
     <c:forEach items="${courses}" var="course">
