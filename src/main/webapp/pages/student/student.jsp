@@ -37,10 +37,10 @@
                     </div>
                 </form>
             </div>
-            <div class="searchForm">
-                <form method="get">
+            <div id="searchForm" class="searchForm">
+                <form method="get" action="<c:url value="/app/search"/>" onsubmit="">
                     <p>Choose type:</p>
-                    <select id="typeToSearch">
+                    <select id="typeToSearch" name="type">
                         <option> </option>
                         <option>Math</option>
                         <option>IT</option>
@@ -48,7 +48,7 @@
                         <option>Humanistic</option>
                     </select>
                     <p>Choose location:</p>
-                    <select id="locationToSearch">
+                    <select id="locationToSearch" name="location">
                         <option> </option>
                         <option>Kiev</option>
                         <option>1</option>
@@ -65,11 +65,13 @@
                     </div>
                     <div id="coursesForFree">
                         <div class="onlyFree">
-                            <input type="checkbox" id="onlyFreeCheckbox">
+                            <input type="checkbox" name="onlyFree" id="onlyFreeCheckbox" onclick="disablePriceRange()">
                             <label for="onlyFreeCheckbox"></label>
                         </div>
                         <p>Only free courses</p>
                     </div>
+                    <input type="number" name="minPrice" value=2>
+                    <input type="number" name="maxPrice" value=200>
                     <input type="submit" value="Search">
                 </form>
             </div>
@@ -119,6 +121,19 @@
                 }
             });
         } );
+
+        function getMin() {
+            return min;
+        }
+
+        function getMax() {
+            return max;
+        }
+
+        function disablePriceRange() {
+            var isDisabled = $( "#slider-range" ).slider("option", "disabled");
+            $("#slider-range").slider(isDisabled ? "enable" : "disable");
+        }
     </script>
 </body>
 </html>

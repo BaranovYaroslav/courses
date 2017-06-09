@@ -3,11 +3,13 @@ package service.impl;
 import entities.Course;
 import entities.Feedback;
 import entities.User;
+import org.apache.log4j.Logger;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
 import service.CourseService;
+import service.util.CourseSearchParameters;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +18,8 @@ import java.util.stream.Collectors;
  * Created by Ярослав on 15.04.2017.
  */
 public class CourseServiceImpl implements CourseService {
+
+    private static Logger LOGGER = Logger.getLogger(CourseServiceImpl.class);
 
     private UserDao userDao;
 
@@ -71,6 +75,32 @@ public class CourseServiceImpl implements CourseService {
         List<Course> courses = courseDao.findAll();
         User user = userDao.getUser(login);
         return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Course> getCoursesForStudentWithSearch(String login, CourseSearchParameters parameters) {
+        User user = userDao.getUser(login);
+        List<Course> courses = courseDao.findAll();
+        courses = courses.stream().filter(course -> !course.getStudents().contains(user))
+                                  .collect(Collectors.toList());
+
+        if(parameters.getType().length() != 0) {
+            courses = courses.stream().filter(course -> course.getType().equals(parameters.getType()))
+                                      .collect(Collectors.toList());
+        }
+        if(parameters.getLocation().length() != 0) {
+            courses = courses.stream().filter(course -> course.getLocation().equals(parameters.getLocation()))
+                                      .collect(Collectors.toList());
+        }
+        if(parameters.isOnlyFree()) {
+            courses = courses.stream().filter(Course::isFree).collect(Collectors.toList());
+        } else {
+            courses = courses.stream().filter(course -> course.getPrice() >= parameters.getMinPrice() &&
+                                                        course.getPrice() <= parameters.getMaxPrice())
+                                      .collect(Collectors.toList());
+        }
+
+        return courses;
     }
 
     @Override

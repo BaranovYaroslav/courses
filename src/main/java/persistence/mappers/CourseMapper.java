@@ -21,6 +21,8 @@ public class CourseMapper {
         course.setLocation(rs.getString("location"));
         course.setxCoordinate(rs.getDouble("x_coordinate"));
         course.setyCoordinate(rs.getDouble("y_coordinate"));
+        course.setPrice(rs.getInt("price"));
+        course.setFree(rs.getBoolean("is_free"));
 
         setProfessorIndex(course, rs);
 

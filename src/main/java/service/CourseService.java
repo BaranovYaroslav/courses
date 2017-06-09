@@ -5,6 +5,7 @@ import entities.Feedback;
 import entities.Student;
 import entities.User;
 import persistence.dao.UserDao;
+import service.util.CourseSearchParameters;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface CourseService {
     public List<Course> getCoursesForProfessor(String professorLogin);
 
     public List<Course> getCoursesForStudent(String login);
+
+    public List<Course> getCoursesForStudentWithSearch(String login, CourseSearchParameters parameters);
 
     public List<Feedback> getFeedbacksByCourseId(int id);
 

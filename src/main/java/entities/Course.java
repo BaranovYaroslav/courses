@@ -23,14 +23,21 @@ public class Course {
 
     private String location;
 
+    private String type;
+
+    private int price;
+
+    private boolean isFree;
+
     private double xCoordinate;
 
     private double yCoordinate;
 
     public Course() {}
 
-    public Course(String name, String description, String startDate, String endDate,
-                  User professor, List<User> students, String location, double xCoordinate, double yCoordinate) {
+    public Course(int id, String name, String description, String startDate, String endDate, User professor,
+                  List<User> students, String location, String type, int price, double xCoordinate, double yCoordinate) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -38,6 +45,8 @@ public class Course {
         this.professor = professor;
         this.students = students;
         this.location = location;
+        this.type = type;
+        this.price = price;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }
@@ -120,6 +129,30 @@ public class Course {
 
     public void setyCoordinate(double yCoordinate) {
         this.yCoordinate = yCoordinate;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public void setFree(boolean isFree) {
+        this.isFree = isFree;
     }
 
     @Override
