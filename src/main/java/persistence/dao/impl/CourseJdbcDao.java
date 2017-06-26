@@ -38,11 +38,11 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public int add(Course course) {
-        return jdbcTemplate.insert("INSERT INTO `course` (`name`, `description`, `start_date`, `end_date`, `professor_id`," +
-                            "`location`, `x_coordinate`, `y_coordinate`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
-                            course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
-                            course.getProfessor().getId(), course.getLocation(),
-                            course.getxCoordinate(), course.getyCoordinate());
+        return jdbcTemplate.insert("INSERT INTO `course` (`name`, `description`, `start_date`, `end_date`, `professor_id` " +
+                        "`city`, `address`, `x`, `y`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
+                course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
+                course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate());
     }
 
     @Override
@@ -59,10 +59,10 @@ public class CourseJdbcDao implements CourseDao {
     @Override
     public int update(Course course) {
         return jdbcTemplate.update("UPDATE `course` SET `name`=?, `description`=?, `start_date`=?, `end_date`=?, " +
-                            "`location`=?, `professor_id`=?, `x_coordinate`= ?, `y_coordinate`=? WHERE id=?;",
+                        "`professor_id`=?, `city`=?, `address`=?, `x`=?, `y`=?  WHERE id=?;",
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
-                course.getLocation(), course.getProfessor().getId(),
-                course.getxCoordinate(), course.getyCoordinate(), course.getId());
+                course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
+                course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(), course.getId());
     }
 
     @Override
@@ -109,7 +109,7 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     private void setProfessor(Course course) {
-        course.setProfessor(userDao.find(course.getProfessor().getId()));
+       /* course.setProfessor(userDao.find(course.getProfessor().getId()));*/
     }
 
     private void setStudents(Course course) {
@@ -120,6 +120,6 @@ public class CourseJdbcDao implements CourseDao {
 
         studentIndexes.forEach(studentIndex -> students.add(jdbcTemplate.queryObject("SELECT * FROM `user` WHERE id=?;",
                 UserMapper::map, studentIndex)));
-        course.setStudents(students);
+        /*course.setStudents(students);*/
     }
 }

@@ -24,7 +24,11 @@ body {
     cursor: pointer;
 }
 
-.form{
+#goBack {
+    margin-left: 10px;
+}
+
+.form {
     width: 230px;
     height: 250px;
     margin-top: 100px;
@@ -37,7 +41,7 @@ body {
     overflow: hidden;
 }
 
-.form p{
+.form p {
     max-height: 16px;
     font-size: 16px;
 }

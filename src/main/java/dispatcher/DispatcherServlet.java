@@ -39,7 +39,7 @@ public class DispatcherServlet extends HttpServlet {
                             .addMapping(UserRoles.PROFESSOR, "/app/professor")
                             .addMapping(UserRoles.ADMIN, "/app/admin");
 
-        DaoFactory daoFactory = new JdbcDaoFactory(ConnectionManager.fromJndi("jdbc/project"));
+        DaoFactory daoFactory = new JdbcDaoFactory(ConnectionManager.fromJndi("jdbc/courses"));
 
         CourseService courseService = new CourseServiceImpl(daoFactory);
         UserService userService = new UserServiceImpl(daoFactory);

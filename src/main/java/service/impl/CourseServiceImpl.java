@@ -111,12 +111,23 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void registerStudent(Course course, User user) {
         courseDao.registerStudent(course, user);
-        Feedback feedback = Feedback.createEmptyFeedback(course, user);
+        Feedback feedback = createEmptyFeedback(course, user);
         feedbackDao.add(feedback);
     }
 
     @Override
     public void unregisterUser(Course course, User user) {
         courseDao.unregisterStudent(course, user);
+    }
+
+    private Feedback createEmptyFeedback(Course course, User user) {
+        Feedback.Builder builder = Feedback.newBuilder();
+
+        builder.setComment("")
+               .setScore(0)
+               .setStudent(user)
+               .setCourse(course);
+
+        return builder.build();
     }
 }

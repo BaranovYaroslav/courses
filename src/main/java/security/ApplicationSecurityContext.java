@@ -17,7 +17,7 @@ public class ApplicationSecurityContext {
 
     private SecuredAccessStrategy securedAccessStrategy;
 
-    private UserDao userDao = new UserJdbcDao(ConnectionManager.fromJndi("jdbc/project"));
+    private UserDao userDao = new UserJdbcDao(ConnectionManager.fromJndi("jdbc/courses"));
 
     public ApplicationSecurityContext() {}
 

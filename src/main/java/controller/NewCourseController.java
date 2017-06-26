@@ -3,6 +3,7 @@ package controller;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
+import entities.Location;
 import entities.User;
 import org.apache.log4j.Logger;
 import security.UserRoles;
@@ -40,20 +41,24 @@ public class NewCourseController extends Controller {
     }
 
     private Course constructCourse(HttpServletRequest request) {
-        Course course = new Course();
+        Course.Builder builder = Course.newBuilder();
 
-        course.setName(request.getParameter("name"));
-        course.setDescription(request.getParameter("description"));
-        course.setLocation(request.getParameter("location"));
-        course.setStartDate(request.getParameter("startDate"));
-        course.setEndDate(request.getParameter("endDate"));
-        course.setxCoordinate(Double.parseDouble(request.getParameter("xCoordinate")));
-        course.setyCoordinate(Double.parseDouble(request.getParameter("yCoordinate")));
+        Location.Builder locationBuilder = Location.newBuilder();
+        locationBuilder.setCity(request.getParameter("city"))
+                .setAddress(request.getParameter("address"))
+                .setXCoordinate(Double.parseDouble(request.getParameter("x")))
+                .setYCoordinate(Double.parseDouble(request.getParameter("y")));
 
         User professor = userService.getUserByLogin(request.getParameter("professor"));
-        LOGGER.error("pro: " + professor);
-        course.setProfessor(professor);
 
-        return course;
+
+        builder.setName(request.getParameter("name"))
+               .setDescription(request.getParameter("description"))
+               .setStartDate(request.getParameter("startDate"))
+               .setEndDate(request.getParameter("endDate"))
+               .setProfessor(professor)
+               .setLocation(locationBuilder.build());
+
+        return builder.build();
     }
 }

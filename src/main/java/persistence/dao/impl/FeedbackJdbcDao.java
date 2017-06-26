@@ -57,8 +57,8 @@ public class FeedbackJdbcDao implements FeedbackDao {
     public Feedback find(int id) {
         Feedback feedback = jdbcTemplate.queryObject("SELECT * FROM `feedback` WHERE `id`=?",
                                                      FeedbackMapper::map, id);
-        feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
-        feedback.setStudent(userDao.find(feedback.getStudent().getId()));
+        /*feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
+        feedback.setStudent(userDao.find(feedback.getStudent().getId()));*/
         return feedback;
     }
 
@@ -67,8 +67,8 @@ public class FeedbackJdbcDao implements FeedbackDao {
         List<Feedback> feedbacks = jdbcTemplate.queryObjects("SELECT * FROM `feedback` WHERE `course_id`=?",
                                                              FeedbackMapper::map);
         feedbacks.forEach(feedback -> {
-            feedback.setStudent(userDao.find(feedback.getStudent().getId()));
-            feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
+           /* feedback.setStudent(userDao.find(feedback.getStudent().getId()));
+            feedback.setCourse(courseDao.find(feedback.getCourse().getId()));*/
         });
 
         return feedbacks;
@@ -79,8 +79,8 @@ public class FeedbackJdbcDao implements FeedbackDao {
         List<Feedback> feedbacks = jdbcTemplate.queryObjects("SELECT * FROM `feedback` WHERE `course_id`=?",
                                                             FeedbackMapper::map, id);
         feedbacks.forEach(feedback -> {
-            feedback.setStudent(userDao.find(feedback.getStudent().getId()));
-            feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
+            /*feedback.setStudent(userDao.find(feedback.getStudent().getId()));
+            feedback.setCourse(courseDao.find(feedback.getCourse().getId()));*/
         });
 
         return feedbacks;
@@ -94,8 +94,8 @@ public class FeedbackJdbcDao implements FeedbackDao {
 
         feedbacks = feedbacks.stream().filter(this::isGraded).collect(Collectors.toList());
         feedbacks.forEach(feedback -> {
-            feedback.setStudent(userDao.find(feedback.getStudent().getId()));
-            feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
+  /*          feedback.setStudent(userDao.find(feedback.getStudent().getId()));
+            feedback.setCourse(courseDao.find(feedback.getCourse().getId()))*/;
         });
         return feedbacks;
     }

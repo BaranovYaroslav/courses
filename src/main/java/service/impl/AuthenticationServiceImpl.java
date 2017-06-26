@@ -43,6 +43,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public boolean checkLoginWithPassword(String login, String password) {
         User user = userDao.getUser(login);
+        LOGGER.error(user == null);
 
         if(user == null) {
             return false;
@@ -57,8 +58,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         NavigationService.redirectTo(httpWrapper, baseUrl);
     }
 
-    public void processIncorrectLogin(HttpWrapper httpWrapper) {
+    public void processIncorrectLogin(HttpWrapper httpWrapper, String login) {
         httpWrapper.getRequest().setAttribute("message", "Incorrect login or password");
+        httpWrapper.getRequest().setAttribute("previousLogin", login);
         NavigationService.navigateTo(httpWrapper, "/app/login");
     }
 }

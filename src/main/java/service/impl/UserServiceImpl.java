@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         if(user == null) {
             return null;
         }
-        user.setRole(userDao.getUserRole(user.getId()));
+        /*user.setRole(userDao.getUserRole(user.getId()));*/
         return user;
     }
 
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         List<User> users = userDao.findAll();
 
-        users.forEach(x -> x.setRole(getRole(x.getId())));
+        /*users.forEach(x -> x.setRole(getRole(x.getId())));*/
 
         return users;
     }

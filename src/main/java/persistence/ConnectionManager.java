@@ -40,6 +40,7 @@ public class ConnectionManager {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
+            LOGGER.error(e);
             e.printStackTrace();
         }
         return null;

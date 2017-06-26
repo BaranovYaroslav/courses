@@ -1,5 +1,6 @@
 package persistence.mappers;
 
+import entities.Role;
 import entities.User;
 
 import java.sql.ResultSet;
@@ -11,14 +12,18 @@ import java.sql.SQLException;
 public class UserMapper {
 
     public static User map(ResultSet rs) throws SQLException{
-        User user = new User();
+        User.Builder builder = User.newBuilder();
 
-        user.setId(rs.getInt("id"));
-        user.setLogin(rs.getString("login"));
-        user.setFullName(rs.getString("full_name"));
-        user.setEmail(rs.getString("email"));
-        user.setPassword(rs.getString("password"));
+        builder.setId(rs.getInt("id"))
+               .setLogin(rs.getString("login"))
+               .setFullName(rs.getString("full_name"))
+               .setEmail(rs.getString("email"))
+               .setPassword(rs.getString("password"))
+               .setRole(new Role(rs.getString("group")));
 
-        return user;
+        System.out.println(rs.getString("group"));
+
+        return builder.build();
     }
+
 }

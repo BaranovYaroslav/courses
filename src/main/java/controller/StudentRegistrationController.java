@@ -1,10 +1,12 @@
 package controller;
 
 import application.ApplicationConstants;
+import application.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Role;
 import entities.Student;
+import entities.User;
 import org.apache.log4j.Logger;
 import security.UserRoles;
 import service.NavigationService;
@@ -12,6 +14,7 @@ import service.ServiceLoader;
 import service.UserService;
 import util.EncodingProvider;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 public class StudentRegistrationController extends Controller {
 
@@ -21,30 +24,64 @@ public class StudentRegistrationController extends Controller {
 
     @Override
     public void get(HttpWrapper httpWrapper) {
+        if(validateInputData(httpWrapper.getRequest())) {
+            String login = httpWrapper.getRequest().getParameter("login");
 
-        String login = httpWrapper.getRequest().getParameter("login");
-
-        if(userService.getUserByLogin(login) == null){
-            Student student = constructStudent(httpWrapper.getRequest());
-            userService.addUser(student);
-            NavigationService.navigateTo(httpWrapper, ApplicationConstants.BASE_APPLICATION_URL);
+            if (userService.getUserByLogin(login) == null) {
+                User student = constructStudent(httpWrapper.getRequest());
+                userService.addUser(student);
+                NavigationService.redirectTo(httpWrapper, ApplicationConstants.BASE_APPLICATION_URL);
+            } else {
+                returnToRegistrationPage(httpWrapper, "Selected login already in use!");
+            }
         }
-
         else {
-            httpWrapper.getRequest().setAttribute("message", "Selected login already in use!");
-            NavigationService.navigateTo(httpWrapper, "/app/registration");
+            returnToRegistrationPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
         }
     }
 
-    private Student constructStudent(HttpServletRequest request) {
-        Student student = new Student();
+    private User constructStudent(HttpServletRequest request) {
+        User.Builder builder = User.newBuilder();
 
-        student.setLogin(request.getParameter("login"));
-        student.setFullName(request.getParameter("fullName"));
-        student.setEmail(request.getParameter("email"));
-        student.setPassword(EncodingProvider.encode(request.getParameter("password")));
-        student.setRole(new Role(UserRoles.STUDENT));
+        builder.setLogin(request.getParameter("login"))
+               .setFullName(request.getParameter("fullName"))
+               .setEmail(request.getParameter("email"))
+               .setPassword(EncodingProvider.encode(request.getParameter("password")))
+               .setRole(new Role(UserRoles.STUDENT));
 
-        return student;
+        return builder.build();
+    }
+
+    private boolean validateInputData(HttpServletRequest request) {
+        String login = request.getParameter("login");
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        LOGGER.error(login.matches(ValidationConstants.LOGIN_REGEX));
+        LOGGER.error(fullName.matches(ValidationConstants.NAME_REGEX));
+        LOGGER.error( email.matches(ValidationConstants.EMAIL_REGEX));
+        LOGGER.error( password.matches(ValidationConstants.PASSWORD_REGEX));
+
+        return login.matches(ValidationConstants.LOGIN_REGEX) &&
+               fullName.matches(ValidationConstants.NAME_REGEX) &&
+               email.matches(ValidationConstants.EMAIL_REGEX) &&
+               password.matches(ValidationConstants.PASSWORD_REGEX);
+    }
+
+    private void returnToRegistrationPage(HttpWrapper httpWrapper, String message) {
+        HttpServletRequest request = httpWrapper.getRequest();
+        String login = request.getParameter("login");
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+
+        LOGGER.error(login + " " + fullName + " " + email);
+
+        request.setAttribute("previousLogin", login);
+        request.setAttribute("previousName", fullName);
+        request.setAttribute("previousEmail", email);
+        request.setAttribute("message", message);
+
+        NavigationService.navigateTo(httpWrapper, "/app/registration");
     }
 }

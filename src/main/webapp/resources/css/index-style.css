@@ -52,16 +52,16 @@ body {
 }
 
 .controlButtons{
-    width: 390px;
+    width: 350px;
     height: 70px;
-    margin-left: calc(50% - 195px);
+    margin-left: calc(50% - 175px);
     margin-top: 170px;
 }
 
 .controlButtons input[type="submit"]{
-    width: 170px;
+    width: 150px;
     margin-right: 50px;
-    height: 70px;
+    height: 50px;
     outline: none;
     border: #2f2f2f 2px;
     border-radius: 10px;

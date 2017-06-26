@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Ярослав on 11.04.2017.
@@ -21,142 +22,176 @@ public class Course {
 
     private List<User> students;
 
-    private String location;
-
     private String type;
 
     private int price;
 
     private boolean isFree;
 
-    private double xCoordinate;
-
-    private double yCoordinate;
+    private Location location;
 
     public Course() {}
 
-    public Course(int id, String name, String description, String startDate, String endDate, User professor,
-                  List<User> students, String location, String type, int price, double xCoordinate, double yCoordinate) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.professor = professor;
-        this.students = students;
-        this.location = location;
-        this.type = type;
-        this.price = price;
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
-    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
     }
 
     public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public User getProfessor() {
         return professor;
     }
 
-    public void setProfessor(User professor) {
-        this.professor = professor;
-    }
-
     public List<User> getStudents() {
         return students;
-    }
-
-    public void setStudents(List<User> students) {
-        this.students = students;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public double getxCoordinate() {
-        return xCoordinate;
-    }
-
-    public void setxCoordinate(double xCoordinate) {
-        this.xCoordinate = xCoordinate;
-    }
-
-    public double getyCoordinate() {
-        return yCoordinate;
-    }
-
-    public void setyCoordinate(double yCoordinate) {
-        this.yCoordinate = yCoordinate;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public int getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public boolean isFree() {
         return isFree;
     }
 
-    public void setFree(boolean isFree) {
-        this.isFree = isFree;
+    public Location getLocation() {
+        return location;
+    }
+
+    public static Builder newBuilder() {
+        return new Course().new Builder();
     }
 
     @Override
     public String toString() {
-        return id + " " + name;
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", professor=" + professor +
+                ", students=" + students +
+                ", type='" + type + '\'' +
+                ", price=" + price +
+                ", isFree=" + isFree +
+                ", location=" + location +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Course)) return false;
+
+        Course course = (Course) o;
+
+        if (id != course.id) return false;
+        if (isFree != course.isFree) return false;
+        if (price != course.price) return false;
+        if (description != null ? !description.equals(course.description) : course.description != null) return false;
+        if (endDate != null ? !endDate.equals(course.endDate) : course.endDate != null) return false;
+        if (location != null ? !location.equals(course.location) : course.location != null) return false;
+        if (name != null ? !name.equals(course.name) : course.name != null) return false;
+        if (professor != null ? !professor.equals(course.professor) : course.professor != null) return false;
+        if (startDate != null ? !startDate.equals(course.startDate) : course.startDate != null) return false;
+        if (students != null ? !students.equals(course.students) : course.students != null) return false;
+        if (type != null ? !type.equals(course.type) : course.type != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
+        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + (professor != null ? professor.hashCode() : 0);
+        result = 31 * result + (students != null ? students.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + price;
+        result = 31 * result + (isFree ? 1 : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        return result;
+    }
+
+    public class Builder {
+
+        private Builder() {}
+
+        public Builder setId(int id) {
+            Course.this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            Course.this.name = name;
+            return this;
+        }
+
+        public Builder setStartDate(String startDate) {
+            Course.this.startDate = startDate;
+            return this;
+        }
+
+        public Builder setEndDate(String endDate) {
+            Course.this.endDate = endDate;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            Course.this.description = description;
+            return this;
+        }
+
+        public Builder setProfessor(User professor) {
+            Course.this.professor = professor;
+            return this;
+        }
+
+        public Builder setStudents(List<User> students) {
+            Course.this.students = students;
+            return this;
+        }
+
+        public Builder setPrice(int price) {
+            Course.this.price = price;
+            return this;
+        }
+
+        public Builder setFree(boolean isFree) {
+            Course.this.isFree = isFree;
+            return this;
+        }
+
+        public Builder setLocation(Location location) {
+            Course.this.location = location;
+            return this;
+        }
+
+        public Course build() {
+            return Course.this;
+        }
     }
 }

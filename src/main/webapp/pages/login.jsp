@@ -16,14 +16,14 @@
     <c:import url="/resources/components/locale-component.jsp"/>
 
     <form method="get" action="<c:url value="/"/>">
-        <a onclick="this.parentNode.submit()"><p>Go back</p></a>
+        <a onclick="this.parentNode.submit()"><p id="goBack"><fmt:message key="return" bundle="${rb}"/></p></a>
     </form>
 
 
   <div class="form">
     <form method="get" action="<c:url value="/app/login/apply"/>">
         <p><fmt:message key="login.login" bundle="${rb}"/>:</p>
-        <input type="text" name="login" required>
+        <input type="text" name="login" value="${previousLogin}" required="">
         <p><fmt:message key="login.password" bundle="${rb}"/>:</p>
         <input type="password" name="password" required>
         <input type="submit" value="<fmt:message key="login.button.label" bundle="${rb}"/>">

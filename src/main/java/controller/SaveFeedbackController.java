@@ -24,12 +24,12 @@ public class SaveFeedbackController extends Controller {
     }
 
     private Feedback extractFeedback(HttpServletRequest request) {
-        Feedback feedback = new Feedback();
+        Feedback.Builder builder = Feedback.newBuilder();
 
-        feedback.setId(Integer.parseInt(request.getParameter("id")));
-        feedback.setScore(Double.parseDouble(request.getParameter("score")));
-        feedback.setComment(request.getParameter("comment"));
+        builder.setId(Integer.parseInt(request.getParameter("id")))
+               .setScore(Double.parseDouble(request.getParameter("score")))
+               .setComment(request.getParameter("comment"));
 
-        return feedback;
+        return builder.build();
     }
 }

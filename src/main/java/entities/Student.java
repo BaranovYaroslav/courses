@@ -22,10 +22,6 @@ public class Student extends User {
         return new Student(user.getId(), user.getLogin(), user.getFullName(), user.getEmail(), user.getPassword(), user.getRole());
     }
 
-    public Student(User user) {
-        setId(user.getId());
-    }
-
     public List<Feedback> getFeedbacks() {
         return feedbacks;
     }

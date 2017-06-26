@@ -1,5 +1,7 @@
 package controller;
 
+import application.ApplicationConstants;
+import application.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 
@@ -26,19 +28,27 @@ public class LoginController extends Controller {
 
     private AuthenticationService authenticationService = ServiceLoader.getInstance().getService(AuthenticationService.class);
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
-
     @Override
     public void get(HttpWrapper httpWrapper) {
         String login = httpWrapper.getRequest().getParameter("login");
         String password = httpWrapper.getRequest().getParameter("password");
 
-        if(!authenticationService.checkLoginWithPassword(login, password)) {
-            authenticationService.processIncorrectLogin(httpWrapper);
+        if(validateInputData(login, password)) {
+            if(!authenticationService.checkLoginWithPassword(login, password)) {
+                authenticationService.processIncorrectLogin(httpWrapper, login);
+            }
+            else{
+                authenticationService.processCorrectLogin(httpWrapper, login);
+            }
         }
+        else {
+            httpWrapper.getRequest().setAttribute("message", ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
+            httpWrapper.getRequest().setAttribute("previousLogin", login);
+            NavigationService.navigateTo(httpWrapper, "/app/login");
+        }
+    }
 
-        else{
-            authenticationService.processCorrectLogin(httpWrapper, login);
-        }
+    private boolean validateInputData(String login, String password) {
+        return login.matches(ValidationConstants.LOGIN_REGEX) && password.matches(ValidationConstants.PASSWORD_REGEX);
     }
 }

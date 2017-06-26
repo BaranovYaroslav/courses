@@ -31,7 +31,6 @@ public class NewProfessorController extends Controller {
 
         if(userService.getUserByLogin(login) == null) {
             User user = constructProfessor(httpWrapper.getRequest());
-            user.setRole(new Role(UserRoles.PROFESSOR));
             userService.addUser(user);
             NavigationService.redirectTo(httpWrapper, "/app/admin");
         }
@@ -43,13 +42,14 @@ public class NewProfessorController extends Controller {
     }
 
     private User constructProfessor(HttpServletRequest request) {
-        User user = new User();
+        User.Builder builder = User.newBuilder();
 
-        user.setLogin(request.getParameter("login"));
-        user.setFullName(request.getParameter("fullName"));
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(EncodingProvider.encode(request.getParameter("password")));
+        builder.setLogin(request.getParameter("login"))
+               .setFullName(request.getParameter("fullName"))
+               .setEmail(request.getParameter("email"))
+               .setPassword(EncodingProvider.encode(request.getParameter("password")))
+               .setRole(new Role(UserRoles.PROFESSOR)) ;
 
-        return user;
+        return builder.build();
     }
 }

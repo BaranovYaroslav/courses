@@ -1,6 +1,7 @@
 package persistence.mappers;
 
 import entities.Course;
+import entities.Location;
 import entities.User;
 
 import java.sql.ResultSet;
@@ -11,29 +12,36 @@ import java.sql.SQLException;
  */
 public class CourseMapper {
     public static Course map(ResultSet rs) throws SQLException{
-        Course course = new Course();
+        Course.Builder builder = Course.newBuilder();
 
-        course.setId(rs.getInt("id"));
-        course.setName(rs.getString("name"));
-        course.setDescription(rs.getString("description"));
-        course.setStartDate(rs.getString("start_date"));
-        course.setEndDate(rs.getString("end_date"));
-        course.setLocation(rs.getString("location"));
-        course.setxCoordinate(rs.getDouble("x_coordinate"));
-        course.setyCoordinate(rs.getDouble("y_coordinate"));
-        course.setPrice(rs.getInt("price"));
-        course.setFree(rs.getBoolean("is_free"));
+        builder.setId(rs.getInt("id"))
+               .setName(rs.getString("name"))
+               .setDescription(rs.getString("description"))
+               .setStartDate(rs.getString("start_date"))
+               .setEndDate(rs.getString("end_date"))
+               .setPrice(rs.getInt("price"))
+               .setFree(rs.getBoolean("is_free"))
+               .setProfessor(getProfessor(rs))
+               .setLocation(getLocation(rs));
 
-        setProfessorIndex(course, rs);
-
-        return course;
+        return builder.build();
     }
 
-    private static void setProfessorIndex(Course course, ResultSet rs) throws SQLException {
-        User professor = new User();
-        professor.setId(rs.getInt("professor_id"));
+    private static User getProfessor(ResultSet rs) throws SQLException {
+        User.Builder builder = User.newBuilder();
+        builder.setId(rs.getInt("professor_id"));
+        return builder.build();
+    }
 
-        course.setProfessor(professor);
+    private static Location getLocation(ResultSet rs) throws SQLException {
+        Location.Builder builder = Location.newBuilder();
+
+        builder.setCity(rs.getString("city"))
+                .setAddress(rs.getString("address"))
+                .setXCoordinate(rs.getDouble("x_coordinate"))
+                .setYCoordinate(rs.getDouble("y_coordinate"));
+
+        return builder.build();
     }
 
     private static void setStudentIndexes(Course course, ResultSet rs) throws SQLException {

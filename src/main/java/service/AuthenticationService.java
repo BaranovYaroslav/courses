@@ -20,5 +20,5 @@ public interface AuthenticationService {
 
     public void processCorrectLogin(HttpWrapper httpWrapper, String login);
 
-    public void processIncorrectLogin(HttpWrapper httpWrapper);
+    public void processIncorrectLogin(HttpWrapper httpWrapper, String login);
 }

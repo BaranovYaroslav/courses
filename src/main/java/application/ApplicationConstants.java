@@ -20,4 +20,6 @@ public interface ApplicationConstants {
     int DEFAULT_NULL_VALUE_FOR_NUMBERS = 0;
 
     long DEFAULT_TIMEOUT_TIME_FOR_DB = 60000;
+
+    String INCORRECT_INPUT_DATA_MESSAGE = "Incorrect input data";
 }

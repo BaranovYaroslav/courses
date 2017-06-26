@@ -32,72 +32,106 @@ public class User {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getLogin() {
         return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Role getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public static Builder newBuilder() {
+        return new User().new Builder();
     }
 
     @Override
     public String toString() {
-        return id + " " + login  + " " + fullName + " " + email + " " + password;
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (id != user.id) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (fullName != null ? !fullName.equals(user.fullName) : user.fullName != null) return false;
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return 31*(id + login.length() + fullName.length());
+        int result = id;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null) {
-            return false;
+    public class Builder {
+
+        private Builder() {}
+
+        public Builder setId(int id) {
+            User.this.id = id;
+            return this;
         }
 
-        if(!(obj instanceof User)){
-            return false;
+        public Builder setLogin(String login) {
+            User.this.login = login;
+            return this;
         }
 
-        User user = (User) obj;
+        public Builder setFullName(String fullName) {
+            User.this.fullName = fullName;
+            return this;
+        }
 
-        return login.equals(user.getLogin());
+        public Builder setEmail(String email) {
+            User.this.email = email;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            User.this.password = password;
+            return this;
+        }
+
+        public Builder setRole(Role role) {
+            User.this.role = role;
+            return this;
+        }
+
+        public User build(){
+            return User.this;
+        }
     }
 }
