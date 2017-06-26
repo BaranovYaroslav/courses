@@ -52,6 +52,7 @@
                     type: 'GET',
                     success: function(result) {
                         setInfo(JSON.parse(result));
+                        console.log(JSON.parse(result));
                     }
                 });
             });

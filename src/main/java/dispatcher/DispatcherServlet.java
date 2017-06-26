@@ -46,12 +46,14 @@ public class DispatcherServlet extends HttpServlet {
         FeedbackService feedbackService = new FeedbackServiceImpl(daoFactory);
         StudentService studentService = new StudentServiceImpl(daoFactory);
         AuthenticationService authenticationService = new AuthenticationServiceImpl(daoFactory);
+        InformationService informationService = new InformationServiceImpl(daoFactory);
 
         ServiceLoader.getInstance().loadService(CourseService.class, courseService);
         ServiceLoader.getInstance().loadService(UserService.class, userService);
         ServiceLoader.getInstance().loadService(FeedbackService.class, feedbackService);
         ServiceLoader.getInstance().loadService(StudentService.class, studentService);
         ServiceLoader.getInstance().loadService(AuthenticationService.class, authenticationService);
+        ServiceLoader.getInstance().loadService(InformationService.class, informationService);
 
         httpMatcher = new ArrayList<HttpMatcherEntry>();
         addMatcherEntry("/", new BaseUrlController());
