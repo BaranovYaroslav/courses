@@ -38,11 +38,13 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public int add(Course course) {
-        return jdbcTemplate.insert("INSERT INTO `course` (`name`, `description`, `start_date`, `end_date`, `professor_id` " +
-                        "`city`, `address`, `x`, `y`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);",
+        return jdbcTemplate.insert("INSERT INTO `course` (`name`, `description`, `start_date`, `end_date`, `professor_id`, " +
+                        "`city`, `address`, `x`, `y`, `students_number`, `price`, `is_free`) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
-                course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate());
+                course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(),
+                course.getNumberOfStudents(), course.getPrice(), course.isFree());
     }
 
     @Override

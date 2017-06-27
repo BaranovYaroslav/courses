@@ -31,17 +31,30 @@
             <input type="text" name="name" required>
             <p><fmt:message key="course.description" bundle="${rb}"/>:</p>
             <input type="text" name="description" required>
-            <p><fmt:message key="course.location" bundle="${rb}"/>:</p>
-            <input type="text" name="location" required>
+            <p><fmt:message key="course.location.city" bundle="${rb}"/>:</p>
+            <input type="text" name="city" required>
+            <p><fmt:message key="course.location.address" bundle="${rb}"/>:</p>
+            <input type="text" name="address" required>
             <p id="location"><fmt:message key="admin.new.course.coordinates" bundle="${rb}"/></p>
+            <p><fmt:message key="course.students" bundle="${rb}"/>:</p>
+            <input type="number" name="students" min="1" required>
+            <p><fmt:message key="course.price" bundle="${rb}"/>:</p>
+            <input id="price" type="text" name="price" min="0" required pattern="^\(?[\d.]+\)?$">
+            <div id="isFreeCourse">
+                <div class="isFree">
+                    <input id="isFree" type="checkbox" name="isFree" onclick="disablePriceField()">
+                    <label for="isFree"></label>
+                </div>
+                <p>Is free</p>
+            </div>
             <p><fmt:message key="course.start" bundle="${rb}"/>:</p>
             <input type="text" name="startDate" required pattern="^(0?[1-9]|[12][0-9]|3[01])[\.\-](0?[1-9]|1[012])[\.\-]\d{4}$">
             <p><fmt:message key="course.end" bundle="${rb}"/>:</p>
             <input type="text" name="endDate" required pattern="^(0?[1-9]|[12][0-9]|3[01])[\.\-](0?[1-9]|1[012])[\.\-]\d{4}$">
             <p><fmt:message key="admin.new.course.professor" bundle="${rb}"/>:</p>
             <input type="text" name="professor" required>
-            <input id="x" type="text" class="hidden" name="xCoordinate" value="50.450">
-            <input id="y" type="text" class="hidden" name="yCoordinate" value="30.523">
+            <input id="x" type="text" class="hidden" name="x" value="50.450">
+            <input id="y" type="text" class="hidden" name="y" value="30.523">
             <input type="submit" value="<fmt:message key="admin.add" bundle="${rb}"/>">
         </form>
     </div>
@@ -104,6 +117,11 @@
             $("#y").val(tempY);
             console.log('save: ' + $("#x").val() + ' ' + $("#y").val());
             closeMap();
+        }
+
+        function disablePriceField() {
+            var price = $("#price");
+            price.val(0).prop('disabled', !price.prop('disabled'));
         }
     </script>
 

@@ -106,7 +106,7 @@
         var min = 0;
         var max = 400;
 
-        $( function() {
+        $(function() {
             $("#min").html(min);
             $("#max").html(max);
             $( "#slider-range" ).slider({
@@ -115,7 +115,7 @@
                 max: max,
                 values: [ min, max ],
                 slide: function( event, ui ) {
-                    $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                    $("#amount").val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
                     $("#min").html(ui.values[0]);
                     $("#max").html(ui.values[1]);
                 }

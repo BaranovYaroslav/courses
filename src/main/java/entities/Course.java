@@ -20,18 +20,19 @@ public class Course {
 
     private User professor;
 
-    private List<User> students;
+    private int numberOfStudents;
 
     private String type;
 
-    private int price;
+    private double price;
 
     private boolean isFree;
 
     private Location location;
 
-    public Course() {}
+    private List<User> students;
 
+    public Course() {}
 
     public int getId() {
         return id;
@@ -53,6 +54,10 @@ public class Course {
         return description;
     }
 
+    public int getNumberOfStudents() {
+        return numberOfStudents;
+    }
+
     public User getProfessor() {
         return professor;
     }
@@ -65,7 +70,7 @@ public class Course {
         return type;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -90,11 +95,12 @@ public class Course {
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 ", professor=" + professor +
-                ", students=" + students +
+                ", numberOfStudents=" + numberOfStudents +
                 ", type='" + type + '\'' +
                 ", price=" + price +
                 ", isFree=" + isFree +
                 ", location=" + location +
+                ", students=" + students +
                 '}';
     }
 
@@ -107,6 +113,7 @@ public class Course {
 
         if (id != course.id) return false;
         if (isFree != course.isFree) return false;
+        if (numberOfStudents != course.numberOfStudents) return false;
         if (price != course.price) return false;
         if (description != null ? !description.equals(course.description) : course.description != null) return false;
         if (endDate != null ? !endDate.equals(course.endDate) : course.endDate != null) return false;
@@ -128,11 +135,12 @@ public class Course {
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (professor != null ? professor.hashCode() : 0);
-        result = 31 * result + (students != null ? students.hashCode() : 0);
+        result = 31 * result + numberOfStudents;
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + price;
+        result = (int) (31 * result + price);
         result = 31 * result + (isFree ? 1 : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (students != null ? students.hashCode() : 0);
         return result;
     }
 
@@ -170,12 +178,17 @@ public class Course {
             return this;
         }
 
+        public Builder setNumberOfStudents(int numberOfStudents) {
+            Course.this.numberOfStudents = numberOfStudents;
+            return this;
+        }
+
         public Builder setStudents(List<User> students) {
             Course.this.students = students;
             return this;
         }
 
-        public Builder setPrice(int price) {
+        public Builder setPrice(double price) {
             Course.this.price = price;
             return this;
         }
