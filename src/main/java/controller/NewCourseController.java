@@ -1,6 +1,7 @@
 package controller;
 
 import application.ApplicationConstants;
+import application.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
@@ -12,8 +13,6 @@ import service.CourseService;
 import service.NavigationService;
 import service.ServiceLoader;
 import service.UserService;
-import service.impl.CourseServiceImpl;
-import service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,12 +37,11 @@ public class NewCourseController extends Controller {
                 NavigationService.redirectTo(httpWrapper, "/app/admin");
             }
             else {
-                httpWrapper.getRequest().setAttribute("message", "There is no professor with such login. Check users list.");
-                NavigationService.navigateTo(httpWrapper, "/app/admin/new-course");
+                returnToPreviousPage(httpWrapper, "There is no professor with such login. Check users list.");
             }
         }
         else {
-
+            returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
         }
     }
 
@@ -63,7 +61,20 @@ public class NewCourseController extends Controller {
         String endDate = request.getParameter("endDate");
         String professorLogin = request.getParameter("professor");
 
-        return true;
+        LOGGER.error("isFreeeeeeeeeeeeeeee " + isFree);
+
+        return name.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               description.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               city.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               address.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               x.matches(ValidationConstants.DOUBLE_REGEX) &&
+               y.matches(ValidationConstants.DOUBLE_REGEX) &&
+               numberOfStudents.matches(ValidationConstants.INTEGER_GREATER_THAN_ONE_REGEX) &&
+               (isFree == null || isFree.equals(ControllerConstants.CHECKED_VALUE)) &&
+               price.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
+               startDate.matches(ValidationConstants.DATE_REGEX) &&
+               endDate.matches(ValidationConstants.DATE_REGEX) &&
+               professorLogin.matches(ValidationConstants.LOGIN_REGEX);
     }
 
     private Course constructCourse(HttpServletRequest request) {
@@ -88,5 +99,31 @@ public class NewCourseController extends Controller {
                .setLocation(locationBuilder.build());
 
         return builder.build();
+    }
+
+    private void returnToPreviousPage(HttpWrapper httpWrapper, String messqge) {
+        HttpServletRequest request = httpWrapper.getRequest();
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String city = request.getParameter("city");
+        String address = request.getParameter("address");
+        String numberOfStudents = request.getParameter("students");
+        String price = request.getParameter("price");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        String professorLogin = request.getParameter("professor");
+
+        request.setAttribute("previousName", name);
+        request.setAttribute("previousDescription", description);
+        request.setAttribute("previousCity", city);
+        request.setAttribute("previousAddress", address);
+        request.setAttribute("previousNumberOfStudents", numberOfStudents);
+        request.setAttribute("previousPrice", price);
+        request.setAttribute("previousStartDate", startDate);
+        request.setAttribute("previousEndDate", endDate);
+        request.setAttribute("previousProfessorLogin", professorLogin);
+        request.setAttribute("message", messqge);
+
+        NavigationService.navigateTo(httpWrapper, "/app/admin/new-course");
     }
 }

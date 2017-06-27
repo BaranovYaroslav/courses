@@ -5,7 +5,6 @@ import application.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Role;
-import entities.Student;
 import entities.User;
 import org.apache.log4j.Logger;
 import security.UserRoles;
@@ -14,7 +13,6 @@ import service.ServiceLoader;
 import service.UserService;
 import util.EncodingProvider;
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 
 public class StudentRegistrationController extends Controller {
 
@@ -32,11 +30,11 @@ public class StudentRegistrationController extends Controller {
                 userService.addUser(student);
                 NavigationService.redirectTo(httpWrapper, ApplicationConstants.BASE_APPLICATION_URL);
             } else {
-                returnToRegistrationPage(httpWrapper, "Selected login already in use!");
+                returnToPreviousPage(httpWrapper, "Selected login already in use!");
             }
         }
         else {
-            returnToRegistrationPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
+            returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
         }
     }
 
@@ -69,13 +67,11 @@ public class StudentRegistrationController extends Controller {
                password.matches(ValidationConstants.PASSWORD_REGEX);
     }
 
-    private void returnToRegistrationPage(HttpWrapper httpWrapper, String message) {
+    private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
         HttpServletRequest request = httpWrapper.getRequest();
         String login = request.getParameter("login");
         String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
-
-        LOGGER.error(login + " " + fullName + " " + email);
 
         request.setAttribute("previousLogin", login);
         request.setAttribute("previousName", fullName);
