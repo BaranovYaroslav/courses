@@ -44,13 +44,12 @@ public class CourseJdbcDao implements CourseDao {
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
                 course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(),
-                course.getNumberOfStudents(), course.getPrice(), course.isFree());
+                course.getNumberOfStudents(), course.getPrice(), course.getIsFree());
     }
 
     @Override
     public void delete(Course course) {
         jdbcTemplate.update("DELETE FROM `course` WHERE id=?", course.getId());
-        unregisterStudents(course);
     }
 
     @Override
@@ -61,15 +60,17 @@ public class CourseJdbcDao implements CourseDao {
     @Override
     public int update(Course course) {
         return jdbcTemplate.update("UPDATE `course` SET `name`=?, `description`=?, `start_date`=?, `end_date`=?, " +
-                        "`professor_id`=?, `city`=?, `address`=?, `x`=?, `y`=?  WHERE id=?;",
+                        "`professor_id`=?, `city`=?, `address`=?, `x`=?, `y`=?, `students_number`=?, " +
+                        "`price` = ?, `is_free`=? WHERE id=?;",
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
-                course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(), course.getId());
+                course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(),
+                course.getNumberOfStudents(), course.getPrice(), course.getIsFree(), course.getId());
     }
 
     @Override
     public Course find(int id) {
-        Course course = jdbcTemplate.queryObject("SELECT * FROM `course` WHERE `id`=?;", CourseMapper::map,id);
+        Course course = jdbcTemplate.queryObject("SELECT * FROM `course` WHERE `id`=?;", CourseMapper::map, id);
 
         if(course != null) {
             setProfessor(course);
@@ -111,7 +112,7 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     private void setProfessor(Course course) {
-       /* course.setProfessor(userDao.find(course.getProfessor().getId()));*/
+        course.setProfessor(userDao.find(course.getProfessor().getId()));
     }
 
     private void setStudents(Course course) {
@@ -122,6 +123,6 @@ public class CourseJdbcDao implements CourseDao {
 
         studentIndexes.forEach(studentIndex -> students.add(jdbcTemplate.queryObject("SELECT * FROM `user` WHERE id=?;",
                 UserMapper::map, studentIndex)));
-        /*course.setStudents(students);*/
+        course.setStudents(students);
     }
 }

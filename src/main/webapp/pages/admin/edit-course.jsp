@@ -26,26 +26,44 @@
     <c:import url="/resources/components/locale-component.jsp"/>
 
     <div class="form">
-        <form method="get" action="<c:url value="/app/admin/update/course/save"/>">
-            <input type="text" class="hidden" name="id" value="${course.id}"/>
+        <form method="get" action="<c:url value="/app/admin/update/course/save"/>" onsubmit="prepareForm()">
+            <input type="text" class="hidden" name="id" value="${id}"/>
             <p><fmt:message key="course.name" bundle="${rb}"/>:</p>
-            <input type="text" name="name" value="${course.name}"/>
+            <input type="text" name="name" value="${previousName}" required>
             <p><fmt:message key="course.description" bundle="${rb}"/>:</p>
-            <input type="text" name="description" value="${course.description}"/>
-            <p><fmt:message key="course.location" bundle="${rb}"/>:</p>
-            <input type="text" name="location" value="${course.location}"/>
-            <p id="location"><fmt:message key="admin.edit.coordinates" bundle="${rb}"/></p>
+            <input type="text" name="description" value="${previousDescription}" required>
+            <p><fmt:message key="course.location.city" bundle="${rb}"/>:</p>
+            <input type="text" name="city" value="${previousCity}" required>
+            <p><fmt:message key="course.location.address" bundle="${rb}"/>:</p>
+            <input type="text" name="address" value="${previousAddress}" required>
+            <p id="location"><fmt:message key="admin.new.course.coordinates" bundle="${rb}"/></p>
+            <p><fmt:message key="course.students" bundle="${rb}"/>:</p>
+            <input type="number" name="students" value="${previousNumberOfStudents}" min="1" required>
+            <p><fmt:message key="course.price" bundle="${rb}"/>:</p>
+            <input id="price" type="text" name="price" min="0"
+                   value="${previousPrice}" required pattern="^\(?[\d.]+\)?$">
+            <div id="isFreeCourse">
+                <div class="isFree">
+                    <input id="isFree" type="checkbox" name="isFree" onclick="swapPriceField()">
+                    <label for="isFree"></label>
+                </div>
+                <p>Is free</p>
+            </div>
             <p><fmt:message key="course.start" bundle="${rb}"/>:</p>
-            <input type="text" name="startDate" value="${course.startDate}"/>
+            <input type="text" name="startDate" value="${previousStartDate}" required
+                   pattern="^(0?[1-9]|[12][0-9]|3[01])[\.\-](0?[1-9]|1[012])[\.\-]\d{4}$">
             <p><fmt:message key="course.end" bundle="${rb}"/>:</p>
-            <input type="text" name="endDate" value="${course.endDate}"/>
-            <p><fmt:message key="admin.edit.professor" bundle="${rb}"/>:</p>
-            <input type="text" name="professor" value="${course.professor.login}"/>
-            <input id="x" type="text" class="hidden" name="xCoordinate" value="${course.xCoordinate}"/>
-            <input id="y" type="text" class="hidden" name="yCoordinate" value="${course.yCoordinate}"/>
-            <input type="submit" value="<fmt:message key="admin.edit.update" bundle="${rb}"/>"/>
+            <input type="text" name="endDate" value="${previousEndDate}" required
+                   pattern="^(0?[1-9]|[12][0-9]|3[01])[\.\-](0?[1-9]|1[012])[\.\-]\d{4}$">
+            <p><fmt:message key="admin.new.course.professor" bundle="${rb}"/>:</p>
+            <input type="text" name="professor" value="${previousProfessorLogin}" required>
+            <input id="x" type="text" class="hidden" name="x" value="${previousX}">
+            <input id="y" type="text" class="hidden" name="y" value="${previousY}">
+            <input type="submit" value="<fmt:message key="admin.edit.update" bundle="${rb}"/>">
         </form>
     </div>
+
+    <p id="message">${message}</p>
 
     <script>
         $(document).ready(function() {
@@ -62,6 +80,7 @@
                     location.reload();
                 });
             });
+            selectFree();
         });
 
         var map = null;
@@ -114,6 +133,22 @@
             closeMap();
         }
 
+        function selectFree() {
+            var isFree = ${previousFree};
+            if(isFree) {
+                $("#price").prop('disabled', true);
+                $("#isFree").prop('checked', true);
+            }
+        }
+
+        function swapPriceField() {
+            var price = $("#price");
+            price.val(0).prop('disabled', !price.prop('disabled'));
+        }
+
+        function prepareForm() {
+            $("#price").prop('disabled', false);
+        }
     </script>
 
     <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>

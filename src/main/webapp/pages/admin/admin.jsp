@@ -41,11 +41,13 @@
       <c:forEach items="${courses}" var="course">
         <div class="course">
           <p><fmt:message key="course.name" bundle="${rb}"/>: ${course.name}</p>
-          <p><fmt:message key="course.location" bundle="${rb}"/>: ${course.location}</p>
+          <p><fmt:message key="course.location" bundle="${rb}"/>: ${course.location.city} ${course.location.address}</p>
           <p><fmt:message key="course.description" bundle="${rb}"/>: ${course.description}</p>
+          <p><fmt:message key="course.price" bundle="${rb}"/>: ${course.price}</p>
           <p><fmt:message key="course.start" bundle="${rb}"/>: ${course.startDate}</p>
           <p><fmt:message key="course.end" bundle="${rb}"/>: ${course.endDate}</p>
           <p><fmt:message key="course.professor" bundle="${rb}"/>: ${course.professor.fullName}</p>
+          <p><fmt:message key="course.maxNumber" bundle="${rb}"/>: ${course.numberOfStudents}</p>
           <p><fmt:message key="course.number" bundle="${rb}"/>: ${course.students.size()}</p>
 
           <form id="updateForm" method="get" action="<c:url value="/app/admin/update/course"/>">
@@ -81,17 +83,7 @@
           $("#confirmationForm").fadeOut(1000);
         });
         $("#confirmDeleting").click(function() {
-          $.ajax({
-            url: selectedForm.action,
-            type: 'GET',
-            data: "id=" + selectedForm.childNodes[1].value,
-            success: function(result) {
-              document.getElementById("courseContainer").removeChild(selectedForm.parentNode);
-              selectedForm = null;
-            }
-          });
-          $("#backgroundLayer").fadeOut(1000);
-          $("#confirmationForm").fadeOut(1000);
+          selectedForm.submit();
         });
       });
       function confirmDeleting(form){

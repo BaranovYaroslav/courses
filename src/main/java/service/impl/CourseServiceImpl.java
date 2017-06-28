@@ -93,7 +93,7 @@ public class CourseServiceImpl implements CourseService {
                                       .collect(Collectors.toList());
         }
         if(parameters.isOnlyFree()) {
-            courses = courses.stream().filter(Course::isFree).collect(Collectors.toList());
+            courses = courses.stream().filter(Course::getIsFree).collect(Collectors.toList());
         } else {
             courses = courses.stream().filter(course -> course.getPrice() >= parameters.getMinPrice() &&
                                                         course.getPrice() <= parameters.getMaxPrice())

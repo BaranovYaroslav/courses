@@ -21,6 +21,6 @@ public class DeleteCourseController extends Controller {
     public void get(HttpWrapper reqService) {
         Integer id = Integer.parseInt(reqService.getRequest().getParameter("id"));
         courseService.deleteCourse(id);
-        NavigationService.navigateTo(reqService, "/app/admin");
+        NavigationService.redirectTo(reqService, "/app/admin");
     }
 }

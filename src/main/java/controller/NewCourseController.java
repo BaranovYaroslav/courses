@@ -32,7 +32,6 @@ public class NewCourseController extends Controller {
         if(validateInputData(httpWrapper)) {
             if(userService.userHasRole(httpWrapper.getRequest().getParameter("professor"), UserRoles.PROFESSOR)) {
                 Course course = constructCourse(httpWrapper.getRequest());
-                LOGGER.error(course.toString());
                 courseService.addNewCourse(course);
                 NavigationService.redirectTo(httpWrapper, "/app/admin");
             }
@@ -43,38 +42,6 @@ public class NewCourseController extends Controller {
         else {
             returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
         }
-    }
-
-    private boolean validateInputData(HttpWrapper httpWrapper) {
-        HttpServletRequest request = httpWrapper.getRequest();
-
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String city = request.getParameter("city");
-        String address = request.getParameter("address");
-        String x = request.getParameter("x");
-        String y = request.getParameter("y");
-        String numberOfStudents = request.getParameter("students");
-        String price = request.getParameter("price");
-        String isFree = request.getParameter("isFree");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        String professorLogin = request.getParameter("professor");
-
-        LOGGER.error("isFreeeeeeeeeeeeeeee " + isFree);
-
-        return name.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
-               description.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
-               city.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
-               address.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
-               x.matches(ValidationConstants.DOUBLE_REGEX) &&
-               y.matches(ValidationConstants.DOUBLE_REGEX) &&
-               numberOfStudents.matches(ValidationConstants.INTEGER_GREATER_THAN_ONE_REGEX) &&
-               (isFree == null || isFree.equals(ControllerConstants.CHECKED_VALUE)) &&
-               price.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
-               startDate.matches(ValidationConstants.DATE_REGEX) &&
-               endDate.matches(ValidationConstants.DATE_REGEX) &&
-               professorLogin.matches(ValidationConstants.LOGIN_REGEX);
     }
 
     private Course constructCourse(HttpServletRequest request) {
@@ -101,7 +68,37 @@ public class NewCourseController extends Controller {
         return builder.build();
     }
 
-    private void returnToPreviousPage(HttpWrapper httpWrapper, String messqge) {
+    private boolean validateInputData(HttpWrapper httpWrapper) {
+        HttpServletRequest request = httpWrapper.getRequest();
+
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String city = request.getParameter("city");
+        String address = request.getParameter("address");
+        String x = request.getParameter("x");
+        String y = request.getParameter("y");
+        String numberOfStudents = request.getParameter("students");
+        String price = request.getParameter("price");
+        String isFree = request.getParameter("isFree");
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        String professorLogin = request.getParameter("professor");
+
+        return name.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               description.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               city.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               address.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               x.matches(ValidationConstants.DOUBLE_REGEX) &&
+               y.matches(ValidationConstants.DOUBLE_REGEX) &&
+               numberOfStudents.matches(ValidationConstants.INTEGER_GREATER_THAN_ONE_REGEX) &&
+               (isFree == null || isFree.equals(ControllerConstants.CHECKED_VALUE)) &&
+               price.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
+               startDate.matches(ValidationConstants.DATE_REGEX) &&
+               endDate.matches(ValidationConstants.DATE_REGEX) &&
+               professorLogin.matches(ValidationConstants.LOGIN_REGEX);
+    }
+
+    private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
         HttpServletRequest request = httpWrapper.getRequest();
         String name = request.getParameter("name");
         String description = request.getParameter("description");
@@ -112,6 +109,9 @@ public class NewCourseController extends Controller {
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
         String professorLogin = request.getParameter("professor");
+        String isFree = request.getParameter("isFree");
+        String x = request.getParameter("x");
+        String y = request.getParameter("y");
 
         request.setAttribute("previousName", name);
         request.setAttribute("previousDescription", description);
@@ -122,7 +122,10 @@ public class NewCourseController extends Controller {
         request.setAttribute("previousStartDate", startDate);
         request.setAttribute("previousEndDate", endDate);
         request.setAttribute("previousProfessorLogin", professorLogin);
-        request.setAttribute("message", messqge);
+        request.setAttribute("previousFree", isFree == null ? "false" : "true");
+        request.setAttribute("previousX", x);
+        request.setAttribute("previousY", y);
+        request.setAttribute("message", message);
 
         NavigationService.navigateTo(httpWrapper, "/app/admin/new-course");
     }

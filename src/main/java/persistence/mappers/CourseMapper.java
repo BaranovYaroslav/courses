@@ -19,6 +19,7 @@ public class CourseMapper {
                .setDescription(rs.getString("description"))
                .setStartDate(rs.getString("start_date"))
                .setEndDate(rs.getString("end_date"))
+               .setNumberOfStudents(rs.getInt("students_number"))
                .setPrice(rs.getInt("price"))
                .setFree(rs.getBoolean("is_free"))
                .setProfessor(getProfessor(rs))
@@ -38,8 +39,8 @@ public class CourseMapper {
 
         builder.setCity(rs.getString("city"))
                 .setAddress(rs.getString("address"))
-                .setXCoordinate(rs.getDouble("x_coordinate"))
-                .setYCoordinate(rs.getDouble("y_coordinate"));
+                .setXCoordinate(rs.getDouble("x"))
+                .setYCoordinate(rs.getDouble("y"));
 
         return builder.build();
     }

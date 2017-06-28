@@ -74,12 +74,20 @@ public class Course {
         return price;
     }
 
-    public boolean isFree() {
+    public boolean getIsFree() {
         return isFree;
     }
 
     public Location getLocation() {
         return location;
+    }
+
+    public void setStudents(List<User> students) {
+        this.students = students;
+    }
+
+    public void setProfessor(User professor) {
+        this.professor = professor;
     }
 
     public static Builder newBuilder() {

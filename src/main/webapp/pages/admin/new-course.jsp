@@ -43,7 +43,7 @@
                    value="${previousPrice}" required pattern="^\(?[\d.]+\)?$">
             <div id="isFreeCourse">
                 <div class="isFree">
-                    <input id="isFree" type="checkbox" name="isFree" onclick="disablePriceField()">
+                    <input id="isFree" type="checkbox" name="isFree" onclick="swapPriceField()">
                     <label for="isFree"></label>
                 </div>
                 <p>Is free</p>
@@ -69,6 +69,8 @@
             $("#location").click(function() {
                 showMap();
             });
+            selectFree();
+            setCoordinates();
         });
 
         var map = null;
@@ -117,12 +119,31 @@
 
         function saveCoordinates() {
             $("#x").val(tempX);
-            $("#y").val(tempY);
-            console.log('save: ' + $("#x").val() + ' ' + $("#y").val());
+            $("#y").val(tempY);;
             closeMap();
         }
 
-        function disablePriceField() {
+        function selectFree() {
+            var isFree = '${previousFree}';
+            if(isFree == 'true') {
+                $("#price").prop('disabled', true);
+                $("#isFree").prop('checked', true);
+            }
+        }
+
+        function setCoordinates() {
+            var x = '${previousX}';
+            var y = '${previousY}';
+
+            if(x.length != 0) {
+                $("#x").val(x);
+            }
+            if(y.length != 0) {
+                $("#y").val(y);
+            }
+        }
+
+        function swapPriceField() {
             var price = $("#price");
             price.val(0).prop('disabled', !price.prop('disabled'));
         }
