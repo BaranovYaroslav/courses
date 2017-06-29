@@ -73,3 +73,10 @@ body {
 .hidden {
     display: none;
 }
+
+#message {
+    margin-top: 40px;
+    font-size: 20px;
+    text-align: center;
+    color: #ab473c;
+}

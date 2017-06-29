@@ -33,12 +33,14 @@
             <c:forEach items="${courses}" var="course">
                 <div class="course">
                     <p><fmt:message key="course.name" bundle="${rb}"/>: ${course.name}</p>
-                    <p><fmt:message key="course.location" bundle="${rb}"/>: ${course.location} <span class="showOnMap"
-                             onclick="showMap(${course.xCoordinate}, ${course.yCoordinate})">
+                    <p><fmt:message key="course.location" bundle="${rb}"/>: ${course.location.city} ${course.location.address}
+                       <span class="showOnMap" onclick="showMap(${course.location.XCoordinate}, ${course.location.YCoordinate})">
                        <fmt:message key="professor.show.map" bundle="${rb}"/></span></p>
                     <p><fmt:message key="course.description" bundle="${rb}"/>: ${course.description}</p>
                     <p><fmt:message key="course.start" bundle="${rb}"/>: ${course.startDate}</p>
                     <p><fmt:message key="course.end" bundle="${rb}"/>: ${course.endDate}</p>
+                    <p><fmt:message key="course.price" bundle="${rb}"/>: ${course.price}</p>
+                    <p><fmt:message key="course.maxNumber" bundle="${rb}"/>: ${course.numberOfStudents}</p>
                     <p><fmt:message key="course.number" bundle="${rb}"/>: ${course.students.size()}</p>
 
                     <form id="updateForm" method="get" action="<c:url value="/app/professor/feedbacks"/>">
@@ -61,13 +63,11 @@
             var marker = new google.maps.Marker({
                 map: map,
                 animation: google.maps.Animation.DROP,
-                position: {lat: x, lng: y},
-                styles: styles
+                position: {lat: x, lng: y}
             });
         }
 
         function showMap(xCoordinate, yCoordinate) {
-            console.log(xCoordinate + " " + yCoordinate);
             $("#backgroundLayer").fadeIn(500);
             $("#map").fadeIn(500);
             initMap(xCoordinate, yCoordinate);

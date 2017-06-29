@@ -13,8 +13,6 @@ import service.CourseService;
 import service.NavigationService;
 import service.ServiceLoader;
 import service.UserService;
-import service.impl.CourseServiceImpl;
-import service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -87,14 +85,14 @@ public class UpdateCourseController extends Controller {
         String endDate = request.getParameter("endDate");
         String professorLogin = request.getParameter("professor");
 
-        return id.matches(ValidationConstants.INTEGER_GREATER_THAN_ONE_REGEX) &&
+        return id.matches(ValidationConstants.INTEGER_GREATER_THAN_ZERO_REGEX) &&
                name.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
                description.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
                city.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
                address.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
                x.matches(ValidationConstants.DOUBLE_REGEX) &&
                y.matches(ValidationConstants.DOUBLE_REGEX) &&
-               numberOfStudents.matches(ValidationConstants.INTEGER_GREATER_THAN_ONE_REGEX) &&
+               numberOfStudents.matches(ValidationConstants.INTEGER_GREATER_THAN_ZERO_REGEX) &&
                (isFree == null || isFree.equals(ControllerConstants.CHECKED_VALUE)) &&
                price.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
                startDate.matches(ValidationConstants.DATE_REGEX) &&

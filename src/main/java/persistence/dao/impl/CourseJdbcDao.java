@@ -49,7 +49,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public void delete(Course course) {
-        jdbcTemplate.update("DELETE FROM `course` WHERE id=?", course.getId());
+        jdbcTemplate.update("DELETE FROM `course` WHERE id=?;", course.getId());
     }
 
     @Override
@@ -103,12 +103,6 @@ public class CourseJdbcDao implements CourseDao {
     public void unregisterStudent(Course course, User user) {
         jdbcTemplate.update("DELETE FROM `student_course` WHERE `student_id`=? AND `course_id`=?;",
                             user.getId(), course.getId());
-    }
-
-    private void unregisterStudents(Course course) {
-        for(User student: course.getStudents()) {
-            unregisterStudent(course, student);
-        }
     }
 
     private void setProfessor(Course course) {

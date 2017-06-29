@@ -37,6 +37,14 @@ public class Feedback {
         return course;
     }
 
+    public void setStudent(User student) {
+        this.student = student;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     public static Builder newBuilder() {
         return new Feedback().new Builder();
     }

@@ -90,7 +90,7 @@ public class NewCourseController extends Controller {
                address.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
                x.matches(ValidationConstants.DOUBLE_REGEX) &&
                y.matches(ValidationConstants.DOUBLE_REGEX) &&
-               numberOfStudents.matches(ValidationConstants.INTEGER_GREATER_THAN_ONE_REGEX) &&
+               numberOfStudents.matches(ValidationConstants.INTEGER_GREATER_THAN_ZERO_REGEX) &&
                (isFree == null || isFree.equals(ControllerConstants.CHECKED_VALUE)) &&
                price.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
                startDate.matches(ValidationConstants.DATE_REGEX) &&

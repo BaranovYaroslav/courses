@@ -51,6 +51,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(int id) {
         courseDao.delete(id);
+        userDao.unregisterUserFromCourse(id);
+        feedbackDao.deleteFeedbacksByCourseId(id);
     }
 
     @Override

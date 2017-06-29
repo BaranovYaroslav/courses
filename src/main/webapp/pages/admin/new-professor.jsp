@@ -17,11 +17,11 @@
     <div class="form">
         <form method="get" action="<c:url value="/app/admin/new-professor/save"/>">
             <p><fmt:message key="admin.new.professor.login" bundle="${rb}"/>:</p>
-            <input type="text" name="login" required>
+            <input type="text" name="login" value="${previousLogin}" required>
             <p><fmt:message key="admin.new.professor.name" bundle="${rb}"/>:</p>
-            <input type="text" name="fullName" required>
+            <input type="text" name="fullName" value="${previousName}" required>
             <p><fmt:message key="admin.new.professor.email" bundle="${rb}"/>:</p>
-            <input type="email" name="email" required>
+            <input type="email" name="email" value="${previousEmail}" required>
             <p><fmt:message key="admin.new.professor.password" bundle="${rb}"/>:</p>
             <input type="password" name="password" required="">
             <input type="submit" value="<fmt:message key="admin.add" bundle="${rb}"/>" >

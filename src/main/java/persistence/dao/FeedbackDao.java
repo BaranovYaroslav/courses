@@ -13,4 +13,6 @@ public interface FeedbackDao extends AbstractDao<Feedback> {
 
     public List<Feedback> getFeedBacksForStudentByLogin(String login);
 
+    public void deleteFeedbacksByCourseId(int courseId);
+
 }

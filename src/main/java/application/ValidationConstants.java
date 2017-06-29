@@ -11,6 +11,6 @@ public interface ValidationConstants {
     String WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX = "^(?![^@]*@)(?!.*\\s\\s)(?=(?:\\P{L}*\\p{L}){2})\\S.{0,14}\\S$";
     String DOUBLE_REGEX = "^-?\\d+(?:\\.\\d+)?$";
     String POSITIVE_DOUBLE_REGEX = "^\\(?[\\d.]+\\)?$";
-    String INTEGER_GREATER_THAN_ONE_REGEX = "^[1-9][0-9]*$";
+    String INTEGER_GREATER_THAN_ZERO_REGEX = "^[1-9][0-9]*$";
     String DATE_REGEX = "^(0?[1-9]|[12][0-9]|3[01])[\\.\\-](0?[1-9]|1[012])[\\.\\-]\\d{4}$";
 }

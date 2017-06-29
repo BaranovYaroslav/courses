@@ -23,6 +23,14 @@
         </form>
     </div>
 
+    <div id="backgroundLayer" class="backgroundLayer">
+    </div>
+
+    <div id="map">
+        <div id="mapCanvas"></div>
+        <input id="closeMap" type="button" value="Close">
+    </div>
+
     <div class="wrapper">
         <div class="userOptionsBar">
             <div class="actionBar">
@@ -81,10 +89,15 @@
             <c:forEach items="${coursesForRegistration}" var="course">
                 <div class="course">
                     <p><fmt:message key="course.name" bundle="${rb}"/>: ${course.name}</p>
-                    <p><fmt:message key="course.location" bundle="${rb}"/>: ${course.location}</p>
+                    <p><fmt:message key="course.location" bundle="${rb}"/>: ${course.location.city} ${course.location.address}
+                       <span class="showOnMap" onclick="showMap(${course.location.XCoordinate}, ${course.location.YCoordinate})">
+                       <fmt:message key="professor.show.map" bundle="${rb}"/></span></p>
                     <p><fmt:message key="course.description" bundle="${rb}"/>: ${course.description}</p>
+                    <p><fmt:message key="course.price" bundle="${rb}"/>: ${course.price}</p>
                     <p><fmt:message key="course.start" bundle="${rb}"/>: ${course.startDate}</p>
+                    <p><fmt:message key="course.end" bundle="${rb}"/>: ${course.endDate}</p>
                     <p><fmt:message key="course.professor" bundle="${rb}"/>: ${course.professor.fullName}</p>
+                    <p><fmt:message key="course.maxNumber" bundle="${rb}"/>: ${course.numberOfStudents}</p>
                     <p><fmt:message key="course.number" bundle="${rb}"/>: ${course.students.size()}</p>
 
                     <form id="deleteCourseForm" method="get" action="<c:url value="/app/student/register"/>">
@@ -134,6 +147,37 @@
             var isDisabled = $( "#slider-range" ).slider("option", "disabled");
             $("#slider-range").slider(isDisabled ? "enable" : "disable");
         }
+
+        var map = null;
+
+        function initMap(x, y) {
+            map = new google.maps.Map(document.getElementById("mapCanvas"), {
+                center: {lat: x, lng: y},
+                zoom: 8
+            }, console.log(x, y));
+            var marker = new google.maps.Marker({
+                map: map,
+                animation: google.maps.Animation.DROP,
+                position: {lat: x, lng: y}
+            });
+        }
+
+        function showMap(xCoordinate, yCoordinate) {
+            $("#backgroundLayer").fadeIn(500);
+            $("#map").fadeIn(500);
+            initMap(xCoordinate, yCoordinate);
+        }
+
+        $(document).ready(function() {
+            $("#closeMap").click(function() {
+                $("#backgroundLayer").fadeOut(500);
+                $("#map").fadeOut(500);
+            });
+        });
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsKmMo3J76lTSMoV3AQKviaPKJq62vTvY">
     </script>
 </body>
 </html>

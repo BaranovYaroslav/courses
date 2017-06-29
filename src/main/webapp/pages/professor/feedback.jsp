@@ -18,7 +18,7 @@
     <form method="get" action="<c:url value="/app/professor/feedback/save"/>">
       <p><fmt:message key="professor.feedback.student" bundle="${rb}"/>: ${feedback.student.fullName}</p>
       <p><fmt:message key="professor.feedback.score" bundle="${rb}"/>:</p>
-      <input pattern="^-?(\d*\.)?\d*$" type="text" name="score" value="${feedback.score}" required/>
+      <input type="text" name="score" value="${feedback.score}" pattern="^\(?[\d.]+\)?$" required/>
       <p><fmt:message key="professor.feedback.comment" bundle="${rb}"/>:</p>
       <textarea name="comment" value="${feedback.comment}" required>${feedback.comment}</textarea>
       <input type="text" class="hidden" name="id" value="${feedback.id}"/>
@@ -26,6 +26,8 @@
       <input type="submit" value="<fmt:message key="professor.feedback.change" bundle="${rb}"/>"/>
     </form>
   </div>
+
+  <p id="message">${message}</p>
 
   <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>
 </body>

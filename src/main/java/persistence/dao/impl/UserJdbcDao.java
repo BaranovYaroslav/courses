@@ -86,6 +86,11 @@ public class UserJdbcDao implements UserDao {
         return jdbcTemplate.queryObject("SELECT * FROM `user_group` WHERE user_id=?;", StringMapper::map, user.getId());
     }
 
+    @Override
+    public void unregisterUserFromCourse(int courseId) {
+        jdbcTemplate.update("DELETE FROM `student_course` WHERE `course_id`=?;", courseId);
+    }
+
     public ConnectionManager getConnectionManager() {
         return connectionManager;
     }
@@ -101,6 +106,5 @@ public class UserJdbcDao implements UserDao {
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
 
 }

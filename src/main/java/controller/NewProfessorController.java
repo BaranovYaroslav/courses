@@ -1,5 +1,7 @@
 package controller;
 
+import application.ApplicationConstants;
+import application.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 
@@ -29,16 +31,45 @@ public class NewProfessorController extends Controller {
     public void get(HttpWrapper httpWrapper) {
         String login = httpWrapper.getRequest().getParameter("login");
 
-        if(userService.getUserByLogin(login) == null) {
-            User user = constructProfessor(httpWrapper.getRequest());
-            userService.addUser(user);
-            NavigationService.redirectTo(httpWrapper, "/app/admin");
+        if(validateInputData(httpWrapper)) {
+            if (userService.getUserByLogin(login) == null) {
+                User user = constructProfessor(httpWrapper.getRequest());
+                userService.addUser(user);
+                NavigationService.redirectTo(httpWrapper, "/app/admin");
+            } else {
+                returnToPreviousPage(httpWrapper, "Selected login already in use!");
+            }
+        } else {
+            returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
         }
-        else {
-            httpWrapper.getRequest().setAttribute("message", "Selected login already in use!");
-            NavigationService.navigateTo(httpWrapper, "/app/admin/new-professor");
-        }
+    }
 
+    private boolean validateInputData(HttpWrapper httpWrapper) {
+        HttpServletRequest request = httpWrapper.getRequest();
+
+        String login = request.getParameter("login");
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        return login.matches(ValidationConstants.LOGIN_REGEX) &&
+               fullName.matches(ValidationConstants.NAME_REGEX) &&
+               email.matches(ValidationConstants.EMAIL_REGEX) &&
+               password.matches(ValidationConstants.PASSWORD_REGEX);
+    }
+
+    private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
+        HttpServletRequest request = httpWrapper.getRequest();
+        String login = request.getParameter("login");
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+
+        request.setAttribute("previousLogin", login);
+        request.setAttribute("previousName", fullName);
+        request.setAttribute("previousEmail", email);
+        request.setAttribute("message", message);
+
+        NavigationService.navigateTo(httpWrapper, "/app/admin/new-professor");
     }
 
     private User constructProfessor(HttpServletRequest request) {

@@ -13,15 +13,11 @@ import service.impl.CourseServiceImpl;
  */
 public class LoadProfessorPageController extends Controller {
 
-    private static Logger LOGGER = Logger.getLogger(LoadProfessorPageController.class);
-
-
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     @Override
     public void get(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute("user");
-        LOGGER.error("proff " + login);
         reqService.getRequest().setAttribute("courses", courseService.getCoursesForProfessor(login));
         NavigationService.navigateTo(reqService, "/pages/professor/professor.jsp");
     }
