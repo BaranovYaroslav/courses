@@ -21,8 +21,6 @@ public class UserMapper {
                .setPassword(rs.getString("password"))
                .setRole(new Role(rs.getString("group")));
 
-        System.out.println(rs.getString("group"));
-
         return builder.build();
     }
 

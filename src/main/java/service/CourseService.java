@@ -35,5 +35,9 @@ public interface CourseService {
     public void registerStudent(Course course, User user);
 
     public void unregisterUser(Course course, User user);
+
+    public List<String> getDistinctCourseLocations();
+
+    public double getMaxPriceOfCourse();
 }
 

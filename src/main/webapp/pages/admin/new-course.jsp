@@ -31,6 +31,15 @@
             <input type="text" name="name" value="${previousName}" required>
             <p><fmt:message key="course.description" bundle="${rb}"/>:</p>
             <input type="text" name="description" value="${previousDescription}" required>
+            <p><fmt:message key="course.type" bundle="${rb}"/>:</p>
+            <select id="typeToSearch" name="type">
+                <option>${previousType}</option>
+                <c:forEach items="${types}" var="type">
+                    <c:if test="${type.type != previousType}">
+                        <option>${type.type}</option>
+                    </c:if>
+                </c:forEach>
+            </select>
             <p><fmt:message key="course.location.city" bundle="${rb}"/>:</p>
             <input type="text" name="city" value="${previousCity}" required>
             <p><fmt:message key="course.location.address" bundle="${rb}"/>:</p>

@@ -54,7 +54,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public void processCorrectLogin(HttpWrapper httpWrapper, String login) {
         login(httpWrapper.getRequest(), login);
-        String baseUrl = BaseResourceToRoleMapper.getInstance().getBaseUrlForRole(userDao.getUserRole(login));
+        String baseUrl = BaseResourceToRoleMapper.getInstance().getBaseUrlForRole(userDao.getUserRole(login).getRole());
         NavigationService.redirectTo(httpWrapper, baseUrl);
     }
 

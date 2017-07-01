@@ -30,13 +30,13 @@ body{
     margin-top: 10px;
 }
 
-.header img:hover{
+.header img:hover {
     cursor: pointer;
 }
 
-.form{
+.form {
     width: 300px;
-    height: 645px;
+    height: 695px;
     margin-top: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -47,14 +47,18 @@ body{
     overflow: hidden;
 }
 
-.form p{
+.form p {
     max-height: 16px;
     font-size: 16px;
 }
 
-.form input{
+.form input {
     width: 300px;
     margin-top: -13px
+}
+
+.form select {
+    width: 300px;
 }
 
 .form [type="submit"] {

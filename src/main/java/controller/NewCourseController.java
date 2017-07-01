@@ -5,6 +5,7 @@ import application.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
+import entities.CourseType;
 import entities.Location;
 import entities.User;
 import org.apache.log4j.Logger;
@@ -63,7 +64,8 @@ public class NewCourseController extends Controller {
                .setPrice(Double.parseDouble(request.getParameter("price")))
                .setFree(request.getParameter("isFree") != null)
                .setProfessor(professor)
-               .setLocation(locationBuilder.build());
+               .setLocation(locationBuilder.build())
+               .setType(CourseType.valueOf(request.getParameter("type").toUpperCase()));
 
         return builder.build();
     }
@@ -83,6 +85,7 @@ public class NewCourseController extends Controller {
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
         String professorLogin = request.getParameter("professor");
+        String type = request.getParameter("type");
 
         return name.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
                description.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
@@ -95,7 +98,8 @@ public class NewCourseController extends Controller {
                price.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
                startDate.matches(ValidationConstants.DATE_REGEX) &&
                endDate.matches(ValidationConstants.DATE_REGEX) &&
-               professorLogin.matches(ValidationConstants.LOGIN_REGEX);
+               professorLogin.matches(ValidationConstants.LOGIN_REGEX) &&
+               (type.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) && (CourseType.valueOf(type.toUpperCase()) != null));
     }
 
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
@@ -112,6 +116,7 @@ public class NewCourseController extends Controller {
         String isFree = request.getParameter("isFree");
         String x = request.getParameter("x");
         String y = request.getParameter("y");
+        String type = request.getParameter("type");
 
         request.setAttribute("previousName", name);
         request.setAttribute("previousDescription", description);
@@ -125,6 +130,7 @@ public class NewCourseController extends Controller {
         request.setAttribute("previousFree", isFree == null ? "false" : "true");
         request.setAttribute("previousX", x);
         request.setAttribute("previousY", y);
+        request.setAttribute("previousType", type);
         request.setAttribute("message", message);
 
         NavigationService.navigateTo(httpWrapper, "/app/admin/new-course");

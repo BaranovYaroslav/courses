@@ -35,7 +35,7 @@ public class ApplicationSecurityContext {
         if(user == null) {
             return false;
         }
-        return userDao.getUserRole(login).equals(role);
+        return userDao.getUserRole(login).getRole().equals(role);
     }
 
     public String getCurrentUser(HttpServletRequest request) {

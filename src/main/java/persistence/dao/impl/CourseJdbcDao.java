@@ -11,6 +11,7 @@ import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
 import persistence.mappers.CourseMapper;
+import persistence.mappers.StringMapper;
 import persistence.mappers.StudentIndexMapper;
 import persistence.mappers.UserMapper;
 
@@ -39,12 +40,12 @@ public class CourseJdbcDao implements CourseDao {
     @Override
     public int add(Course course) {
         return jdbcTemplate.insert("INSERT INTO `course` (`name`, `description`, `start_date`, `end_date`, `professor_id`, " +
-                        "`city`, `address`, `x`, `y`, `students_number`, `price`, `is_free`) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                        "`city`, `address`, `x`, `y`, `students_number`, `price`, `is_free`, `type`) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
                 course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(),
-                course.getNumberOfStudents(), course.getPrice(), course.getIsFree());
+                course.getNumberOfStudents(), course.getPrice(), course.getIsFree(), course.getType().getType());
     }
 
     @Override
@@ -61,11 +62,12 @@ public class CourseJdbcDao implements CourseDao {
     public int update(Course course) {
         return jdbcTemplate.update("UPDATE `course` SET `name`=?, `description`=?, `start_date`=?, `end_date`=?, " +
                         "`professor_id`=?, `city`=?, `address`=?, `x`=?, `y`=?, `students_number`=?, " +
-                        "`price` = ?, `is_free`=? WHERE id=?;",
+                        "`price` = ?, `is_free`=?, `type`=? WHERE id=?;",
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
                 course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(),
-                course.getNumberOfStudents(), course.getPrice(), course.getIsFree(), course.getId());
+                course.getNumberOfStudents(), course.getPrice(), course.getIsFree(),
+                course.getType().getType(), course.getId());
     }
 
     @Override
@@ -115,7 +117,10 @@ public class CourseJdbcDao implements CourseDao {
                 StudentIndexMapper::map, course.getId());
 
 
-        studentIndexes.forEach(studentIndex -> students.add(jdbcTemplate.queryObject("SELECT * FROM `user` WHERE id=?;",
+        studentIndexes.forEach(studentIndex -> students.add(jdbcTemplate.queryObject("SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
+                                                                                     "FROM `user` " +
+                                                                                     "JOIN `user_group` ON `id`=`user_group`.`user_id`" +
+                                                                                     "WHERE `id`=?;",
                 UserMapper::map, studentIndex)));
         course.setStudents(students);
     }

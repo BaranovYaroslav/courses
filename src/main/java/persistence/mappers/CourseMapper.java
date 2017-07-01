@@ -1,6 +1,7 @@
 package persistence.mappers;
 
 import entities.Course;
+import entities.CourseType;
 import entities.Location;
 import entities.User;
 
@@ -23,7 +24,8 @@ public class CourseMapper {
                .setPrice(rs.getInt("price"))
                .setFree(rs.getBoolean("is_free"))
                .setProfessor(getProfessor(rs))
-               .setLocation(getLocation(rs));
+               .setLocation(getLocation(rs))
+               .setType(CourseType.valueOf(rs.getString("type").toUpperCase()));
 
         return builder.build();
     }

@@ -50,7 +50,7 @@ public class UserJdbcDao implements UserDao {
     @Override
     public User find(int id) {
         return jdbcTemplate.queryObject("SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
-                                        "FROM `user`" +
+                                        "FROM `user` " +
                                         "JOIN `user_group` ON `id`=`user_group`.`user_id` " +
                                         "WHERE `id`=?;", UserMapper::map, id);
     }
@@ -58,15 +58,15 @@ public class UserJdbcDao implements UserDao {
     @Override
     public List<User> findAll() {
         return jdbcTemplate.queryObjects("SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
-                "FROM `user`" +
+                "FROM `user` " +
                 "JOIN `user_group` ON `id`=`user_group`.`user_id`;", UserMapper::map);
     }
 
     @Override
     public User getUser(String login) {
-        return jdbcTemplate.queryObject("SELECT `id`, `login`, `full_name`, `email`, `password`, ug.`group` " +
-                "FROM `user`" +
-                "JOIN `user_group` ug ON `id`=ug.`user_id` " +
+        return jdbcTemplate.queryObject("SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
+                "FROM `user` " +
+                "JOIN `user_group` ON `id`=`user_group`.`user_id` " +
                 "WHERE `login`=?;", UserMapper::map, login);
     }
 
@@ -81,9 +81,9 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public String getUserRole(String login) {
+    public Role getUserRole(String login) {
         User user = getUser(login);
-        return jdbcTemplate.queryObject("SELECT * FROM `user_group` WHERE user_id=?;", StringMapper::map, user.getId());
+        return jdbcTemplate.queryObject("SELECT * FROM `user_group` WHERE user_id=?;", RoleMapper::map, user.getId());
     }
 
     @Override

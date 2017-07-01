@@ -49,19 +49,17 @@
                 <form method="get" action="<c:url value="/app/search"/>" onsubmit="">
                     <p>Choose type:</p>
                     <select id="typeToSearch" name="type">
-                        <option> </option>
-                        <option>Math</option>
-                        <option>IT</option>
-                        <option>Natural</option>
-                        <option>Humanistic</option>
+                        <option></option>
+                        <c:forEach items="${types}" var="type">
+                            <option>${type.type}</option>
+                        </c:forEach>
                     </select>
                     <p>Choose location:</p>
                     <select id="locationToSearch" name="location">
-                        <option> </option>
-                        <option>Kiev</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                        <option></option>
+                        <c:forEach items="${locations}" var="location">
+                            <option>${location}</option>
+                        </c:forEach>
                     </select>
                     <p>Select price:</p>
                     <div id=slider class="slider">
@@ -78,8 +76,8 @@
                         </div>
                         <p>Only free courses</p>
                     </div>
-                    <input type="number" name="minPrice" value=2>
-                    <input type="number" name="maxPrice" value=200>
+                    <input id="minPrice" type="text" name="minPrice" value="0">
+                    <input id="maxPrice" type="text" name="maxPrice" value="${maxPrice}">
                     <input type="submit" value="Search">
                 </form>
             </div>
@@ -117,7 +115,7 @@
         }
 
         var min = 0;
-        var max = 400;
+        var max = '${maxPrice}';
 
         $(function() {
             $("#min").html(min);
@@ -128,24 +126,25 @@
                 max: max,
                 values: [ min, max ],
                 slide: function( event, ui ) {
-                    $("#amount").val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                    $("#amount").val( "$" + ui.values[0] + " - $" + ui.values[1] );
                     $("#min").html(ui.values[0]);
                     $("#max").html(ui.values[1]);
+                    $("#minPrice").val(ui.values[0]);
+                    $("#maxPrice").val(ui.values[1]);
                 }
             });
         } );
 
-        function getMin() {
-            return min;
-        }
-
-        function getMax() {
-            return max;
-        }
-
         function disablePriceRange() {
             var isDisabled = $( "#slider-range" ).slider("option", "disabled");
             $("#slider-range").slider(isDisabled ? "enable" : "disable");
+            if(!isDisabled) {
+                $("#minPrice").val(0);
+                $("#maxPrice").val(0);
+            } else {
+                $("#minPrice").val($("#min").html());
+                $("#maxPrice").val($("#max").html());
+            }
         }
 
         var map = null;

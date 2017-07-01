@@ -65,6 +65,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getRole(String login) {
-        return userDao.getUserRole(login);
+        return userDao.getUserRole(login).getRole();
     }
 }

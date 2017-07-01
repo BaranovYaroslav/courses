@@ -22,7 +22,7 @@ public class Course {
 
     private int numberOfStudents;
 
-    private String type;
+    private CourseType type;
 
     private double price;
 
@@ -66,7 +66,7 @@ public class Course {
         return students;
     }
 
-    public String getType() {
+    public CourseType getType() {
         return type;
     }
 
@@ -130,7 +130,6 @@ public class Course {
         if (professor != null ? !professor.equals(course.professor) : course.professor != null) return false;
         if (startDate != null ? !startDate.equals(course.startDate) : course.startDate != null) return false;
         if (students != null ? !students.equals(course.students) : course.students != null) return false;
-        if (type != null ? !type.equals(course.type) : course.type != null) return false;
 
         return true;
     }
@@ -144,7 +143,6 @@ public class Course {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (professor != null ? professor.hashCode() : 0);
         result = 31 * result + numberOfStudents;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
         result = (int) (31 * result + price);
         result = 31 * result + (isFree ? 1 : 0);
         result = 31 * result + (location != null ? location.hashCode() : 0);
@@ -208,6 +206,11 @@ public class Course {
 
         public Builder setLocation(Location location) {
             Course.this.location = location;
+            return this;
+        }
+
+        public Builder setType(CourseType type) {
+            Course.this.type = type;
             return this;
         }
 

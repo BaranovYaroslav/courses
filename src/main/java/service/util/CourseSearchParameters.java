@@ -9,9 +9,9 @@ public class CourseSearchParameters {
 
     private String location;
 
-    private int minPrice;
+    private double minPrice;
 
-    private int maxPrice;
+    private double maxPrice;
 
     private boolean onlyFree;
 
@@ -25,12 +25,12 @@ public class CourseSearchParameters {
         return this;
     }
 
-    public CourseSearchParameters setMinPrice(int minPrice) {
+    public CourseSearchParameters setMinPrice(double minPrice) {
         this.minPrice = minPrice;
         return this;
     }
 
-    public CourseSearchParameters setMaxPrice(int maxPrice) {
+    public CourseSearchParameters setMaxPrice(double maxPrice) {
         this.maxPrice = maxPrice;
         return this;
     }
@@ -48,11 +48,11 @@ public class CourseSearchParameters {
         return location;
     }
 
-    public int getMinPrice() {
+    public double getMinPrice() {
         return minPrice;
     }
 
-    public int getMaxPrice() {
+    public double getMaxPrice() {
         return maxPrice;
     }
 

@@ -2,11 +2,9 @@ package controller;
 
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
+import entities.CourseType;
 import persistence.dao.UserDao;
-import service.NavigationService;
-import service.ServiceLoader;
-import service.StudentService;
-import service.UserService;
+import service.*;
 import service.impl.StudentServiceImpl;
 import service.impl.UserServiceImpl;
 
@@ -19,11 +17,16 @@ public class LoadStudentPageController extends Controller {
 
     private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
 
+    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+
     @Override
-    public void get(HttpWrapper reqService) {
-        String login = (String) reqService.getRequest().getSession().getAttribute("user");
-        reqService.getRequest().setAttribute("coursesForRegistration",
+    public void get(HttpWrapper httpWrapper) {
+        String login = (String) httpWrapper.getRequest().getSession().getAttribute("user");
+        httpWrapper.getRequest().setAttribute("coursesForRegistration",
                                              studentService.getCoursesForRegistration(userService.getUserByLogin(login)));
-        NavigationService.navigateTo(reqService, "/pages/student/student.jsp");
+        httpWrapper.getRequest().setAttribute("types", CourseType.values());
+        httpWrapper.getRequest().setAttribute("locations", courseService.getDistinctCourseLocations());
+        httpWrapper.getRequest().setAttribute("maxPrice", courseService.getMaxPriceOfCourse());
+        NavigationService.navigateTo(httpWrapper, "/pages/student/student.jsp");
     }
 }

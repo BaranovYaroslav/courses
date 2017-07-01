@@ -12,7 +12,7 @@ public interface UserDao extends AbstractDao<User>{
 
     public Role getUserRole(int id);
 
-    public String getUserRole(String login);
+    public Role getUserRole(String login);
 
     public void addRole(int id, Role role);
 

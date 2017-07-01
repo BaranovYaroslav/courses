@@ -255,7 +255,7 @@ div.ui-slider .ui-slider-handle:hover {
 }
 
 
-.searchForm input[type="number"] {
+.searchForm input[type="text"] {
     display: none;
 }
 

@@ -44,5 +44,6 @@ public class LoadEditCoursePageController extends Controller {
         request.setAttribute("previousFree", course.getIsFree());
         request.setAttribute("previousX", course.getLocation().getXCoordinate());
         request.setAttribute("previousY", course.getLocation().getYCoordinate());
+        request.setAttribute("previousType", course.getType().getType());
     }
 }

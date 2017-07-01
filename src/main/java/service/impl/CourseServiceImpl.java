@@ -11,6 +11,8 @@ import persistence.dao.factory.DaoFactory;
 import service.CourseService;
 import service.util.CourseSearchParameters;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,6 +78,9 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getCoursesForStudent(String login) {
         List<Course> courses = courseDao.findAll();
         User user = userDao.getUser(login);
+        courses.forEach(c -> {
+            LOGGER.error(c.getId() + " " + c.getStudents().contains(user) + " " + c.getStudents().size());
+        });
         return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
     }
 
@@ -83,15 +88,13 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getCoursesForStudentWithSearch(String login, CourseSearchParameters parameters) {
         User user = userDao.getUser(login);
         List<Course> courses = courseDao.findAll();
-        courses = courses.stream().filter(course -> !course.getStudents().contains(user))
-                                  .collect(Collectors.toList());
 
         if(parameters.getType().length() != 0) {
-            courses = courses.stream().filter(course -> course.getType().equals(parameters.getType()))
+            courses = courses.stream().filter(course -> course.getType().getType().equals(parameters.getType()))
                                       .collect(Collectors.toList());
         }
         if(parameters.getLocation().length() != 0) {
-            courses = courses.stream().filter(course -> course.getLocation().equals(parameters.getLocation()))
+            courses = courses.stream().filter(course -> course.getLocation().getCity().equals(parameters.getLocation()))
                                       .collect(Collectors.toList());
         }
         if(parameters.isOnlyFree()) {
@@ -120,6 +123,40 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void unregisterUser(Course course, User user) {
         courseDao.unregisterStudent(course, user);
+    }
+
+    @Override
+    public List<String> getDistinctCourseLocations() {
+        List<Course> courses = courseDao.findAll();
+        List<String> cities = new ArrayList<>();
+
+        courses.forEach(course -> {
+            String city = course.getLocation().getCity();
+            if(!cities.contains(city)) {
+                cities.add(city);
+            }
+        });
+
+        return cities;
+    }
+
+    @Override
+    public double getMaxPriceOfCourse() {
+        List<Course> courses = courseDao.findAll();
+        double result = 0;
+
+
+        if(courses.size() > 0) {
+            courses.sort(new Comparator<Course>() {
+                @Override
+                public int compare(Course o1, Course o2) {
+                    return (int)(1000 * o2.getPrice() - 1000 * o1.getPrice());
+                }
+            });
+            result = courses.get(0).getPrice();
+        }
+
+        return result;
     }
 
     private Feedback createEmptyFeedback(Course course, User user) {

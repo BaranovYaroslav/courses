@@ -1,7 +1,10 @@
 package controller;
 
+import application.ApplicationConstants;
+import application.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
+import entities.CourseType;
 import org.apache.log4j.Logger;
 import service.CourseService;
 import service.NavigationService;
@@ -19,11 +22,28 @@ public class CourseSearchController extends Controller {
 
     @Override
     public void get(HttpWrapper httpWrapper) {
-        String login = (String) httpWrapper.getRequest().getSession().getAttribute("user");
-        CourseSearchParameters searchParameters = constructSearchParametersFromRequest(httpWrapper);
-        httpWrapper.getRequest().setAttribute("coursesForRegistration",
-                                               courseService.getCoursesForStudentWithSearch(login, searchParameters));
-        NavigationService.navigateTo(httpWrapper, "/pages/student/student.jsp");
+        if(validateInputData(httpWrapper)) {
+            String login = (String) httpWrapper.getRequest().getSession().getAttribute("user");
+            CourseSearchParameters searchParameters = constructSearchParametersFromRequest(httpWrapper);
+            httpWrapper.getRequest().setAttribute("coursesForRegistration",
+                    courseService.getCoursesForStudentWithSearch(login, searchParameters));
+            goToStudentPage(httpWrapper);
+        }
+    }
+
+
+    private boolean validateInputData(HttpWrapper httpWrapper) {
+        String type = httpWrapper.getRequest().getParameter("type");
+        String location = httpWrapper.getRequest().getParameter("location");
+        String min = httpWrapper.getRequest().getParameter("minPrice");
+        String max = httpWrapper.getRequest().getParameter("maxPrice");
+        String onlyFree = httpWrapper.getRequest().getParameter("onlyFree");
+
+        return (type.length() == 0 || type.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX)) &&
+               (location.length() == 0 || location.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX)) &&
+               min.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
+               max.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
+               (onlyFree == null || onlyFree.equals(ControllerConstants.CHECKED_VALUE));
     }
 
     private CourseSearchParameters constructSearchParametersFromRequest(HttpWrapper httpWrapper) {
@@ -37,10 +57,17 @@ public class CourseSearchController extends Controller {
 
         parameters.setType(type)
                   .setLocation(location)
-                  .setMinPrice(Integer.parseInt(min))
-                  .setMaxPrice(Integer.parseInt(max))
-                  .setOnlyFree(onlyFree.equals(ControllerConstants.CHECKED_VALUE));
+                  .setMinPrice(Double.parseDouble(min))
+                  .setMaxPrice(Double.parseDouble(max))
+                  .setOnlyFree(onlyFree != null);
 
         return parameters;
+    }
+
+    private void goToStudentPage(HttpWrapper httpWrapper) {
+        httpWrapper.getRequest().setAttribute("types", CourseType.values());
+        httpWrapper.getRequest().setAttribute("locations", courseService.getDistinctCourseLocations());
+        httpWrapper.getRequest().setAttribute("maxPrice", courseService.getMaxPriceOfCourse());
+        NavigationService.navigateTo(httpWrapper, "/pages/student/student.jsp");
     }
 }

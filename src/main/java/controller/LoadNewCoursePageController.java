@@ -2,6 +2,7 @@ package controller;
 
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
+import entities.CourseType;
 import service.NavigationService;
 
 /**
@@ -9,7 +10,8 @@ import service.NavigationService;
  */
 public class LoadNewCoursePageController extends Controller {
     @Override
-    public void get(HttpWrapper reqService) {
-        NavigationService.navigateTo(reqService, "/pages/admin/new-course.jsp");
+    public void get(HttpWrapper httpWrapper) {
+        httpWrapper.getRequest().setAttribute("types", CourseType.values());
+        NavigationService.navigateTo(httpWrapper, "/pages/admin/new-course.jsp");
     }
 }
