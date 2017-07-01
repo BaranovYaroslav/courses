@@ -3,6 +3,7 @@ package controller;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
+import entities.CourseType;
 import org.apache.log4j.Logger;
 import service.CourseService;
 import service.NavigationService;
@@ -45,5 +46,6 @@ public class LoadEditCoursePageController extends Controller {
         request.setAttribute("previousX", course.getLocation().getXCoordinate());
         request.setAttribute("previousY", course.getLocation().getYCoordinate());
         request.setAttribute("previousType", course.getType().getType());
+        request.setAttribute("types", CourseType.values());
     }
 }

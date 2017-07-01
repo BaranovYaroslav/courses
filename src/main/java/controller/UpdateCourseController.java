@@ -135,6 +135,7 @@ public class UpdateCourseController extends Controller {
         request.setAttribute("previousX", x);
         request.setAttribute("previousY", y);
         request.setAttribute("previousType", type);
+        request.setAttribute("types", CourseType.values());
         request.setAttribute("message", message);
 
         NavigationService.navigateTo(httpWrapper, "/pages/admin/edit-course.jsp");
