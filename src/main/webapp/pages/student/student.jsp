@@ -47,21 +47,21 @@
             </div>
             <div id="searchForm" class="searchForm">
                 <form method="get" action="<c:url value="/app/search"/>" onsubmit="">
-                    <p>Choose type:</p>
+                    <p><fmt:message key="student.search.type" bundle="${rb}"/>:</p>
                     <select id="typeToSearch" name="type">
                         <option></option>
                         <c:forEach items="${types}" var="type">
                             <option>${type.type}</option>
                         </c:forEach>
                     </select>
-                    <p>Choose location:</p>
+                    <p><fmt:message key="student.search.location" bundle="${rb}"/>:</p>
                     <select id="locationToSearch" name="location">
                         <option></option>
                         <c:forEach items="${locations}" var="location">
                             <option>${location}</option>
                         </c:forEach>
                     </select>
-                    <p>Select price:</p>
+                    <p><fmt:message key="student.search.price" bundle="${rb}"/>:</p>
                     <div id=slider class="slider">
                         <div id="min" class="rangeValue">
                         </div>
@@ -74,11 +74,11 @@
                             <input type="checkbox" name="onlyFree" id="onlyFreeCheckbox" onclick="disablePriceRange()">
                             <label for="onlyFreeCheckbox"></label>
                         </div>
-                        <p>Only free courses</p>
+                        <p><fmt:message key="student.search.onlyFree" bundle="${rb}"/></p>
                     </div>
                     <input id="minPrice" type="text" name="minPrice" value="0">
                     <input id="maxPrice" type="text" name="maxPrice" value="${maxPrice}">
-                    <input type="submit" value="Search">
+                    <input type="submit" value="<fmt:message key="student.search.button" bundle="${rb}"/>">
                 </form>
             </div>
         </div>

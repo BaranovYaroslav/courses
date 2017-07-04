@@ -55,7 +55,7 @@
                     <input id="isFree" type="checkbox" name="isFree" onclick="swapPriceField()">
                     <label for="isFree"></label>
                 </div>
-                <p>Is free</p>
+                <p><fmt:message key="course.isFree" bundle="${rb}"/></p>
             </div>
             <p><fmt:message key="course.start" bundle="${rb}"/>:</p>
             <input type="text" name="startDate" value="${previousStartDate}" required
