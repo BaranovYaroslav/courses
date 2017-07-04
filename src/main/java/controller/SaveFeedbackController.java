@@ -1,7 +1,7 @@
 package controller;
 
-import application.ApplicationConstants;
-import application.ValidationConstants;
+import constants.ApplicationConstants;
+import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Feedback;

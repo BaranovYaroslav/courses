@@ -1,4 +1,4 @@
-package application;
+package constants;
 
 /**
  * Created by Ярослав on 26.06.2017.

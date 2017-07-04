@@ -1,23 +1,14 @@
 package controller;
 
-import application.ApplicationConstants;
-import application.ValidationConstants;
+import constants.ApplicationConstants;
+import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 
 import org.apache.log4j.Logger;
-import security.BaseResourceToRoleMapper;
-import security.UserPrincipal;
 import service.AuthenticationService;
 import service.NavigationService;
 import service.ServiceLoader;
-import service.UserService;
-import service.impl.AuthenticationServiceImpl;
-import service.impl.UserServiceImpl;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 /**
  * Created by Ярослав on 11.04.2017.

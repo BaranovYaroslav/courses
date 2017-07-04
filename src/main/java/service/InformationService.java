@@ -1,7 +1,5 @@
 package service;
 
-import application.ApplicationConstants;
-
 /**
  * Created by Ярослав on 26.06.2017.
  */

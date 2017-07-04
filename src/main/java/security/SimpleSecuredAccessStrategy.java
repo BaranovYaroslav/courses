@@ -1,7 +1,7 @@
 package security;
 
-import application.ApplicationConstants;
-import application.MessagesConstants;
+import constants.ApplicationConstants;
+import constants.MessagesConstants;
 import dispatcher.HttpWrapper;
 import service.NavigationService;
 

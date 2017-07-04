@@ -1,7 +1,7 @@
 package controller;
 
-import application.ApplicationConstants;
-import application.ValidationConstants;
+import constants.ApplicationConstants;
+import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 
@@ -10,10 +10,8 @@ import entities.User;
 import org.apache.log4j.Logger;
 import security.UserRoles;
 import service.NavigationService;
-import service.NotificationService;
 import service.ServiceLoader;
 import service.UserService;
-import service.impl.UserServiceImpl;
 import util.EncodingProvider;
 
 import javax.servlet.http.HttpServletRequest;

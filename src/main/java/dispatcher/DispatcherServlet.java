@@ -1,6 +1,6 @@
 package dispatcher;
 
-import application.MessagesConstants;
+import constants.MessagesConstants;
 import controller.*;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;

@@ -5,7 +5,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-import application.ApplicationConstants;
+import constants.ApplicationConstants;
+import constants.SecurityAccessConstants;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,6 +27,7 @@ public class EncodingProvider {
     public static String encode(String string) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(ApplicationConstants.HASHING_ALGORITHM);
+            string += SecurityAccessConstants.DEFAULT_PASSWORD_SALT;
             byte[] hash = messageDigest.digest(string.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(hash);
         } catch (NoSuchAlgorithmException e) {

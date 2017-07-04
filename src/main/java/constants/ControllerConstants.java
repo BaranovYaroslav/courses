@@ -1,4 +1,4 @@
-package controller;
+package constants;
 
 /**
  * Created by Ярослав on 10.06.2017.

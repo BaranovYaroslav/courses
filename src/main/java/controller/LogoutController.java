@@ -1,12 +1,11 @@
 package controller;
 
-import application.ApplicationConstants;
+import constants.ApplicationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import service.AuthenticationService;
 import service.NavigationService;
 import service.ServiceLoader;
-import service.impl.AuthenticationServiceImpl;
 
 /**
  * Created by Ярослав on 21.04.2017.

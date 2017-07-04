@@ -1,13 +1,10 @@
 package service.impl;
 
-import application.ApplicationConstants;
+import constants.ApplicationConstants;
 import persistence.dao.CourseDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
-import service.CourseService;
 import service.InformationService;
-import service.ServiceLoader;
-import service.UserService;
 
 /**
  * Created by Ярослав on 26.06.2017.

@@ -1,6 +1,6 @@
 package dispatcher;
 
-import application.MessagesConstants;
+import constants.MessagesConstants;
 import org.apache.log4j.Logger;
 import service.NotificationService;
 
