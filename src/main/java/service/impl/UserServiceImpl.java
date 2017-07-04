@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
 
-    public UserServiceImpl(DaoFactory daoFactory) {
-        userDao = daoFactory.getUserDao();
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
@@ -30,17 +30,13 @@ public class UserServiceImpl implements UserService {
         if(user == null) {
             return null;
         }
-        /*user.setRole(userDao.getUserRole(user.getId()));*/
+
         return user;
     }
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = userDao.findAll();
-
-        /*users.forEach(x -> x.setRole(getRole(x.getId())));*/
-
-        return users;
+        return userDao.findAll();
     }
 
     @Override

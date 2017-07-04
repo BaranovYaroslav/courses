@@ -43,7 +43,7 @@ public class DispatcherServlet extends HttpServlet {
         DaoFactory daoFactory = new JdbcDaoFactory(ConnectionManager.fromJndi("jdbc/courses"));
 
         CourseService courseService = new CourseServiceImpl(daoFactory);
-        UserService userService = new UserServiceImpl(daoFactory);
+        UserService userService = new UserServiceImpl(daoFactory.getUserDao());
         FeedbackService feedbackService = new FeedbackServiceImpl(daoFactory);
         StudentService studentService = new StudentServiceImpl(daoFactory);
         AuthenticationService authenticationService = new AuthenticationServiceImpl(daoFactory);

@@ -15,7 +15,6 @@ public class NavigationService {
     private static Logger LOGGER = Logger.getLogger(NavigationService.class);
 
     public static void navigateTo(HttpWrapper httpWrapper, String url) {
-        LOGGER.error("in navigation " + url + " " + httpWrapper);
         try {
             httpWrapper.getRequest().getRequestDispatcher(url)
                                     .forward(httpWrapper.getRequest(), httpWrapper.getResponse());

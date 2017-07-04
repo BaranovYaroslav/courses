@@ -20,6 +20,12 @@ public class StudentRegistrationController implements Controller {
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
+    public StudentRegistrationController() {}
+
+    public StudentRegistrationController(UserService userService) {
+        this.userService = userService;
+    }
+
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper.getRequest())) {
@@ -55,11 +61,6 @@ public class StudentRegistrationController implements Controller {
         String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
-        LOGGER.error(login.matches(ValidationConstants.LOGIN_REGEX));
-        LOGGER.error(fullName.matches(ValidationConstants.NAME_REGEX));
-        LOGGER.error( email.matches(ValidationConstants.EMAIL_REGEX));
-        LOGGER.error( password.matches(ValidationConstants.PASSWORD_REGEX));
 
         return login.matches(ValidationConstants.LOGIN_REGEX) &&
                fullName.matches(ValidationConstants.NAME_REGEX) &&
