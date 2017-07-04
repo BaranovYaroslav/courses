@@ -42,13 +42,15 @@ public class JdbcTemplate {
         } catch (SQLException e) {
             LOGGER.error("Exception when trying save entity to DB: " + e);
             return -1;
+        } finally {
+            closeConnection(connection);
         }
     }
 
     public int update(String query, Object... parameters) {
-        Connection conn = connectionManager.getConnection();
+        Connection connection = connectionManager.getConnection();
 
-        try (PreparedStatement statement = conn.prepareStatement(query)) {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (int i = 0; i < parameters.length; i++) {
                 statement.setObject(i + 1, parameters[i]);
@@ -58,16 +60,18 @@ public class JdbcTemplate {
         } catch (SQLException e) {
             LOGGER.error("Cannot execute update query", e);
             return -1;
+        } finally {
+            closeConnection(connection);
         }
     }
 
     public void query(String query, ResultSetFunction fn, Object... params) {
-        Connection conn = connectionManager.getConnection();
+        Connection connection = connectionManager.getConnection();
 
-        if(conn == null)
+        if(connection == null)
             return;
 
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
             for (int i = 0; i < params.length; i++) {
                 stmt.setObject(i + 1, params[i]);
             }
@@ -76,6 +80,8 @@ public class JdbcTemplate {
             withRs(rs, fn);
         } catch (SQLException e) {
             LOGGER.error("Error creating prepared statement. Query: " + query, e);
+        } finally {
+            closeConnection(connection);
         }
     }
     public void withRs(ResultSet rs, ResultSetFunction fn) {
@@ -113,6 +119,14 @@ public class JdbcTemplate {
         }, params);
 
         return entities;
+    }
+
+    private void closeConnection(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            LOGGER.error("Can't close connection: " + e);
+        }
     }
 
     public ConnectionManager getConnectionManager() {
