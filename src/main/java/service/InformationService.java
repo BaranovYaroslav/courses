@@ -5,9 +5,9 @@ package service;
  */
 public interface InformationService {
 
-    public int getCoursesNumber();
+    public long getCoursesNumber();
 
-    public int getStudentsNumber();
+    public long getStudentsNumber();
 
-    public int getProfessorsNumber();
+    public long getProfessorsNumber();
 }
