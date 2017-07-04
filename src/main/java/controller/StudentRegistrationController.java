@@ -14,14 +14,14 @@ import service.UserService;
 import util.EncodingProvider;
 import javax.servlet.http.HttpServletRequest;
 
-public class StudentRegistrationController extends Controller {
+public class StudentRegistrationController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(StudentRegistrationController.class);
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper.getRequest())) {
             String login = httpWrapper.getRequest().getParameter("login");
 

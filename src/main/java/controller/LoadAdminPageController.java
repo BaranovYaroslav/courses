@@ -9,14 +9,14 @@ import service.ServiceLoader;
 import org.apache.log4j.Logger;
 import service.impl.CourseServiceImpl;
 
-public class LoadAdminPageController extends Controller {
+public class LoadAdminPageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoadAdminPageController.class);
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         httpWrapper.getRequest().setAttribute("courses", courseService.getCourses());
         NavigationService.navigateTo(httpWrapper, "/pages/admin/admin.jsp");
     }

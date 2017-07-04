@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by Ярослав on 16.04.2017.
  */
-public class UpdateCourseController extends Controller {
+public class UpdateCourseController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(UpdateCourseController.class);
 
@@ -30,7 +30,7 @@ public class UpdateCourseController extends Controller {
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
             if(userService.userHasRole(httpWrapper.getRequest().getParameter("professor"), UserRoles.PROFESSOR)) {
                 Course course = constructCourse(httpWrapper.getRequest());

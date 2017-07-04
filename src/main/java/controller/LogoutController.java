@@ -10,12 +10,12 @@ import service.ServiceLoader;
 /**
  * Created by Ярослав on 21.04.2017.
  */
-public class LogoutController extends Controller {
+public class LogoutController implements Controller {
 
     private AuthenticationService authenticationService = ServiceLoader.getInstance().getService(AuthenticationService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         authenticationService.logout(httpWrapper.getRequest());
         NavigationService.navigateTo(httpWrapper, ApplicationConstants.BASE_APPLICATION_URL);
     }

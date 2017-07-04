@@ -13,14 +13,14 @@ import service.ServiceLoader;
 /**
  * Created by Ярослав on 11.04.2017.
  */
-public class LoginController extends Controller {
+public class LoginController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoginController.class);
 
     private AuthenticationService authenticationService = ServiceLoader.getInstance().getService(AuthenticationService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         String login = httpWrapper.getRequest().getParameter("login");
         String password = httpWrapper.getRequest().getParameter("password");
 

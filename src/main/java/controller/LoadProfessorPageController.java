@@ -11,12 +11,12 @@ import service.impl.CourseServiceImpl;
 /**
  * Created by Ярослав on 17.04.2017.
  */
-public class LoadProfessorPageController extends Controller {
+public class LoadProfessorPageController implements Controller {
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     @Override
-    public void get(HttpWrapper reqService) {
+    public void execute(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute("user");
         reqService.getRequest().setAttribute("courses", courseService.getCoursesForProfessor(login));
         NavigationService.navigateTo(reqService, "/pages/professor/professor.jsp");

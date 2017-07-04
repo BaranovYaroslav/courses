@@ -12,14 +12,14 @@ import service.UserService;
 import service.impl.CourseServiceImpl;
 import service.impl.UserServiceImpl;
 
-public class RegisterStudentController extends Controller{
+public class RegisterStudentController implements Controller{
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
     @Override
-    public void get(HttpWrapper reqService) {
+    public void execute(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute("user");
         int courseId = Integer.parseInt(reqService.getRequest().getParameter("courseId"));
 

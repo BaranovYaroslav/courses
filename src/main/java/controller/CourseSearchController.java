@@ -14,14 +14,14 @@ import service.util.CourseSearchParameters;
 /**
  * Created by Ярослав on 09.06.2017.
  */
-public class CourseSearchController extends Controller {
+public class CourseSearchController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(CourseSearchController.class);
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
             String login = (String) httpWrapper.getRequest().getSession().getAttribute("user");
             CourseSearchParameters searchParameters = constructSearchParametersFromRequest(httpWrapper);

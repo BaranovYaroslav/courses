@@ -10,12 +10,12 @@ import java.io.IOException;
 /**
  * Created by Ярослав on 08.06.2017.
  */
-public class IndexPageController extends Controller {
+public class IndexPageController implements Controller {
 
     private InformationService informationService = ServiceLoader.getInstance().getService(InformationService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         try {
             httpWrapper.getResponse().getWriter().write(getInformationAsJSON());
             httpWrapper.getResponse().getWriter().close();

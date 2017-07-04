@@ -6,10 +6,10 @@ import service.NavigationService;
 
 import java.io.IOException;
 
-public class RegistrationPageController extends Controller{
+public class RegistrationPageController implements Controller{
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         NavigationService.navigateTo(httpWrapper, "/pages/registration.jsp");
     }
 }

@@ -14,14 +14,14 @@ import service.impl.UserServiceImpl;
 /**
  * Created by Ярослав on 18.04.2017.
  */
-public class UnregisterStudentController extends Controller {
+public class UnregisterStudentController implements Controller {
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
     @Override
-    public void get(HttpWrapper reqService) {
+    public void execute(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute("user");
         int courseId = Integer.parseInt(reqService.getRequest().getParameter("courseId"));
 

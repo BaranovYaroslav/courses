@@ -11,7 +11,7 @@ import service.impl.UserServiceImpl;
 /**
  * Created by Ярослав on 18.04.2017.
  */
-public class LoadStudentPageController extends Controller {
+public class LoadStudentPageController implements Controller {
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
@@ -20,7 +20,7 @@ public class LoadStudentPageController extends Controller {
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         String login = (String) httpWrapper.getRequest().getSession().getAttribute("user");
         httpWrapper.getRequest().setAttribute("coursesForRegistration",
                                              studentService.getCoursesForRegistration(userService.getUserByLogin(login)));

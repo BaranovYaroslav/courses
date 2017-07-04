@@ -11,14 +11,14 @@ import service.impl.UserServiceImpl;
 /**
  * Created by Ярослав on 16.04.2017.
  */
-public class LoadUsersListPageController extends Controller {
+public class LoadUsersListPageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoadNewProfessorPageController.class);
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
     @Override
-    public void get(HttpWrapper reqService) {
+    public void execute(HttpWrapper reqService) {
 
         reqService.getRequest().setAttribute("users", userService.getAllUsers());
         NavigationService.navigateTo(reqService, "/pages/admin/users-list.jsp");

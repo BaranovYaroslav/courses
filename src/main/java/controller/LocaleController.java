@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 /**
  * Created by Ярослав on 25.04.2017.
  */
-public class LocaleController extends Controller {
+public class LocaleController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LocaleController.class);
 
@@ -18,7 +18,7 @@ public class LocaleController extends Controller {
     private final String LOCALE = "locale";
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         LOGGER.error("in locale controller");
         String lang = (String) httpWrapper.getRequest().getParameter("lang");
 

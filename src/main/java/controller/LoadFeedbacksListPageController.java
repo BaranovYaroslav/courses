@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Ярослав on 18.04.2017.
  */
-public class LoadFeedbacksListPageController extends Controller {
+public class LoadFeedbacksListPageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoadFeedbacksListPageController.class);
 
@@ -25,7 +25,7 @@ public class LoadFeedbacksListPageController extends Controller {
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     @Override
-    public void get(HttpWrapper reqService) {
+    public void execute(HttpWrapper reqService) {
         int id = Integer.parseInt(reqService.getRequest().getParameter("id"));
         List<Feedback> feedbacks = courseService.getFeedbacksByCourseId(id);
         reqService.getRequest().setAttribute("feedbacks", feedbacks);

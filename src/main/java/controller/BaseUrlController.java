@@ -7,10 +7,10 @@ import service.NavigationService;
 /**
  * Created by Ярослав on 19.04.2017.
  */
-public class BaseUrlController extends Controller {
+public class BaseUrlController implements Controller {
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         NavigationService.redirectTo(httpWrapper, "/index.jsp");
     }
 }

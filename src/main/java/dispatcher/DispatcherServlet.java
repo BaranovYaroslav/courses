@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/app/*")
 public class DispatcherServlet extends HttpServlet {
@@ -56,33 +57,34 @@ public class DispatcherServlet extends HttpServlet {
         ServiceLoader.getInstance().loadService(InformationService.class, informationService);
 
         httpMatcher = new ArrayList<HttpMatcherEntry>();
-        addMatcherEntry("/", new BaseUrlController());
-        addMatcherEntry("/registration", new RegistrationPageController());
-        addMatcherEntry("/registration/apply", new StudentRegistrationController());
-        addMatcherEntry("/login", new LoadLoginPageController());
-        addMatcherEntry("/login/apply", new LoginController());
-        addMatcherEntry("/logout", new LogoutController());
-        addMatcherEntry("/admin", new LoadAdminPageController());
-        addMatcherEntry("/admin/update/course", new LoadEditCoursePageController());
-        addMatcherEntry("/admin/update/course/save", new UpdateCourseController());
-        addMatcherEntry("/admin/new-course", new LoadNewCoursePageController());
-        addMatcherEntry("/admin/new-professor", new LoadNewProfessorPageController());
-        addMatcherEntry("/admin/new-professor/save", new NewProfessorController());
-        addMatcherEntry("/admin/delete-course", new DeleteCourseController());
-        addMatcherEntry("/admin/new-course/save", new NewCourseController());
-        addMatcherEntry("/admin/users", new LoadUsersListPageController());
-        addMatcherEntry("/professor", new LoadProfessorPageController());
-        addMatcherEntry("/professor/feedbacks", new LoadFeedbacksListPageController());
-        addMatcherEntry("/professor/feedback", new LoadFeedbackPageController());
-        addMatcherEntry("/professor/feedback/save", new SaveFeedbackController());
-        addMatcherEntry("/student", new LoadStudentPageController());
-        addMatcherEntry("/student/register", new RegisterStudentController());
-        addMatcherEntry("/student/courses", new LoadStudentCoursesPageController());
-        addMatcherEntry("/student/courses/unregister", new UnregisterStudentController());
-        addMatcherEntry("/student/feedbacks", new LoadStudentsFeedbacksPageController());
-        addMatcherEntry("/locale", new LocaleController());
-        addMatcherEntry("/index", new IndexPageController());
-        addMatcherEntry("/search", new CourseSearchController());
+
+        addMatcherEntry("/", HttpMethod.GET, new BaseUrlController());
+        addMatcherEntry("/registration", HttpMethod.GET, new RegistrationPageController());
+        addMatcherEntry("/registration/apply", HttpMethod.GET, new StudentRegistrationController());
+        addMatcherEntry("/login", HttpMethod.GET, new LoadLoginPageController());
+        addMatcherEntry("/login/apply", HttpMethod.GET, new LoginController());
+        addMatcherEntry("/logout", HttpMethod.GET, new LogoutController());
+        addMatcherEntry("/admin", HttpMethod.GET, new LoadAdminPageController());
+        addMatcherEntry("/admin/update/course", HttpMethod.GET, new LoadEditCoursePageController());
+        addMatcherEntry("/admin/update/course/save", HttpMethod.GET, new UpdateCourseController());
+        addMatcherEntry("/admin/new-course", HttpMethod.GET, new LoadNewCoursePageController());
+        addMatcherEntry("/admin/new-professor", HttpMethod.GET, new LoadNewProfessorPageController());
+        addMatcherEntry("/admin/new-professor/save", HttpMethod.GET, new NewProfessorController());
+        addMatcherEntry("/admin/delete-course", HttpMethod.GET, new DeleteCourseController());
+        addMatcherEntry("/admin/new-course/save", HttpMethod.GET, new NewCourseController());
+        addMatcherEntry("/admin/users", HttpMethod.GET, new LoadUsersListPageController());
+        addMatcherEntry("/professor", HttpMethod.GET, new LoadProfessorPageController());
+        addMatcherEntry("/professor/feedbacks", HttpMethod.GET, new LoadFeedbacksListPageController());
+        addMatcherEntry("/professor/feedback", HttpMethod.GET, new LoadFeedbackPageController());
+        addMatcherEntry("/professor/feedback/save", HttpMethod.GET, new SaveFeedbackController());
+        addMatcherEntry("/student", HttpMethod.GET, new LoadStudentPageController());
+        addMatcherEntry("/student/register", HttpMethod.GET, new RegisterStudentController());
+        addMatcherEntry("/student/courses", HttpMethod.GET, new LoadStudentCoursesPageController());
+        addMatcherEntry("/student/courses/unregister", HttpMethod.GET, new UnregisterStudentController());
+        addMatcherEntry("/student/feedbacks", HttpMethod.GET, new LoadStudentsFeedbacksPageController());
+        addMatcherEntry("/locale", HttpMethod.GET, new LocaleController());
+        addMatcherEntry("/index", HttpMethod.GET, new IndexPageController());
+        addMatcherEntry("/search", HttpMethod.GET, new CourseSearchController());
     }
 
     @Override
@@ -110,7 +112,7 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private void dispatchRequest(HttpWrapper httpWrapper) {
-        HttpMatcherEntry entry = getMatcherEntry(httpWrapper.getRequest().getPathInfo());
+        HttpMatcherEntry entry = getMatcherEntry(httpWrapper.getRequest().getPathInfo(), httpWrapper.getRequest().getMethod());
 
         if(entry != null) {
             entry.executeController(httpWrapper);
@@ -120,13 +122,14 @@ public class DispatcherServlet extends HttpServlet {
         }
     }
 
-    public void addMatcherEntry(String url, Controller controller){
-        this.httpMatcher.add(new HttpMatcherEntry(url, controller));
+    public List<HttpMatcherEntry> addMatcherEntry(String url, HttpMethod httpMethod, Controller controller){
+        this.httpMatcher.add(new HttpMatcherEntry(url, httpMethod, controller));
+        return this.httpMatcher;
     }
 
-    public HttpMatcherEntry getMatcherEntry(String url){
+    public HttpMatcherEntry getMatcherEntry(String url, String method){
         for(HttpMatcherEntry entry: httpMatcher){
-            if(entry.getUrl().equals(url)){
+            if(entry.url.equals(url) && entry.httpMethod.getMethod().equals(method)){
                 return entry;
             }
         }
@@ -137,10 +140,13 @@ public class DispatcherServlet extends HttpServlet {
 
         private String url;
 
+        private HttpMethod httpMethod;
+
         private final Controller controller;
 
-        public HttpMatcherEntry (String url, Controller controller){
+        public HttpMatcherEntry (String url, HttpMethod httpMethod, Controller controller){
             this.url = url;
+            this.httpMethod = httpMethod;
             this.controller = controller;
         }
 
@@ -150,6 +156,10 @@ public class DispatcherServlet extends HttpServlet {
 
         public String getUrl() {
             return url;
+        }
+
+        public HttpMethod getHttpMethod() {
+            return httpMethod;
         }
     }
 

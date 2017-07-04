@@ -19,14 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by Ярослав on 16.04.2017.
  */
-public class NewProfessorController extends Controller {
+public class NewProfessorController implements Controller {
 
     private Logger LOGGER = Logger.getLogger(NewProfessorController.class);
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         String login = httpWrapper.getRequest().getParameter("login");
 
         if(validateInputData(httpWrapper)) {

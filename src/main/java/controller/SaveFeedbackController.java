@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by Ярослав on 18.04.2017.
  */
-public class SaveFeedbackController extends Controller {
+public class SaveFeedbackController implements Controller {
 
     private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
             int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter("courseId"));
             feedbackService.updateFeedback(extractFeedback(httpWrapper.getRequest()));

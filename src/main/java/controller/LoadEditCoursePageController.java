@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Collections;
 
-public class LoadEditCoursePageController extends Controller {
+public class LoadEditCoursePageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoginController.class);
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     @Override
-    public void get(HttpWrapper httpWrapper) {
+    public void execute(HttpWrapper httpWrapper) {
         int id = Integer.parseInt(httpWrapper.getRequest().getParameter("id"));
         setAttributesToRequest(httpWrapper, courseService.getCourse(id));
         NavigationService.navigateTo(httpWrapper, "/pages/admin/edit-course.jsp");
