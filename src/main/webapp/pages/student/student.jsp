@@ -98,7 +98,7 @@
                     <p><fmt:message key="course.maxNumber" bundle="${rb}"/>: ${course.numberOfStudents}</p>
                     <p><fmt:message key="course.number" bundle="${rb}"/>: ${course.students.size()}</p>
 
-                    <form id="deleteCourseForm" method="get" action="<c:url value="/app/student/register"/>">
+                    <form id="registerCourseForm" method="post" action="<c:url value="/app/student/register"/>">
                         <input class="hidden" type="text" name="courseId" value="${course.id}">
                         <input id="register" type="submit" class="registerButton" value="<fmt:message key="student.register" bundle="${rb}"/>">
                     </form>

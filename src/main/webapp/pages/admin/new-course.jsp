@@ -26,7 +26,7 @@
     <c:import url="/resources/components/locale-component.jsp"/>
 
     <div class="form">
-        <form method="get" action="<c:url value="/app/admin/new-course/save"/>" onsubmit="prepareForm()">
+        <form method="post" action="<c:url value="/app/admin/new-course/save"/>" onsubmit="prepareForm()">
             <p><fmt:message key="course.name" bundle="${rb}"/>:</p>
             <input type="text" name="name" value="${previousName}" required>
             <p><fmt:message key="course.description" bundle="${rb}"/>:</p>

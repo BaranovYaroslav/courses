@@ -23,7 +23,7 @@
         </form>
 
         <div class="form">
-            <form method="get" action="<c:url value="/app/registration/apply"/>">
+            <form method="post" action="<c:url value="/app/registration/apply"/>">
             <p><fmt:message key="registration.login" bundle="${rb}"/>:</p>
             <input type="text" name="login" value="${previousLogin}" required>
             <p><fmt:message key="registration.email" bundle="${rb}"/>:</p>

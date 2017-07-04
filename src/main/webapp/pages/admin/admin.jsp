@@ -55,7 +55,7 @@
             <input type="submit" class="updateButton" value="<fmt:message key="edit" bundle="${rb}"/>">
           </form>
 
-          <form id="deleteCourseForm" method="get" action="<c:url value="/app/admin/delete-course"/>">
+          <form id="deleteCourseForm" method="post" action="<c:url value="/app/admin/delete-course"/>">
             <input class="hidden" type="text" name="id" value="${course.id}">
             <input id="deleteCourseButton" type="button" class="deleteButton" value="<fmt:message key="delete" bundle="${rb}"/>"
                    onclick="confirmDeleting(this.form)">
@@ -64,6 +64,7 @@
         </div>
       </c:forEach>
     </div>
+  </div>
 
     <script>
       var selectedForm = null;
@@ -95,7 +96,5 @@
       }
     </script>
     <script src="<c:url value="/resources/js/locale.js"/>" type="text/javascript"></script>
-  </div>
-
 </body>
 </html>

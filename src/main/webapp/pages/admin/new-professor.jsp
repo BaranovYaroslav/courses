@@ -15,7 +15,7 @@
     <c:import url="/resources/components/locale-component.jsp"/>
 
     <div class="form">
-        <form method="get" action="<c:url value="/app/admin/new-professor/save"/>">
+        <form method="post" action="<c:url value="/app/admin/new-professor/save"/>">
             <p><fmt:message key="admin.new.professor.login" bundle="${rb}"/>:</p>
             <input type="text" name="login" value="${previousLogin}" required>
             <p><fmt:message key="admin.new.professor.name" bundle="${rb}"/>:</p>

@@ -19,15 +19,15 @@ public class RegisterStudentController implements Controller{
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
     @Override
-    public void execute(HttpWrapper reqService) {
-        String login = (String) reqService.getRequest().getSession().getAttribute("user");
-        int courseId = Integer.parseInt(reqService.getRequest().getParameter("courseId"));
+    public void execute(HttpWrapper httpWrapper) {
+        String login = (String) httpWrapper.getRequest().getSession().getAttribute("user");
+        int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter("courseId"));
 
         Course course = courseService.getCourse(courseId);
         User user = userService.getUserByLogin(login);
 
         courseService.registerStudent(course, user);
 
-        NavigationService.navigateTo(reqService, "/app/student");
+        NavigationService.redirectTo(httpWrapper, "/app/student");
     }
 }

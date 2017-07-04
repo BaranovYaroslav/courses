@@ -6,7 +6,7 @@ import service.NavigationService;
 
 import java.io.IOException;
 
-public class RegistrationPageController implements Controller{
+public class LoadRegistrationPageController implements Controller{
 
     @Override
     public void execute(HttpWrapper httpWrapper) {

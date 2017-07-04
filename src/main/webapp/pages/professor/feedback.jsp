@@ -15,7 +15,7 @@
   <c:import url="/resources/components/locale-component.jsp"/>
 
   <div class="feedBackForm">
-    <form method="get" action="<c:url value="/app/professor/feedback/save"/>">
+    <form method="post" action="<c:url value="/app/professor/feedback/save"/>">
       <p><fmt:message key="professor.feedback.student" bundle="${rb}"/>: ${feedback.student.fullName}</p>
       <p><fmt:message key="professor.feedback.score" bundle="${rb}"/>:</p>
       <input type="text" name="score" value="${feedback.score}" pattern="^\(?[\d.]+\)?$" required/>

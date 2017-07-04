@@ -92,13 +92,17 @@ body{
 
 .course {
     width: 470px;
-    height: 295px;
+    height: 345px;
     margin-bottom: 30px;
     padding: 20px;
     background-color: #a0a0a0;
     border-radius: 5px;
     border: 2px solid black;
     text-align: left;
+}
+
+.course p:first-child {
+    margin-top: 0;
 }
 
 .course input[type="text"] {
@@ -119,4 +123,49 @@ body{
 .unregisterButton:hover {
     cursor: pointer;
     background-color: #b97b72;;
+}
+
+.showOnMap:hover {
+    cursor: pointer;
+    color: orange;
+}
+
+#map {
+    width: 800px;
+    height: 470px;
+    padding: 20px;
+    display: none;
+    position: fixed;
+    margin-left: calc(50% - 400px);
+    top: 100px;
+    border: 2px solid #4d4d4d;
+    border-radius: 5px;
+    z-index: 999999;
+    background-color: #616161;
+    text-align: center;
+}
+
+#map p{
+    margin-top: 10px;
+    color: #bcbcbc;
+}
+
+#map input[type="button"]{
+    width: 100px;
+    height: 40px;
+    margin-top: 15px;
+    background-color: #bcbcbc;
+    border: 2px solid #464646;
+    border-radius: 3px;
+}
+
+#map input[type="button"]:hover{
+    cursor: pointer;
+}
+
+#mapCanvas{
+    width: 800px;
+    height: 400px;
+    margin-bottom: 10px;
+    position: relative;
 }
