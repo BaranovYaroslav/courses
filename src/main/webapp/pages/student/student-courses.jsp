@@ -45,10 +45,9 @@
 
         <form id="unregisterForm" method="post" action="<c:url value="/app/student/courses/unregister"/>">
           <input class="hidden" type="text" name="courseId" value="${course.id}">
-          <input id="register" type="button" class="unregisterButton" value="<fmt:message key="student.courses.unregister" bundle="${rb}"/>"
+          <input id="unregister" type="button" class="unregisterButton" value="<fmt:message key="student.courses.unregister" bundle="${rb}"/>"
                  onclick="confirmUnregister(this.form)">
         </form>
-
       </div>
     </c:forEach>
   </div>
@@ -64,9 +63,9 @@
       $("#confirmUnregister").click(function() {
         $.ajax({
           url: selectedForm.action,
-          type: 'GET',
+          type: 'POST',
           data: "courseId=" + selectedForm.childNodes[1].value,
-          success: function(result) {
+          success: function() {
             document.getElementById("courseContainer").removeChild(selectedForm.parentNode);
             selectedForm = null;
           }

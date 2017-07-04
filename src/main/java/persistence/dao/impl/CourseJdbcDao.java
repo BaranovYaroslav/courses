@@ -103,6 +103,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public void unregisterStudent(Course course, User user) {
+        LOGGER.error("gggggggggg " + course.getId() + " " + user.getId());
         jdbcTemplate.update("DELETE FROM `student_course` WHERE `student_id`=? AND `course_id`=?;",
                             user.getId(), course.getId());
     }

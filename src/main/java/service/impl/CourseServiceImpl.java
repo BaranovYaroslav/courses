@@ -78,9 +78,6 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getCoursesForStudent(String login) {
         List<Course> courses = courseDao.findAll();
         User user = userDao.getUser(login);
-        courses.forEach(c -> {
-            LOGGER.error(c.getId() + " " + c.getStudents().contains(user) + " " + c.getStudents().size());
-        });
         return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
     }
 
