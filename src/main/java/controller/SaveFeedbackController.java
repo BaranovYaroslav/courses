@@ -1,6 +1,7 @@
 package controller;
 
 import constants.ApplicationConstants;
+import constants.RequestAttribute;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -54,7 +55,7 @@ public class SaveFeedbackController implements Controller {
 
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
         String id = httpWrapper.getRequest().getParameter("id");
-        httpWrapper.getRequest().setAttribute("message", message);
+        httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, message);
         NavigationService.navigateTo(httpWrapper, "/app/professor/feedback?id=" + id);
     }
 }

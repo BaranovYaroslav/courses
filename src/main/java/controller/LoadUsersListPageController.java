@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
@@ -20,7 +21,7 @@ public class LoadUsersListPageController implements Controller {
     @Override
     public void execute(HttpWrapper reqService) {
 
-        reqService.getRequest().setAttribute("users", userService.getAllUsers());
+        reqService.getRequest().setAttribute(RequestAttribute.USERS, userService.getAllUsers());
         NavigationService.navigateTo(reqService, "/pages/admin/users-list.jsp");
     }
 }

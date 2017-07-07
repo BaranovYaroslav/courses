@@ -24,7 +24,7 @@ public class ResourceToRoleMapper {
         return instance;
     }
 
-    public ResourceToRoleMapper appendMapping(String url, String role) {
+    public ResourceToRoleMapper addConstrains(String url, String role) {
         matches.put(url, role);
         return this;
     }

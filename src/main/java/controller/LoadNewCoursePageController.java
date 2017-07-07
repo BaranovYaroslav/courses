@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.CourseType;
@@ -11,7 +12,7 @@ import service.NavigationService;
 public class LoadNewCoursePageController implements Controller {
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        httpWrapper.getRequest().setAttribute("types", CourseType.values());
+        httpWrapper.getRequest().setAttribute(RequestAttribute.TYPES, CourseType.values());
         NavigationService.navigateTo(httpWrapper, "/pages/admin/new-course.jsp");
     }
 }

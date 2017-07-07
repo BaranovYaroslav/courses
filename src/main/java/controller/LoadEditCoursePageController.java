@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
@@ -32,20 +33,20 @@ public class LoadEditCoursePageController implements Controller {
     public void setAttributesToRequest(HttpWrapper httpWrapper, Course course) {
         HttpServletRequest request = httpWrapper.getRequest();
 
-        request.setAttribute("id", course.getId());
-        request.setAttribute("previousName", course.getName());
-        request.setAttribute("previousDescription", course.getDescription());
-        request.setAttribute("previousCity", course.getLocation().getCity());
-        request.setAttribute("previousAddress", course.getLocation().getAddress());
-        request.setAttribute("previousNumberOfStudents", course.getNumberOfStudents());
-        request.setAttribute("previousPrice", course.getPrice());
-        request.setAttribute("previousStartDate", course.getStartDate());
-        request.setAttribute("previousEndDate", course.getEndDate());
-        request.setAttribute("previousProfessorLogin", course.getProfessor().getLogin());
-        request.setAttribute("previousFree", course.getIsFree());
-        request.setAttribute("previousX", course.getLocation().getXCoordinate());
-        request.setAttribute("previousY", course.getLocation().getYCoordinate());
-        request.setAttribute("previousType", course.getType().getType());
-        request.setAttribute("types", CourseType.values());
+        request.setAttribute(RequestAttribute.ID, course.getId());
+        request.setAttribute(RequestAttribute.PREVIOUS_NAME, course.getName());
+        request.setAttribute(RequestAttribute.PREVIOUS_DESCRIPTION, course.getDescription());
+        request.setAttribute(RequestAttribute.PREVIOUS_CITY, course.getLocation().getCity());
+        request.setAttribute(RequestAttribute.PREVIOUS_ADDRESS, course.getLocation().getAddress());
+        request.setAttribute(RequestAttribute.PREVIOUS_STUDENTS_NUMBER, course.getNumberOfStudents());
+        request.setAttribute(RequestAttribute.PREVIOUS_PRICE, course.getPrice());
+        request.setAttribute(RequestAttribute.PREVIOUS_START_DATE, course.getStartDate());
+        request.setAttribute(RequestAttribute.PREVIOUS_END_DATE, course.getEndDate());
+        request.setAttribute(RequestAttribute.PREVIOUS_PROFESSOR_LOGIN, course.getProfessor().getLogin());
+        request.setAttribute(RequestAttribute.PREVIOUS_FREE, course.getIsFree());
+        request.setAttribute(RequestAttribute.PREVIOUS_X_COORDINATE, course.getLocation().getXCoordinate());
+        request.setAttribute(RequestAttribute.PREVIOUS_Y_COORDINATE, course.getLocation().getYCoordinate());
+        request.setAttribute(RequestAttribute.PREVIOUS_TYPE, course.getType().getType());
+        request.setAttribute(RequestAttribute.TYPES, CourseType.values());
     }
 }

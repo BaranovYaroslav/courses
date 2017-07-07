@@ -2,6 +2,7 @@ package controller;
 
 import constants.ApplicationConstants;
 import constants.ControllerConstants;
+import constants.RequestAttribute;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -10,7 +11,7 @@ import entities.CourseType;
 import entities.Location;
 import entities.User;
 import org.apache.log4j.Logger;
-import security.UserRoles;
+import security.UserRole;
 import service.CourseService;
 import service.NavigationService;
 import service.ServiceLoader;
@@ -32,7 +33,7 @@ public class NewCourseController implements Controller {
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
-            if(userService.userHasRole(httpWrapper.getRequest().getParameter("professor"), UserRoles.PROFESSOR)) {
+            if(userService.userHasRole(httpWrapper.getRequest().getParameter("professor"), UserRole.PROFESSOR)) {
                 Course course = constructCourse(httpWrapper.getRequest());
                 courseService.addNewCourse(course);
                 NavigationService.redirectTo(httpWrapper, "/app/admin");
@@ -119,20 +120,20 @@ public class NewCourseController implements Controller {
         String y = request.getParameter("y");
         String type = request.getParameter("type");
 
-        request.setAttribute("previousName", name);
-        request.setAttribute("previousDescription", description);
-        request.setAttribute("previousCity", city);
-        request.setAttribute("previousAddress", address);
-        request.setAttribute("previousNumberOfStudents", numberOfStudents);
-        request.setAttribute("previousPrice", price);
-        request.setAttribute("previousStartDate", startDate);
-        request.setAttribute("previousEndDate", endDate);
-        request.setAttribute("previousProfessorLogin", professorLogin);
-        request.setAttribute("previousFree", isFree == null ? "false" : "true");
-        request.setAttribute("previousX", x);
-        request.setAttribute("previousY", y);
-        request.setAttribute("previousType", type);
-        request.setAttribute("message", message);
+        request.setAttribute(RequestAttribute.PREVIOUS_NAME, name);
+        request.setAttribute(RequestAttribute.PREVIOUS_DESCRIPTION, description);
+        request.setAttribute(RequestAttribute.PREVIOUS_CITY, city);
+        request.setAttribute(RequestAttribute.PREVIOUS_ADDRESS, address);
+        request.setAttribute(RequestAttribute.PREVIOUS_STUDENTS_NUMBER, numberOfStudents);
+        request.setAttribute(RequestAttribute.PREVIOUS_PRICE, price);
+        request.setAttribute(RequestAttribute.PREVIOUS_START_DATE, startDate);
+        request.setAttribute(RequestAttribute.PREVIOUS_END_DATE, endDate);
+        request.setAttribute(RequestAttribute.PREVIOUS_PROFESSOR_LOGIN, professorLogin);
+        request.setAttribute(RequestAttribute.PREVIOUS_FREE, isFree == null ? "false" : "true");
+        request.setAttribute(RequestAttribute.PREVIOUS_X_COORDINATE, x);
+        request.setAttribute(RequestAttribute.PREVIOUS_Y_COORDINATE, y);
+        request.setAttribute(RequestAttribute.PREVIOUS_TYPE, type);
+        request.setAttribute(RequestAttribute.MESSAGE, message);
 
         NavigationService.navigateTo(httpWrapper, "/app/admin/new-course");
     }

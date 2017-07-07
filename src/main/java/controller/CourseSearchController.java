@@ -1,6 +1,7 @@
 package controller;
 
 import constants.ControllerConstants;
+import constants.RequestAttribute;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -23,9 +24,9 @@ public class CourseSearchController implements Controller {
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
-            String login = (String) httpWrapper.getRequest().getSession().getAttribute("user");
+            String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
             CourseSearchParameters searchParameters = constructSearchParametersFromRequest(httpWrapper);
-            httpWrapper.getRequest().setAttribute("coursesForRegistration",
+            httpWrapper.getRequest().setAttribute(RequestAttribute.COURSES_FOR_REGISTRATION,
                     courseService.getCoursesForStudentWithSearch(login, searchParameters));
             goToStudentPage(httpWrapper);
         }
@@ -65,9 +66,9 @@ public class CourseSearchController implements Controller {
     }
 
     private void goToStudentPage(HttpWrapper httpWrapper) {
-        httpWrapper.getRequest().setAttribute("types", CourseType.values());
-        httpWrapper.getRequest().setAttribute("locations", courseService.getDistinctCourseLocations());
-        httpWrapper.getRequest().setAttribute("maxPrice", courseService.getMaxPriceOfCourse());
+        httpWrapper.getRequest().setAttribute(RequestAttribute.TYPES, CourseType.values());
+        httpWrapper.getRequest().setAttribute(RequestAttribute.LOCATIONS, courseService.getDistinctCourseLocations());
+        httpWrapper.getRequest().setAttribute(RequestAttribute.MAX_COURSE_PRICE, courseService.getMaxPriceOfCourse());
         NavigationService.navigateTo(httpWrapper, "/pages/student/student.jsp");
     }
 }

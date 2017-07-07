@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
@@ -18,7 +19,7 @@ public class LoadProfessorPageController implements Controller {
     @Override
     public void execute(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute("user");
-        reqService.getRequest().setAttribute("courses", courseService.getCoursesForProfessor(login));
+        reqService.getRequest().setAttribute(RequestAttribute.COURSES, courseService.getCoursesForProfessor(login));
         NavigationService.navigateTo(reqService, "/pages/professor/professor.jsp");
     }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Feedback;
@@ -28,7 +29,7 @@ public class LoadFeedbacksListPageController implements Controller {
     public void execute(HttpWrapper reqService) {
         int id = Integer.parseInt(reqService.getRequest().getParameter("id"));
         List<Feedback> feedbacks = courseService.getFeedbacksByCourseId(id);
-        reqService.getRequest().setAttribute("feedbacks", feedbacks);
+        reqService.getRequest().setAttribute(RequestAttribute.FEEDBACKS, feedbacks);
         NavigationService.navigateTo(reqService, "/pages/professor/course-feedbacks.jsp");
     }
 }

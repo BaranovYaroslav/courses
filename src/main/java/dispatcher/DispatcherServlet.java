@@ -8,7 +8,7 @@ import persistence.dao.factory.DaoFactory;
 import persistence.dao.factory.JdbcDaoFactory;
 import security.BaseResourceToRoleMapper;
 import security.ResourceToRoleMapper;
-import security.UserRoles;
+import security.UserRole;
 import service.*;
 import service.impl.*;
 
@@ -31,14 +31,14 @@ public class DispatcherServlet extends HttpServlet {
     public DispatcherServlet() {
 
         ResourceToRoleMapper.getInstance()
-                            .appendMapping("/admin", UserRoles.ADMIN)
-                            .appendMapping("/student", UserRoles.STUDENT)
-                            .appendMapping("/professor", UserRoles.PROFESSOR);
+                            .addConstrains("/admin", UserRole.ADMIN)
+                            .addConstrains("/student", UserRole.STUDENT)
+                            .addConstrains("/professor", UserRole.PROFESSOR);
 
         BaseResourceToRoleMapper.getInstance()
-                            .addMapping(UserRoles.STUDENT, "/app/student")
-                            .addMapping(UserRoles.PROFESSOR, "/app/professor")
-                            .addMapping(UserRoles.ADMIN, "/app/admin");
+                            .addMapping(UserRole.STUDENT, "/app/student")
+                            .addMapping(UserRole.PROFESSOR, "/app/professor")
+                            .addMapping(UserRole.ADMIN, "/app/admin");
 
         DaoFactory daoFactory = new JdbcDaoFactory(ConnectionManager.fromJndi("jdbc/courses"));
 

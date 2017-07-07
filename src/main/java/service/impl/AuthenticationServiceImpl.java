@@ -1,5 +1,6 @@
 package service.impl;
 
+import constants.RequestAttribute;
 import dispatcher.HttpWrapper;
 import entities.User;
 import persistence.dao.UserDao;
@@ -27,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void login(HttpServletRequest request, String login) {
-        request.getSession().setAttribute("user", login);
+        request.getSession().setAttribute(RequestAttribute.USER, login);
     }
 
     @Override
@@ -59,8 +60,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public void processIncorrectLogin(HttpWrapper httpWrapper, String login) {
-        httpWrapper.getRequest().setAttribute("message", "Incorrect login or password");
-        httpWrapper.getRequest().setAttribute("previousLogin", login);
+        httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, "Incorrect login or password");
+        httpWrapper.getRequest().setAttribute(RequestAttribute.PREVIOUS_LOGIN, login);
         NavigationService.navigateTo(httpWrapper, "/app/login");
     }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.CourseType;
@@ -21,12 +22,12 @@ public class LoadStudentPageController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        String login = (String) httpWrapper.getRequest().getSession().getAttribute("user");
-        httpWrapper.getRequest().setAttribute("coursesForRegistration",
+        String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
+        httpWrapper.getRequest().setAttribute(RequestAttribute.MAX_COURSE_PRICE,
                                              studentService.getCoursesForRegistration(userService.getUserByLogin(login)));
-        httpWrapper.getRequest().setAttribute("types", CourseType.values());
-        httpWrapper.getRequest().setAttribute("locations", courseService.getDistinctCourseLocations());
-        httpWrapper.getRequest().setAttribute("maxPrice", courseService.getMaxPriceOfCourse());
+        httpWrapper.getRequest().setAttribute(RequestAttribute.TYPES, CourseType.values());
+        httpWrapper.getRequest().setAttribute(RequestAttribute.LOCATIONS, courseService.getDistinctCourseLocations());
+        httpWrapper.getRequest().setAttribute(RequestAttribute.MAX_COURSE_PRICE, courseService.getMaxPriceOfCourse());
         NavigationService.navigateTo(httpWrapper, "/pages/student/student.jsp");
     }
 }

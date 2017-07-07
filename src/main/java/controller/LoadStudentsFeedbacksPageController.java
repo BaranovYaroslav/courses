@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import service.FeedbackService;
@@ -15,8 +16,8 @@ public class LoadStudentsFeedbacksPageController implements Controller {
 
     @Override
     public void execute(HttpWrapper reqService) {
-        String login = (String) reqService.getRequest().getSession().getAttribute("user");
-        reqService.getRequest().setAttribute("feedbacks", feedbackService.getFeedbacksForStudent(login));
+        String login = (String) reqService.getRequest().getSession().getAttribute(RequestAttribute.USER);
+        reqService.getRequest().setAttribute(RequestAttribute.FEEDBACKS, feedbackService.getFeedbacksForStudent(login));
         NavigationService.navigateTo(reqService, "/pages/student/student-feedbacks.jsp");
     }
 }

@@ -1,6 +1,7 @@
 package controller;
 
 import constants.ApplicationConstants;
+import constants.RequestAttribute;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -33,8 +34,8 @@ public class LoginController implements Controller {
             }
         }
         else {
-            httpWrapper.getRequest().setAttribute("message", ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
-            httpWrapper.getRequest().setAttribute("previousLogin", login);
+            httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
+            httpWrapper.getRequest().setAttribute(RequestAttribute.PREVIOUS_LOGIN, login);
             NavigationService.navigateTo(httpWrapper, "/app/login");
         }
     }

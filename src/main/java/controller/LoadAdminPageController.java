@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import service.CourseService;
@@ -17,7 +18,7 @@ public class LoadAdminPageController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        httpWrapper.getRequest().setAttribute("courses", courseService.getCourses());
+        httpWrapper.getRequest().setAttribute(RequestAttribute.COURSES, courseService.getCourses());
         NavigationService.navigateTo(httpWrapper, "/pages/admin/admin.jsp");
     }
 }

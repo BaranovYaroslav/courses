@@ -1,5 +1,6 @@
 package security;
 
+import constants.RequestAttribute;
 import entities.User;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
@@ -22,8 +23,8 @@ public class ApplicationSecurityContext {
     public ApplicationSecurityContext() {}
 
     public void login(HttpServletRequest request, String login, String password) {
-        User userFromDB = userDao.getUser(login);
-        request.getSession().setAttribute("user", userFromDB.getLogin());
+        User user = userDao.getUser(login);
+        request.getSession().setAttribute(RequestAttribute.USER, user.getLogin());
     }
 
     public void logout(HttpServletRequest request) {

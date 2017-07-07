@@ -1,6 +1,7 @@
 package controller;
 
 import constants.ApplicationConstants;
+import constants.RequestAttribute;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -8,7 +9,7 @@ import dispatcher.HttpWrapper;
 import entities.Role;
 import entities.User;
 import org.apache.log4j.Logger;
-import security.UserRoles;
+import security.UserRole;
 import service.NavigationService;
 import service.ServiceLoader;
 import service.UserService;
@@ -62,10 +63,10 @@ public class NewProfessorController implements Controller {
         String fullName = request.getParameter("fullName");
         String email = request.getParameter("email");
 
-        request.setAttribute("previousLogin", login);
-        request.setAttribute("previousName", fullName);
-        request.setAttribute("previousEmail", email);
-        request.setAttribute("message", message);
+        request.setAttribute(RequestAttribute.PREVIOUS_LOGIN, login);
+        request.setAttribute(RequestAttribute.PREVIOUS_FULL_NAME, fullName);
+        request.setAttribute(RequestAttribute.PREVIOUS_EMAIL, email);
+        request.setAttribute(RequestAttribute.MESSAGE, message);
 
         NavigationService.navigateTo(httpWrapper, "/app/admin/new-professor");
     }
@@ -77,7 +78,7 @@ public class NewProfessorController implements Controller {
                .setFullName(request.getParameter("fullName"))
                .setEmail(request.getParameter("email"))
                .setPassword(EncodingProvider.encode(request.getParameter("password")))
-               .setRole(new Role(UserRoles.PROFESSOR)) ;
+               .setRole(new Role(UserRole.PROFESSOR)) ;
 
         return builder.build();
     }
