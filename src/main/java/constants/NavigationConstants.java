@@ -20,7 +20,6 @@ public interface NavigationConstants {
     String STUDENT_FEEDBACKS_PAGE = "/pages/student/student-feedbacks.jsp";
     String USERS_LIST_PAGE = "/pages/admin/users-list.jsp";
 
-
     String ADMIN_ROOT_URL = "/app/admin";
     String STUDENT_ROOT_URL = "/app/student";
     String LOGIN_URL = "/app/login";
