@@ -17,7 +17,7 @@ public class LoadStudentCoursesPageController implements Controller {
 
     @Override
     public void execute(HttpWrapper reqService) {
-        String login = (String) reqService.getRequest().getSession().getAttribute("user");
+        String login = (String) reqService.getRequest().getSession().getAttribute(RequestAttribute.USER);
         reqService.getRequest().setAttribute(RequestAttribute.COURSES, courseService.getCoursesForStudent(login));
         NavigationService.navigateTo(reqService, "/pages/student/student-courses.jsp");
     }

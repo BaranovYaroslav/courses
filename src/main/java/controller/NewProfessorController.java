@@ -2,6 +2,7 @@ package controller;
 
 import constants.ApplicationConstants;
 import constants.RequestAttribute;
+import constants.RequestParameter;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -28,7 +29,7 @@ public class NewProfessorController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        String login = httpWrapper.getRequest().getParameter("login");
+        String login = httpWrapper.getRequest().getParameter(RequestParameter.LOGIN);
 
         if(validateInputData(httpWrapper)) {
             if (userService.getUserByLogin(login) == null) {
@@ -46,10 +47,10 @@ public class NewProfessorController implements Controller {
     private boolean validateInputData(HttpWrapper httpWrapper) {
         HttpServletRequest request = httpWrapper.getRequest();
 
-        String login = request.getParameter("login");
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String login = request.getParameter(RequestParameter.LOGIN);
+        String fullName = request.getParameter(RequestParameter.FULL_NAME);
+        String email = request.getParameter(RequestParameter.EMAIL);
+        String password = request.getParameter(RequestParameter.PASSWORD);
 
         return login.matches(ValidationConstants.LOGIN_REGEX) &&
                fullName.matches(ValidationConstants.NAME_REGEX) &&
@@ -59,9 +60,9 @@ public class NewProfessorController implements Controller {
 
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
         HttpServletRequest request = httpWrapper.getRequest();
-        String login = request.getParameter("login");
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
+        String login = request.getParameter(RequestParameter.LOGIN);
+        String fullName = request.getParameter(RequestParameter.FULL_NAME);
+        String email = request.getParameter(RequestParameter.EMAIL);
 
         request.setAttribute(RequestAttribute.PREVIOUS_LOGIN, login);
         request.setAttribute(RequestAttribute.PREVIOUS_FULL_NAME, fullName);
@@ -74,10 +75,10 @@ public class NewProfessorController implements Controller {
     private User constructProfessor(HttpServletRequest request) {
         User.Builder builder = User.newBuilder();
 
-        builder.setLogin(request.getParameter("login"))
-               .setFullName(request.getParameter("fullName"))
-               .setEmail(request.getParameter("email"))
-               .setPassword(EncodingProvider.encode(request.getParameter("password")))
+        builder.setLogin(request.getParameter(RequestParameter.LOGIN))
+               .setFullName(request.getParameter(RequestParameter.FULL_NAME))
+               .setEmail(request.getParameter(RequestParameter.EMAIL))
+               .setPassword(EncodingProvider.encode(request.getParameter(RequestParameter.PASSWORD)))
                .setRole(new Role(UserRole.PROFESSOR)) ;
 
         return builder.build();

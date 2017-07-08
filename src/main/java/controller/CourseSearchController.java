@@ -2,6 +2,7 @@ package controller;
 
 import constants.ControllerConstants;
 import constants.RequestAttribute;
+import constants.RequestParameter;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -34,11 +35,11 @@ public class CourseSearchController implements Controller {
 
 
     private boolean validateInputData(HttpWrapper httpWrapper) {
-        String type = httpWrapper.getRequest().getParameter("type");
-        String location = httpWrapper.getRequest().getParameter("location");
-        String min = httpWrapper.getRequest().getParameter("minPrice");
-        String max = httpWrapper.getRequest().getParameter("maxPrice");
-        String onlyFree = httpWrapper.getRequest().getParameter("onlyFree");
+        String type = httpWrapper.getRequest().getParameter(RequestParameter.TYPE);
+        String location = httpWrapper.getRequest().getParameter(RequestParameter.LOCATION);
+        String min = httpWrapper.getRequest().getParameter(RequestParameter.MIN_COURSE_PRICE);
+        String max = httpWrapper.getRequest().getParameter(RequestParameter.MAX_COURSE_PRICE);
+        String onlyFree = httpWrapper.getRequest().getParameter(RequestParameter.ONLY_FREE_COURSES);
 
         return (type.length() == 0 || type.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX)) &&
                (location.length() == 0 || location.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX)) &&
@@ -50,11 +51,11 @@ public class CourseSearchController implements Controller {
     private CourseSearchParameters constructSearchParametersFromRequest(HttpWrapper httpWrapper) {
         CourseSearchParameters parameters = new CourseSearchParameters();
 
-        String type = httpWrapper.getRequest().getParameter("type");
-        String location = httpWrapper.getRequest().getParameter("location");
-        String min = httpWrapper.getRequest().getParameter("minPrice");
-        String max = httpWrapper.getRequest().getParameter("maxPrice");
-        String onlyFree = httpWrapper.getRequest().getParameter("onlyFree");
+        String type = httpWrapper.getRequest().getParameter(RequestParameter.TYPE);
+        String location = httpWrapper.getRequest().getParameter(RequestParameter.LOCATION);
+        String min = httpWrapper.getRequest().getParameter(RequestParameter.MIN_COURSE_PRICE);
+        String max = httpWrapper.getRequest().getParameter(RequestParameter.MAX_COURSE_PRICE);
+        String onlyFree = httpWrapper.getRequest().getParameter(RequestParameter.ONLY_FREE_COURSES);
 
         parameters.setType(type)
                   .setLocation(location)

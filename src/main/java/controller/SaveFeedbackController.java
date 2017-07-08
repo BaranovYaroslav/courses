@@ -2,6 +2,7 @@ package controller;
 
 import constants.ApplicationConstants;
 import constants.RequestAttribute;
+import constants.RequestParameter;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -22,7 +23,7 @@ public class SaveFeedbackController implements Controller {
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
-            int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter("courseId"));
+            int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.COURSE_ID));
             feedbackService.updateFeedback(extractFeedback(httpWrapper.getRequest()));
             NavigationService.redirectTo(httpWrapper, "/app/professor/feedbacks?id=" + courseId);
         } else {
@@ -34,9 +35,9 @@ public class SaveFeedbackController implements Controller {
     private boolean validateInputData(HttpWrapper httpWrapper) {
         HttpServletRequest request = httpWrapper.getRequest();
 
-        String id = request.getParameter("id");
-        String score = request.getParameter("score");
-        String comment = request.getParameter("comment");
+        String id = request.getParameter(RequestParameter.ID);
+        String score = request.getParameter(RequestParameter.SCORE);
+        String comment = request.getParameter(RequestParameter.COMMENT);
 
         return id.matches(ValidationConstants.INTEGER_GREATER_THAN_ZERO_REGEX) &&
                score.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
@@ -46,15 +47,15 @@ public class SaveFeedbackController implements Controller {
     private Feedback extractFeedback(HttpServletRequest request) {
         Feedback.Builder builder = Feedback.newBuilder();
 
-        builder.setId(Integer.parseInt(request.getParameter("id")))
-               .setScore(Double.parseDouble(request.getParameter("score")))
-               .setComment(request.getParameter("comment"));
+        builder.setId(Integer.parseInt(request.getParameter(RequestParameter.ID)))
+               .setScore(Double.parseDouble(request.getParameter(RequestParameter.SCORE)))
+               .setComment(request.getParameter(RequestParameter.COMMENT));
 
         return builder.build();
     }
 
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
-        String id = httpWrapper.getRequest().getParameter("id");
+        String id = httpWrapper.getRequest().getParameter(RequestParameter.ID);
         httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, message);
         NavigationService.navigateTo(httpWrapper, "/app/professor/feedback?id=" + id);
     }

@@ -1,6 +1,7 @@
 package controller;
 
 import constants.RequestAttribute;
+import constants.RequestParameter;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
@@ -24,7 +25,7 @@ public class UnregisterStudentController implements Controller {
     @Override
     public void execute(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute(RequestAttribute.USER);
-        int courseId = Integer.parseInt(reqService.getRequest().getParameter("courseId"));
+        int courseId = Integer.parseInt(reqService.getRequest().getParameter(RequestParameter.COURSE_ID));
 
         Course course = courseService.getCourse(courseId);
         User user = userService.getUserByLogin(login);

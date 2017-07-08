@@ -1,9 +1,6 @@
 package controller;
 
-import constants.ApplicationConstants;
-import constants.ControllerConstants;
-import constants.RequestAttribute;
-import constants.ValidationConstants;
+import constants.*;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
@@ -33,7 +30,7 @@ public class UpdateCourseController implements Controller {
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
-            if(userService.userHasRole(httpWrapper.getRequest().getParameter("professor"), UserRole.PROFESSOR)) {
+            if(userService.userHasRole(httpWrapper.getRequest().getParameter(RequestParameter.PROFESSOR_LOGIN), UserRole.PROFESSOR)) {
                 Course course = constructCourse(httpWrapper.getRequest());
                 courseService.updateCourse(course);
                 NavigationService.redirectTo(httpWrapper, "/app/admin");
@@ -50,24 +47,24 @@ public class UpdateCourseController implements Controller {
         Course.Builder builder = Course.newBuilder();
 
         Location.Builder locationBuilder = Location.newBuilder();
-        locationBuilder.setCity(request.getParameter("city"))
-                .setAddress(request.getParameter("address"))
-                .setXCoordinate(Double.parseDouble(request.getParameter("x")))
-                .setYCoordinate(Double.parseDouble(request.getParameter("y")));
+        locationBuilder.setCity(request.getParameter(RequestParameter.CITY))
+                .setAddress(request.getParameter(RequestParameter.ADDRESS))
+                .setXCoordinate(Double.parseDouble(request.getParameter(RequestParameter.X_COORDINATE)))
+                .setYCoordinate(Double.parseDouble(request.getParameter(RequestParameter.Y_COORDINATE)));
 
-        User professor = userService.getUserByLogin(request.getParameter("professor"));
+        User professor = userService.getUserByLogin(request.getParameter(RequestParameter.PROFESSOR_LOGIN));
 
-        builder.setId(Integer.parseInt(request.getParameter("id")))
-               .setName(request.getParameter("name"))
-               .setDescription(request.getParameter("description"))
-               .setStartDate(request.getParameter("startDate"))
-               .setEndDate(request.getParameter("endDate"))
-               .setNumberOfStudents(Integer.parseInt(request.getParameter("students")))
-               .setPrice(Double.parseDouble(request.getParameter("price")))
-               .setFree(request.getParameter("isFree") != null)
+        builder.setId(Integer.parseInt(request.getParameter(RequestParameter.ID)))
+               .setName(request.getParameter(RequestParameter.COURSE_NAME))
+               .setDescription(request.getParameter(RequestParameter.DESCRIPTION))
+               .setStartDate(request.getParameter(RequestParameter.START_DATE))
+               .setEndDate(request.getParameter(RequestParameter.END_DATE))
+               .setNumberOfStudents(Integer.parseInt(request.getParameter(RequestParameter.STUDENTS_NUMBER)))
+               .setPrice(Double.parseDouble(request.getParameter(RequestParameter.PRICE)))
+               .setFree(request.getParameter(RequestParameter.IS_FREE) != null)
                .setProfessor(professor)
                .setLocation(locationBuilder.build())
-               .setType(CourseType.valueOf(request.getParameter("type").toUpperCase()));;
+               .setType(CourseType.valueOf(request.getParameter(RequestParameter.TYPE).toUpperCase()));
 
         return builder.build();
     }
@@ -75,20 +72,20 @@ public class UpdateCourseController implements Controller {
     private boolean validateInputData(HttpWrapper httpWrapper) {
         HttpServletRequest request = httpWrapper.getRequest();
 
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String city = request.getParameter("city");
-        String address = request.getParameter("address");
-        String x = request.getParameter("x");
-        String y = request.getParameter("y");
-        String numberOfStudents = request.getParameter("students");
-        String price = request.getParameter("price");
-        String isFree = request.getParameter("isFree");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        String professorLogin = request.getParameter("professor");
-        String type = request.getParameter("type");
+        String id = request.getParameter(RequestParameter.ID);
+        String name = request.getParameter(RequestParameter.COURSE_NAME);
+        String description = request.getParameter(RequestParameter.DESCRIPTION);
+        String city = request.getParameter(RequestParameter.CITY);
+        String address = request.getParameter(RequestParameter.ADDRESS);
+        String x = request.getParameter(RequestParameter.X_COORDINATE);
+        String y = request.getParameter(RequestParameter.Y_COORDINATE);
+        String numberOfStudents = request.getParameter(RequestParameter.STUDENTS_NUMBER);
+        String price = request.getParameter(RequestParameter.PRICE);
+        String isFree = request.getParameter(RequestParameter.IS_FREE);
+        String startDate = request.getParameter(RequestParameter.START_DATE);
+        String endDate = request.getParameter(RequestParameter.END_DATE);
+        String professorLogin = request.getParameter(RequestParameter.PROFESSOR_LOGIN);
+        String type = request.getParameter(RequestParameter.TYPE);
 
         return id.matches(ValidationConstants.INTEGER_GREATER_THAN_ZERO_REGEX) &&
                name.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
@@ -108,23 +105,23 @@ public class UpdateCourseController implements Controller {
 
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
         HttpServletRequest request = httpWrapper.getRequest();
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String city = request.getParameter("city");
-        String address = request.getParameter("address");
-        String numberOfStudents = request.getParameter("students");
-        String price = request.getParameter("price");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        String professorLogin = request.getParameter("professor");
-        String isFree = request.getParameter("isFree") == null ? "false" : "true" ;
-        String x = request.getParameter("x");
-        String y = request.getParameter("y");
-        String type = request.getParameter("type");
+        String id = request.getParameter(RequestParameter.ID);
+        String name = request.getParameter(RequestParameter.COURSE_NAME);
+        String description = request.getParameter(RequestParameter.DESCRIPTION);
+        String city = request.getParameter(RequestParameter.CITY);
+        String address = request.getParameter(RequestParameter.ADDRESS);
+        String numberOfStudents = request.getParameter(RequestParameter.STUDENTS_NUMBER);
+        String price = request.getParameter(RequestParameter.PRICE);
+        String startDate = request.getParameter(RequestParameter.START_DATE);
+        String endDate = request.getParameter(RequestParameter.END_DATE);
+        String professorLogin = request.getParameter(RequestParameter.PROFESSOR_LOGIN);
+        String isFree = request.getParameter(RequestParameter.IS_FREE) == null ? "false" : "true" ;
+        String x = request.getParameter(RequestParameter.X_COORDINATE);
+        String y = request.getParameter(RequestParameter.Y_COORDINATE);
+        String type = request.getParameter(RequestParameter.TYPE);
 
         request.setAttribute(RequestAttribute.ID, id);
-        request.setAttribute(RequestAttribute.PREVIOUS_NAME, name);
+        request.setAttribute(RequestAttribute.PREVIOUS_COURSE_NAME, name);
         request.setAttribute(RequestAttribute.PREVIOUS_DESCRIPTION, description);
         request.setAttribute(RequestAttribute.PREVIOUS_CITY, city);
         request.setAttribute(RequestAttribute.PREVIOUS_ADDRESS, address);

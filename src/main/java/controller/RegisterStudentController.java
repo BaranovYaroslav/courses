@@ -2,6 +2,7 @@ package controller;
 
 
 import constants.RequestAttribute;
+import constants.RequestParameter;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
@@ -22,7 +23,7 @@ public class RegisterStudentController implements Controller{
     @Override
     public void execute(HttpWrapper httpWrapper) {
         String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
-        int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter("courseId"));
+        int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.COURSE_ID));
 
         Course course = courseService.getCourse(courseId);
         User user = userService.getUserByLogin(login);

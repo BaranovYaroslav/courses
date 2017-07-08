@@ -2,6 +2,7 @@ package controller;
 
 import constants.ApplicationConstants;
 import constants.RequestAttribute;
+import constants.RequestParameter;
 import constants.ValidationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -22,8 +23,8 @@ public class LoginController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        String login = httpWrapper.getRequest().getParameter("login");
-        String password = httpWrapper.getRequest().getParameter("password");
+        String login = httpWrapper.getRequest().getParameter(RequestParameter.LOGIN);
+        String password = httpWrapper.getRequest().getParameter(RequestParameter.PASSWORD);
 
         if(validateInputData(login, password)) {
             if(!authenticationService.checkLoginWithPassword(login, password)) {

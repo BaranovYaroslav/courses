@@ -1,5 +1,6 @@
 package controller;
 
+import constants.RequestParameter;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
@@ -19,7 +20,7 @@ public class DeleteCourseController implements Controller {
 
     @Override
     public void execute(HttpWrapper reqService) {
-        Integer id = Integer.parseInt(reqService.getRequest().getParameter("id"));
+        Integer id = Integer.parseInt(reqService.getRequest().getParameter(RequestParameter.ID));
         courseService.deleteCourse(id);
         NavigationService.redirectTo(reqService, "/app/admin");
     }

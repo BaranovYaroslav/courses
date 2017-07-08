@@ -9,13 +9,8 @@ import org.apache.log4j.Logger;
 import service.CourseService;
 import service.NavigationService;
 import service.ServiceLoader;
-import service.impl.CourseServiceImpl;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Collections;
 
 public class LoadEditCoursePageController implements Controller {
 
@@ -34,7 +29,7 @@ public class LoadEditCoursePageController implements Controller {
         HttpServletRequest request = httpWrapper.getRequest();
 
         request.setAttribute(RequestAttribute.ID, course.getId());
-        request.setAttribute(RequestAttribute.PREVIOUS_NAME, course.getName());
+        request.setAttribute(RequestAttribute.PREVIOUS_COURSE_NAME, course.getName());
         request.setAttribute(RequestAttribute.PREVIOUS_DESCRIPTION, course.getDescription());
         request.setAttribute(RequestAttribute.PREVIOUS_CITY, course.getLocation().getCity());
         request.setAttribute(RequestAttribute.PREVIOUS_ADDRESS, course.getLocation().getAddress());
