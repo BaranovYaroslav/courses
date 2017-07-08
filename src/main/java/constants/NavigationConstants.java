@@ -24,8 +24,6 @@ public interface NavigationConstants {
     String ADMIN_ROOT_URL = "/app/admin";
     String STUDENT_ROOT_URL = "/app/student";
     String LOGIN_URL = "/app/login";
-    String NEW_COURSE_URL = "/app/admin/new-course";
-    String NEW_PROFESSOR_URL = "/app/admin/new-professor";
     String STUDENT_REGISTRATION_URL = "/app/registration";
     String FEEDBACKS_FOR_COURSE_URL = "/app/professor/feedbacks?id=";
     String FEEDBACK_URL = "/app/professor/feedback?id=";

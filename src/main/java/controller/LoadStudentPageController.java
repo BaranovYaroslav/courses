@@ -24,7 +24,7 @@ public class LoadStudentPageController implements Controller {
     @Override
     public void execute(HttpWrapper httpWrapper) {
         String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
-        httpWrapper.getRequest().setAttribute(RequestAttribute.MAX_COURSE_PRICE,
+        httpWrapper.getRequest().setAttribute(RequestAttribute.COURSES_FOR_REGISTRATION,
                                              studentService.getCoursesForRegistration(userService.getUserByLogin(login)));
         httpWrapper.getRequest().setAttribute(RequestAttribute.TYPES, CourseType.values());
         httpWrapper.getRequest().setAttribute(RequestAttribute.LOCATIONS, courseService.getDistinctCourseLocations());

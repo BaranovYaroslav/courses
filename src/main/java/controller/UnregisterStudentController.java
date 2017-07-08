@@ -6,10 +6,7 @@ import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
 import entities.User;
-import service.CourseService;
-import service.NavigationService;
-import service.ServiceLoader;
-import service.UserService;
+import service.*;
 import service.impl.CourseServiceImpl;
 import service.impl.UserServiceImpl;
 
@@ -22,6 +19,8 @@ public class UnregisterStudentController implements Controller {
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
+    private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+
     @Override
     public void execute(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute(RequestAttribute.USER);
@@ -31,5 +30,6 @@ public class UnregisterStudentController implements Controller {
         User user = userService.getUserByLogin(login);
 
         courseService.unregisterUser(course, user);
+        feedbackService.deleteFeedback(course.getId(), user.getId());
     }
 }

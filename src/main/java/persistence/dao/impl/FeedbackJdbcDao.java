@@ -105,6 +105,11 @@ public class FeedbackJdbcDao implements FeedbackDao {
         jdbcTemplate.update("DELETE FROM `feedback` WHERE `course_id`=?;", courseId);
     }
 
+    @Override
+    public void deleteByCourseAndStudentId(int courseId, int studentId) {
+        jdbcTemplate.update("DELETE FROM `feedback` WHERE `course_id`=? AND `user_id`=?;", courseId, studentId);
+    }
+
     private boolean isGraded(Feedback feedback){
         return ((feedback.getScore() != 0) && (feedback.getComment().length() > 0));
     }

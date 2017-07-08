@@ -132,6 +132,6 @@ public class NewCourseController implements Controller {
         request.setAttribute(RequestAttribute.PREVIOUS_TYPE, type);
         request.setAttribute(RequestAttribute.MESSAGE, message);
 
-        NavigationService.navigateTo(httpWrapper, NavigationConstants.NEW_COURSE_URL);
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.NEW_COURSE_PAGE);
     }
 }

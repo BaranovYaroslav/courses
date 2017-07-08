@@ -14,4 +14,6 @@ public interface FeedbackService {
     public void updateFeedback(Feedback feedback);
 
     public List<Feedback> getFeedbacksForStudent(String login);
+
+    public void deleteFeedback(int courseId, int studentId);
 }

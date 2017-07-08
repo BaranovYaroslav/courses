@@ -49,6 +49,12 @@ public class NewProfessorController implements Controller {
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
 
+        LOGGER.error(login + " " + fullName + " " + email + " " + password);
+        LOGGER.error(login.matches(ValidationConstants.LOGIN_REGEX) + " " +
+                fullName.matches(ValidationConstants.NAME_REGEX) + " " +
+                email.matches(ValidationConstants.EMAIL_REGEX)  + " " +
+                password.matches(ValidationConstants.PASSWORD_REGEX));
+
         return login.matches(ValidationConstants.LOGIN_REGEX) &&
                fullName.matches(ValidationConstants.NAME_REGEX) &&
                email.matches(ValidationConstants.EMAIL_REGEX) &&
@@ -66,7 +72,7 @@ public class NewProfessorController implements Controller {
         request.setAttribute(RequestAttribute.PREVIOUS_EMAIL, email);
         request.setAttribute(RequestAttribute.MESSAGE, message);
 
-        NavigationService.navigateTo(httpWrapper, NavigationConstants.NEW_PROFESSOR_URL);
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.NEW_PROFESSOR_PAGE);
     }
 
     private User constructProfessor(HttpServletRequest request) {

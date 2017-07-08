@@ -34,4 +34,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     public List<Feedback> getFeedbacksForStudent(String login) {
         return feedbackDao.getFeedBacksForStudentByLogin(login);
     }
+
+    @Override
+    public void deleteFeedback(int courseId, int studentId) {
+        feedbackDao.deleteByCourseAndStudentId(courseId, studentId);
+    }
 }
