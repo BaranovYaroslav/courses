@@ -1,6 +1,6 @@
 package dispatcher;
 
-import constants.MessagesConstants;
+import constants.Messages;
 import controller.*;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
@@ -118,7 +118,7 @@ public class DispatcherServlet extends HttpServlet {
             entry.executeController(httpWrapper);
         }
         else {
-            NotificationService.notify(httpWrapper, MessagesConstants.MESSAGE_404);
+            NotificationService.notify(httpWrapper, Messages.MESSAGE_404);
         }
     }
 

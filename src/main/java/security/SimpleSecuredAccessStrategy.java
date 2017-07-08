@@ -1,7 +1,7 @@
 package security;
 
 import constants.ApplicationConstants;
-import constants.MessagesConstants;
+import constants.Messages;
 import dispatcher.HttpWrapper;
 import service.NavigationService;
 
@@ -49,7 +49,7 @@ public class SimpleSecuredAccessStrategy implements SecuredAccessStrategy {
                     NavigationService.navigateTo(httpWrapper, ApplicationConstants.URL_FOR_LOGIN);
                 }
                 else {
-                    NotificationService.notify(httpWrapper, MessagesConstants.MESSAGE_403);
+                    NotificationService.notify(httpWrapper, Messages.MESSAGE_403);
                 }
             }
         }

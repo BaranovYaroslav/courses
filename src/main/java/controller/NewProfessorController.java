@@ -1,9 +1,6 @@
 package controller;
 
-import constants.ApplicationConstants;
-import constants.RequestAttribute;
-import constants.RequestParameter;
-import constants.ValidationConstants;
+import constants.*;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 
@@ -37,7 +34,7 @@ public class NewProfessorController implements Controller {
                 userService.addUser(user);
                 NavigationService.redirectTo(httpWrapper, "/app/admin");
             } else {
-                returnToPreviousPage(httpWrapper, "Selected login already in use!");
+                returnToPreviousPage(httpWrapper, Messages.ON_LOGIN_OCCUPIED_MESSAGE);
             }
         } else {
             returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);

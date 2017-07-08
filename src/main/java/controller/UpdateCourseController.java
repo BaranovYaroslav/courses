@@ -36,7 +36,7 @@ public class UpdateCourseController implements Controller {
                 NavigationService.redirectTo(httpWrapper, "/app/admin");
             }
             else {
-                returnToPreviousPage(httpWrapper, "There is no professor with such login. Check users list.");
+                returnToPreviousPage(httpWrapper, Messages.INCORRECT_PROFESSOR_LOGIN_MESSAGE);
             }
         } else {
             returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);

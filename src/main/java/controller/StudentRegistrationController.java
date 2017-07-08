@@ -1,9 +1,6 @@
 package controller;
 
-import constants.ApplicationConstants;
-import constants.RequestAttribute;
-import constants.RequestParameter;
-import constants.ValidationConstants;
+import constants.*;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Role;
@@ -38,7 +35,7 @@ public class StudentRegistrationController implements Controller {
                 userService.addUser(student);
                 NavigationService.redirectTo(httpWrapper, ApplicationConstants.BASE_APPLICATION_URL);
             } else {
-                returnToPreviousPage(httpWrapper, "Selected login already in use!");
+                returnToPreviousPage(httpWrapper, Messages.ON_LOGIN_OCCUPIED_MESSAGE);
             }
         }
         else {

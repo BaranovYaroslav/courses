@@ -1,5 +1,6 @@
 package service.impl;
 
+import constants.Messages;
 import constants.RequestAttribute;
 import dispatcher.HttpWrapper;
 import entities.User;
@@ -60,7 +61,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     public void processIncorrectLogin(HttpWrapper httpWrapper, String login) {
-        httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, "Incorrect login or password");
+        httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, Messages.ON_INCORRECT_LOGIN_MESSAGE);
         httpWrapper.getRequest().setAttribute(RequestAttribute.PREVIOUS_LOGIN, login);
         NavigationService.navigateTo(httpWrapper, "/app/login");
     }
