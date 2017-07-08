@@ -1,9 +1,6 @@
 package controller;
 
-import constants.ApplicationConstants;
-import constants.RequestAttribute;
-import constants.RequestParameter;
-import constants.ValidationConstants;
+import constants.*;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Feedback;
@@ -25,7 +22,7 @@ public class SaveFeedbackController implements Controller {
         if(validateInputData(httpWrapper)) {
             int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.COURSE_ID));
             feedbackService.updateFeedback(extractFeedback(httpWrapper.getRequest()));
-            NavigationService.redirectTo(httpWrapper, "/app/professor/feedbacks?id=" + courseId);
+            NavigationService.redirectTo(httpWrapper, NavigationConstants.FEEDBACKS_FOR_COURSE_URL + courseId);
         } else {
             returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
         }
@@ -57,6 +54,6 @@ public class SaveFeedbackController implements Controller {
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
         String id = httpWrapper.getRequest().getParameter(RequestParameter.ID);
         httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, message);
-        NavigationService.navigateTo(httpWrapper, "/app/professor/feedback?id=" + id);
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.FEEDBACK_URL + id);
     }
 }

@@ -32,7 +32,7 @@ public class NewProfessorController implements Controller {
             if (userService.getUserByLogin(login) == null) {
                 User user = constructProfessor(httpWrapper.getRequest());
                 userService.addUser(user);
-                NavigationService.redirectTo(httpWrapper, "/app/admin");
+                NavigationService.redirectTo(httpWrapper, NavigationConstants.ADMIN_ROOT_URL);
             } else {
                 returnToPreviousPage(httpWrapper, Messages.ON_LOGIN_OCCUPIED_MESSAGE);
             }
@@ -66,7 +66,7 @@ public class NewProfessorController implements Controller {
         request.setAttribute(RequestAttribute.PREVIOUS_EMAIL, email);
         request.setAttribute(RequestAttribute.MESSAGE, message);
 
-        NavigationService.navigateTo(httpWrapper, "/app/admin/new-professor");
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.NEW_PROFESSOR_URL);
     }
 
     private User constructProfessor(HttpServletRequest request) {

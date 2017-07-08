@@ -13,24 +13,7 @@ public class StaticResourceFilter implements Filter {
 
     private static Logger LOGGER = Logger.getLogger(UserDao.class);
 
-    private String resourcePath = "/resources/";
-
-    private String pagePath = "/pages/";
-
-    private String forwardPath = "/app";
-
-
     public StaticResourceFilter() {
-    }
-
-    public StaticResourceFilter(String resourcePath, String pagePath, String forwardPath) {
-        this.resourcePath = resourcePath;
-        this.pagePath = pagePath;
-        this.forwardPath = forwardPath;
-    }
-
-    public StaticResourceFilter(String forwardPath) {
-        this.forwardPath = forwardPath;
     }
 
     @Override

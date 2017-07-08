@@ -1,5 +1,6 @@
 package controller;
 
+import constants.NavigationConstants;
 import constants.RequestAttribute;
 import constants.RequestParameter;
 import dispatcher.Controller;
@@ -19,6 +20,6 @@ public class LoadFeedbackPageController implements Controller {
     public void execute(HttpWrapper reqService) {
         int id = Integer.parseInt(reqService.getRequest().getParameter(RequestParameter.ID));
         reqService.getRequest().setAttribute(RequestAttribute.FEEDBACK, feedbackService.getFeedback(id));
-        NavigationService.navigateTo(reqService, "/pages/professor/feedback.jsp");
+        NavigationService.navigateTo(reqService, NavigationConstants.EDIT_FEEDBACK_PAGE);
     }
 }

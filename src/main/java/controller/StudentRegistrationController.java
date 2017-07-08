@@ -78,6 +78,6 @@ public class StudentRegistrationController implements Controller {
         request.setAttribute(RequestAttribute.PREVIOUS_EMAIL, email);
         request.setAttribute(RequestAttribute.MESSAGE, message);
 
-        NavigationService.navigateTo(httpWrapper, "/app/registration");
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.STUDENT_REGISTRATION_URL);
     }
 }

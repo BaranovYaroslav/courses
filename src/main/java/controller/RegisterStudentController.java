@@ -1,6 +1,7 @@
 package controller;
 
 
+import constants.NavigationConstants;
 import constants.RequestAttribute;
 import constants.RequestParameter;
 import dispatcher.Controller;
@@ -30,6 +31,6 @@ public class RegisterStudentController implements Controller{
 
         courseService.registerStudent(course, user);
 
-        NavigationService.redirectTo(httpWrapper, "/app/student");
+        NavigationService.redirectTo(httpWrapper, NavigationConstants.STUDENT_ROOT_URL);
     }
 }

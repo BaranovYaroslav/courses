@@ -1,5 +1,6 @@
 package controller;
 
+import constants.NavigationConstants;
 import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -8,7 +9,6 @@ import service.NavigationService;
 import service.ServiceLoader;
 
 import org.apache.log4j.Logger;
-import service.impl.CourseServiceImpl;
 
 public class LoadAdminPageController implements Controller {
 
@@ -19,6 +19,6 @@ public class LoadAdminPageController implements Controller {
     @Override
     public void execute(HttpWrapper httpWrapper) {
         httpWrapper.getRequest().setAttribute(RequestAttribute.COURSES, courseService.getCourses());
-        NavigationService.navigateTo(httpWrapper, "/pages/admin/admin.jsp");
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.ADMIN_PAGE);
     }
 }

@@ -1,6 +1,8 @@
 package controller;
 
+import constants.NavigationConstants;
 import constants.RequestAttribute;
+import constants.RequestParameter;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
@@ -20,9 +22,9 @@ public class LoadEditCoursePageController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        int id = Integer.parseInt(httpWrapper.getRequest().getParameter("id"));
+        int id = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.ID));
         setAttributesToRequest(httpWrapper, courseService.getCourse(id));
-        NavigationService.navigateTo(httpWrapper, "/pages/admin/edit-course.jsp");
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.EDIT_COURSE_PAGE);
     }
 
     public void setAttributesToRequest(HttpWrapper httpWrapper, Course course) {

@@ -1,9 +1,6 @@
 package controller;
 
-import constants.ControllerConstants;
-import constants.RequestAttribute;
-import constants.RequestParameter;
-import constants.ValidationConstants;
+import constants.*;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.CourseType;
@@ -70,6 +67,6 @@ public class CourseSearchController implements Controller {
         httpWrapper.getRequest().setAttribute(RequestAttribute.TYPES, CourseType.values());
         httpWrapper.getRequest().setAttribute(RequestAttribute.LOCATIONS, courseService.getDistinctCourseLocations());
         httpWrapper.getRequest().setAttribute(RequestAttribute.MAX_COURSE_PRICE, courseService.getMaxPriceOfCourse());
-        NavigationService.navigateTo(httpWrapper, "/pages/student/student.jsp");
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.STUDENT_PAGE);
     }
 }

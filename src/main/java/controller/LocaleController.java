@@ -20,7 +20,6 @@ public class LocaleController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        LOGGER.error("in locale controller");
         String lang = (String) httpWrapper.getRequest().getParameter(RequestParameter.LANGUAGE);
 
         if(lang != null && !lang.isEmpty()) {

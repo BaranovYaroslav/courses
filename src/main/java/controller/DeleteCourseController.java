@@ -1,5 +1,6 @@
 package controller;
 
+import constants.NavigationConstants;
 import constants.RequestParameter;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -22,6 +23,6 @@ public class DeleteCourseController implements Controller {
     public void execute(HttpWrapper reqService) {
         Integer id = Integer.parseInt(reqService.getRequest().getParameter(RequestParameter.ID));
         courseService.deleteCourse(id);
-        NavigationService.redirectTo(reqService, "/app/admin");
+        NavigationService.redirectTo(reqService, NavigationConstants.ADMIN_ROOT_URL);
     }
 }

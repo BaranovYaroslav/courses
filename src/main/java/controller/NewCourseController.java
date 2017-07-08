@@ -33,7 +33,7 @@ public class NewCourseController implements Controller {
             if(userService.userHasRole(httpWrapper.getRequest().getParameter(RequestParameter.PROFESSOR_LOGIN), UserRole.PROFESSOR)) {
                 Course course = constructCourse(httpWrapper.getRequest());
                 courseService.addNewCourse(course);
-                NavigationService.redirectTo(httpWrapper, "/app/admin");
+                NavigationService.redirectTo(httpWrapper, NavigationConstants.ADMIN_ROOT_URL);
             }
             else {
                 returnToPreviousPage(httpWrapper, Messages.INCORRECT_PROFESSOR_LOGIN_MESSAGE);
@@ -132,6 +132,6 @@ public class NewCourseController implements Controller {
         request.setAttribute(RequestAttribute.PREVIOUS_TYPE, type);
         request.setAttribute(RequestAttribute.MESSAGE, message);
 
-        NavigationService.navigateTo(httpWrapper, "/app/admin/new-course");
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.NEW_COURSE_URL);
     }
 }

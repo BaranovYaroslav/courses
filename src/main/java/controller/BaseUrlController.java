@@ -1,5 +1,6 @@
 package controller;
 
+import constants.NavigationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import service.NavigationService;
@@ -11,6 +12,6 @@ public class BaseUrlController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        NavigationService.redirectTo(httpWrapper, "/index.jsp");
+        NavigationService.redirectTo(httpWrapper, NavigationConstants.INDEX_PAGE);
     }
 }

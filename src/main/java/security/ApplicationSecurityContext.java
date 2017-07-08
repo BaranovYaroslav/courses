@@ -40,7 +40,7 @@ public class ApplicationSecurityContext {
     }
 
     public String getCurrentUser(HttpServletRequest request) {
-        return (String) request.getSession().getAttribute("user");
+        return (String) request.getSession().getAttribute(RequestAttribute.USER);
     }
 
     public SecuredAccessStrategy getSecuredAccessStrategy() {

@@ -1,5 +1,6 @@
 package controller;
 
+import constants.NavigationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import service.NavigationService;
@@ -10,6 +11,6 @@ import service.NavigationService;
 public class LoadNewProfessorPageController implements Controller {
     @Override
     public void execute(HttpWrapper reqService) {
-        NavigationService.navigateTo(reqService, "/pages/admin/new-professor.jsp");
+        NavigationService.navigateTo(reqService, NavigationConstants.NEW_PROFESSOR_PAGE);
     }
 }

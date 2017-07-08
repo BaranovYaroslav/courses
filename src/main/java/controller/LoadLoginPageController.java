@@ -1,5 +1,6 @@
 package controller;
 
+import constants.NavigationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
@@ -14,6 +15,6 @@ public class LoadLoginPageController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        NavigationService.navigateTo(httpWrapper, "/pages/login.jsp");
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.LOGIN_PAGE);
     }
 }

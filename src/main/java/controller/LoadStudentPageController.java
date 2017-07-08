@@ -1,5 +1,6 @@
 package controller;
 
+import constants.NavigationConstants;
 import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -28,6 +29,6 @@ public class LoadStudentPageController implements Controller {
         httpWrapper.getRequest().setAttribute(RequestAttribute.TYPES, CourseType.values());
         httpWrapper.getRequest().setAttribute(RequestAttribute.LOCATIONS, courseService.getDistinctCourseLocations());
         httpWrapper.getRequest().setAttribute(RequestAttribute.MAX_COURSE_PRICE, courseService.getMaxPriceOfCourse());
-        NavigationService.navigateTo(httpWrapper, "/pages/student/student.jsp");
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.STUDENT_PAGE);
     }
 }

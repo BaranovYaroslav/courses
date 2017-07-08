@@ -1,5 +1,6 @@
 package controller;
 
+import constants.NavigationConstants;
 import constants.RequestAttribute;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
@@ -19,6 +20,6 @@ public class LoadStudentCoursesPageController implements Controller {
     public void execute(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute(RequestAttribute.USER);
         reqService.getRequest().setAttribute(RequestAttribute.COURSES, courseService.getCoursesForStudent(login));
-        NavigationService.navigateTo(reqService, "/pages/student/student-courses.jsp");
+        NavigationService.navigateTo(reqService, NavigationConstants.STUDENT_COURSES_PAGE);
     }
 }
