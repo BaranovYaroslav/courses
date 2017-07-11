@@ -5,17 +5,17 @@ package entities;
  */
 public class User {
 
-    private int id;
+    protected int id;
 
-    private String login;
+    protected String login;
 
-    private String fullName;
+    protected String fullName;
 
-    private String email;
+    protected String email;
 
-    private String password;
+    protected String password;
 
-    private Role role;
+    protected Role role;
 
     public User() {}
 
@@ -98,7 +98,7 @@ public class User {
 
     public class Builder {
 
-        private Builder() {}
+        protected Builder() {}
 
         public Builder setId(int id) {
             User.this.id = id;

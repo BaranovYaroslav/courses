@@ -10,9 +10,15 @@ public class Professor extends User {
 
     private List<Course> courses;
 
+    public Professor (){}
+
     public Professor(int id, String login, String fullName, String email, String password, Role role) {
         super(id, login, fullName, email, password, role);
         this.courses = new ArrayList<>();
+    }
+
+    public static Builder newBuilder() {
+        return new Professor().new Builder();
     }
 
     public List<Course> getCourses() {

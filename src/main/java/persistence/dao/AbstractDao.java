@@ -16,5 +16,4 @@ public interface AbstractDao<T> {
     public T find(int id);
 
     public List<T> findAll();
-
 }

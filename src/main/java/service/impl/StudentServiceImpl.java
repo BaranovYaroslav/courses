@@ -15,12 +15,9 @@ import java.util.stream.Collectors;
  */
 public class StudentServiceImpl implements StudentService {
 
-    private UserDao userDao;
-
     private CourseDao courseDao;
 
     public StudentServiceImpl(DaoFactory daoFactory) {
-        userDao = daoFactory.getUserDao();
         courseDao = daoFactory.getCourseDao();
     }
 
