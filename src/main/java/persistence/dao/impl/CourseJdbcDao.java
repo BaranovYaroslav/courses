@@ -4,11 +4,10 @@ import entities.*;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
 import persistence.JdbcTemplate;
+import persistence.Query;
 import persistence.dao.CourseDao;
-import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
 import persistence.mappers.CourseMapper;
-import persistence.mappers.StringMapper;
 import persistence.mappers.StudentIndexMapper;
 import persistence.mappers.UserMapper;
 
@@ -36,9 +35,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public int add(Course course) {
-        return jdbcTemplate.insert("INSERT INTO `course` (`name`, `description`, `start_date`, `end_date`, `professor_id`, " +
-                        "`city`, `address`, `x`, `y`, `students_number`, `price`, `is_free`, `type`) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+        return jdbcTemplate.insert(Query.INSERT_COURSE_QUERY,
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
                 course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(),
@@ -47,7 +44,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public void delete(Course course) {
-        jdbcTemplate.update("DELETE FROM `course` WHERE id=?;", course.getId());
+        jdbcTemplate.update(Query.DELETE_COURSE_QUERY, course.getId());
     }
 
     @Override
@@ -57,9 +54,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public int update(Course course) {
-        return jdbcTemplate.update("UPDATE `course` SET `name`=?, `description`=?, `start_date`=?, `end_date`=?, " +
-                        "`professor_id`=?, `city`=?, `address`=?, `x`=?, `y`=?, `students_number`=?, " +
-                        "`price` = ?, `is_free`=?, `type`=? WHERE id=?;",
+        return jdbcTemplate.update(Query.UPDATE_COURSE_QUERY,
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
                 course.getLocation().getXCoordinate(), course.getLocation().getYCoordinate(),
@@ -69,7 +64,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public Course find(int id) {
-        Course course = jdbcTemplate.queryObject("SELECT * FROM `course` WHERE `id`=?;", CourseMapper::map, id);
+        Course course = jdbcTemplate.queryObject(Query.FIND_COURSE_QUERY, CourseMapper::map, id);
 
         if(course != null) {
             setProfessor(course);
@@ -80,7 +75,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public List<Course> findAll() {
-        List<Course> courses = jdbcTemplate.queryObjects("SELECT * FROM `course`", CourseMapper::map);
+        List<Course> courses = jdbcTemplate.queryObjects(Query.FIND_ALL_COURSES_QUERY, CourseMapper::map);
 
         if(courses != null){
             for(Course course: courses) {
@@ -94,15 +89,12 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public void registerStudent(Course course, User user) {
-        jdbcTemplate.insert("INSERT INTO `student_course` (`student_id`, `course_id`) VALUES (?, ?);",
-                            user.getId(), course.getId());
+        jdbcTemplate.insert(Query.REGISTER_STUDENT_QUERY, user.getId(), course.getId());
     }
 
     @Override
     public void unregisterStudent(Course course, User user) {
-        LOGGER.error("gggggggggg " + course.getId() + " " + user.getId());
-        jdbcTemplate.update("DELETE FROM `student_course` WHERE `student_id`=? AND `course_id`=?;",
-                            user.getId(), course.getId());
+        jdbcTemplate.update(Query.UNREGISTER_STUDENT_QUERY, user.getId(), course.getId());
     }
 
     private void setProfessor(Course course) {
@@ -110,16 +102,8 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     private void setStudents(Course course) {
-        List <User> students = new ArrayList<>();
-        List<Integer> studentIndexes = jdbcTemplate.queryObjects("SELECT * FROM `student_course` WHERE course_id=?;",
-                StudentIndexMapper::map, course.getId());
-
-
-        studentIndexes.forEach(studentIndex -> students.add(jdbcTemplate.queryObject("SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
-                                                                                     "FROM `user` " +
-                                                                                     "JOIN `user_group` ON `id`=`user_group`.`user_id`" +
-                                                                                     "WHERE `id`=?;",
-                UserMapper::map, studentIndex)));
+        List<User> students = new ArrayList<>();
+        students = jdbcTemplate.queryObjects(Query.GET_STUDENTS_FOR_COURSE_QUERY, UserMapper::map);
         course.setStudents(students);
     }
 }

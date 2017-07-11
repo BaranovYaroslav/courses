@@ -16,5 +16,5 @@ public interface UserDao extends AbstractDao<User>{
 
     public void addRole(int id, Role role);
 
-    public void unregisterUserFromCourse(int courseId);
+    public void unregisterUsersFromCourse(int courseId);
 }

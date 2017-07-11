@@ -53,7 +53,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(int id) {
         courseDao.delete(id);
-        userDao.unregisterUserFromCourse(id);
+        userDao.unregisterUsersFromCourse(id);
         feedbackDao.deleteFeedbacksByCourseId(id);
     }
 
@@ -111,10 +111,12 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void registerStudent(Course course, User user) {
-        courseDao.registerStudent(course, user);
-        Feedback feedback = createEmptyFeedback(course, user);
-        feedbackDao.add(feedback);
+    public synchronized void registerStudent(Course course, User user) {
+        if(course.getStudents().size() < course.getNumberOfStudents()) {
+            courseDao.registerStudent(course, user);
+            Feedback feedback = createEmptyFeedback(course, user);
+            feedbackDao.add(feedback);
+        }
     }
 
     @Override

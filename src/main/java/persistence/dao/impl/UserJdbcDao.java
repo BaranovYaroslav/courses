@@ -4,6 +4,7 @@ import entities.Role;
 import entities.User;
 import persistence.ConnectionManager;
 import persistence.JdbcTemplate;
+import persistence.Query;
 import persistence.dao.UserDao;
 import org.apache.log4j.Logger;
 import persistence.mappers.RoleMapper;
@@ -30,8 +31,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public int add(User user) {
-        int id = jdbcTemplate.insert("INSERT INTO `user` (`login`, `full_name`, `email`, `password`) " +
-                            "VALUES (?, ?, ?, ?);", user.getLogin(), user.getFullName(),
+        int id = jdbcTemplate.insert(Query.INSERT_USER_QUERY, user.getLogin(), user.getFullName(),
                             user.getEmail(), user.getPassword());
         addRole(id, user.getRole());
         return id;
@@ -39,72 +39,48 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public void delete(User user) {
-
+        jdbcTemplate.update(Query.DELETE_USER_QUERY, user.getId());
     }
 
     @Override
     public int update(User user) {
-        return 0;
+        return jdbcTemplate.update(Query.UPDATE_USER_QUERY, user.getLogin(), user.getFullName(), user.getEmail(),
+                                                            user.getPassword(), user.getId());
     }
 
     @Override
     public User find(int id) {
-        return jdbcTemplate.queryObject("SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
-                                        "FROM `user` " +
-                                        "JOIN `user_group` ON `id`=`user_group`.`user_id` " +
-                                        "WHERE `id`=?;", UserMapper::map, id);
+        return jdbcTemplate.queryObject(Query.FIND_USER_QUERY, UserMapper::map, id);
     }
 
     @Override
     public List<User> findAll() {
-        return jdbcTemplate.queryObjects("SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
-                "FROM `user` " +
-                "JOIN `user_group` ON `id`=`user_group`.`user_id`;", UserMapper::map);
+        return jdbcTemplate.queryObjects(Query.FIND_ALL_USERS_QUERY, UserMapper::map);
     }
 
     @Override
     public User getUser(String login) {
-        return jdbcTemplate.queryObject("SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
-                "FROM `user` " +
-                "JOIN `user_group` ON `id`=`user_group`.`user_id` " +
-                "WHERE `login`=?;", UserMapper::map, login);
+        return jdbcTemplate.queryObject(Query.FIND_USER_BY_LOGIN_QUERY, UserMapper::map, login);
     }
 
     @Override
     public Role getUserRole(int id) {
-        return jdbcTemplate.queryObject("SELECT * FROM `user_group` WHERE user_id=?;", RoleMapper::map, id);
+        return jdbcTemplate.queryObject(Query.GET_USER_ROLE_QUERY, RoleMapper::map, id);
     }
 
     @Override
     public void addRole(int id, Role role) {
-        jdbcTemplate.insert("INSERT INTO `user_group` (`user_id`, `group`) VALUES (?, ?);", id, role.getRole());
+        jdbcTemplate.insert(Query.INSERT_USER_ROLE_QUERY, id, role.getRole());
     }
 
     @Override
     public Role getUserRole(String login) {
         User user = getUser(login);
-        return jdbcTemplate.queryObject("SELECT * FROM `user_group` WHERE user_id=?;", RoleMapper::map, user.getId());
+        return jdbcTemplate.queryObject(Query.GET_USER_ROLE_BY_LOGIN_QUERY, RoleMapper::map, user.getId());
     }
 
     @Override
-    public void unregisterUserFromCourse(int courseId) {
-        jdbcTemplate.update("DELETE FROM `student_course` WHERE `course_id`=?;", courseId);
+    public void unregisterUsersFromCourse(int courseId) {
+        jdbcTemplate.update(Query.UNREGISTER_ALL_STUDENTS_FROM_COURSE_QUERY, courseId);
     }
-
-    public ConnectionManager getConnectionManager() {
-        return connectionManager;
-    }
-
-    public void setConnectionManager(ConnectionManager connectionManager) {
-        this.connectionManager = connectionManager;
-    }
-
-    public JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
-    }
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
 }
