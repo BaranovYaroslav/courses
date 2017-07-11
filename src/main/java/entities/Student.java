@@ -14,12 +14,35 @@ public class Student extends User {
         this.feedbacks = new ArrayList<>();
     }
 
-    public Student(int id, String login, String fullName, String email, String password, Role role) {
-        super(id, login, fullName, email, password, role);
+    public Student(Builder builder) {
+        super(builder);
+        courses = builder.courses;
+        feedbacks = builder.feedbacks;
     }
 
-    public static Student create(User user) {
-        return new Student(user.getId(), user.getLogin(), user.getFullName(), user.getEmail(), user.getPassword(), user.getRole());
+    public static Builder newBuilder(){
+        return new Builder();
+    }
+
+    public static class Builder extends User.Builder<Builder> {
+
+        protected List<Course> courses;
+
+        protected List<Feedback> feedbacks;
+
+        public Builder setCourses(List<Course> courses) {
+            this.courses = courses;
+            return this;
+        }
+
+        public Builder setFeedbacks(List<Feedback> feedbacks) {
+            this.feedbacks = feedbacks;
+            return this;
+        }
+
+        public Student build() {
+            return new Student(this);
+        }
     }
 
     public List<Feedback> getFeedbacks() {

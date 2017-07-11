@@ -1,6 +1,7 @@
 package service.impl;
 
 import constants.ApplicationConstants;
+import entities.User;
 import persistence.dao.CourseDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;

@@ -12,13 +12,13 @@ public class Professor extends User {
 
     public Professor (){}
 
-    public Professor(int id, String login, String fullName, String email, String password, Role role) {
-        super(id, login, fullName, email, password, role);
-        this.courses = new ArrayList<>();
+    public Professor(Builder builder) {
+        super(builder);
+        courses = builder.courses;
     }
 
-    public static Builder newBuilder() {
-        return new Professor().new Builder();
+    public static Builder newBuilder(){
+        return new Builder();
     }
 
     public List<Course> getCourses() {
@@ -28,4 +28,20 @@ public class Professor extends User {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+
+    public static class Builder extends User.Builder<Builder> {
+
+        protected List<Course> courses;
+
+        public Builder setCourses(List<Course> courses) {
+            this.courses = courses;
+            return this;
+        }
+
+        public Professor build() {
+            return new Professor(this);
+        }
+
+    }
+
 }

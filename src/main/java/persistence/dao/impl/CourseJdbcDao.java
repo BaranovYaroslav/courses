@@ -1,9 +1,6 @@
 package persistence.dao.impl;
 
-import entities.Course;
-import entities.Feedback;
-import entities.Student;
-import entities.User;
+import entities.*;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
 import persistence.JdbcTemplate;

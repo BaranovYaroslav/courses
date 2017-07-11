@@ -19,13 +19,13 @@ public class User {
 
     public User() {}
 
-    public User(int id, String login, String fullName, String email, String password, Role role) {
-        this.id = id;
-        this.login = login;
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public User(Builder<?> b) {
+        this.id = b.id;
+        this.login = b.login;
+        this.fullName = b.fullName;
+        this.email = b.email;
+        this.password = b.password;
+        this.role = b.role;
     }
 
     public int getId() {
@@ -53,8 +53,9 @@ public class User {
     }
 
     public static Builder newBuilder() {
-        return new User().new Builder();
+        return new Builder();
     }
+
 
     @Override
     public String toString() {
@@ -96,42 +97,55 @@ public class User {
         return result;
     }
 
-    public class Builder {
+    public static class Builder<B extends Builder<B>> {
 
-        protected Builder() {}
+        protected int id;
 
-        public Builder setId(int id) {
-            User.this.id = id;
-            return this;
+        protected String login;
+
+        protected String fullName;
+
+        protected String email;
+
+        protected String password;
+
+        protected Role role;
+
+        protected Builder() {
         }
 
-        public Builder setLogin(String login) {
-            User.this.login = login;
-            return this;
+        public B setId(int id) {
+            this.id = id;
+            return (B) this;
         }
 
-        public Builder setFullName(String fullName) {
-            User.this.fullName = fullName;
-            return this;
+        public B setLogin(String login) {
+            this.login = login;
+            return (B) this;
         }
 
-        public Builder setEmail(String email) {
-            User.this.email = email;
-            return this;
+        public B setFullName(String fullName) {
+            this.fullName = fullName;
+            return (B) this;
         }
 
-        public Builder setPassword(String password) {
-            User.this.password = password;
-            return this;
+        public B setEmail(String email) {
+            this.email = email;
+            return (B) this;
         }
 
-        public Builder setRole(Role role) {
-            User.this.role = role;
-            return this;
+        public B setPassword(String password) {
+            this.password = password;
+            return (B) this;
+        }
+
+        public B setRole(Role role) {
+            this.role = role;
+            return (B) this;
         }
 
         public User build(){
-            return User.this;
+            return new User(this);
         }
     }
 }

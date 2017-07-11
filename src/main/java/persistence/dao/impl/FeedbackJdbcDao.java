@@ -1,6 +1,7 @@
 package persistence.dao.impl;
 
 import entities.Feedback;
+import entities.Student;
 import entities.User;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;

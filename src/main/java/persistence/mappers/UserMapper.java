@@ -1,7 +1,6 @@
 package persistence.mappers;
 
-import entities.Role;
-import entities.User;
+import entities.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,5 +22,4 @@ public class UserMapper {
 
         return  builder.build();
     }
-
 }

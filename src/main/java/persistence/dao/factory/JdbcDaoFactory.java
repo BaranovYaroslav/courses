@@ -1,5 +1,7 @@
 package persistence.dao.factory;
 
+import entities.Professor;
+import entities.Student;
 import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
