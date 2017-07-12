@@ -40,9 +40,11 @@ public class DispatcherServlet extends HttpServlet {
                             .addMapping(UserRole.PROFESSOR, "/app/professor")
                             .addMapping(UserRole.ADMIN, "/app/admin");
 
-        DaoFactory daoFactory = new JdbcDaoFactory(ConnectionManager.fromJndi("jdbc/courses"));
+        ConnectionManager connectionManager = ConnectionManager.fromJndi("jdbc/courses");
 
-        CourseService courseService = new CourseServiceImpl(daoFactory);
+        DaoFactory daoFactory = new JdbcDaoFactory(connectionManager);
+
+        CourseService courseService = new CourseServiceImpl(daoFactory, connectionManager);
         UserService userService = new UserServiceImpl(daoFactory.getUserDao());
         FeedbackService feedbackService = new FeedbackServiceImpl(daoFactory);
         StudentService studentService = new StudentServiceImpl(daoFactory);
@@ -55,6 +57,7 @@ public class DispatcherServlet extends HttpServlet {
         ServiceLoader.getInstance().loadService(StudentService.class, studentService);
         ServiceLoader.getInstance().loadService(AuthenticationService.class, authenticationService);
         ServiceLoader.getInstance().loadService(InformationService.class, informationService);
+        ServiceLoader.getInstance().loadService(ConnectionManager.class, connectionManager);
 
         httpMatcher = new ArrayList<HttpMatcherEntry>();
 
@@ -114,11 +117,17 @@ public class DispatcherServlet extends HttpServlet {
     private void dispatchRequest(HttpWrapper httpWrapper) {
         HttpMatcherEntry entry = getMatcherEntry(httpWrapper.getRequest().getPathInfo(), httpWrapper.getRequest().getMethod());
 
+
         if(entry != null) {
             entry.executeController(httpWrapper);
         }
         else {
             NotificationService.notify(httpWrapper, Messages.MESSAGE_404);
+        }
+
+        ConnectionManager connectionManager = ServiceLoader.getInstance().getService(ConnectionManager.class);
+        if(connectionManager != null) {
+            connectionManager.clean();
         }
     }
 

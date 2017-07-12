@@ -2,6 +2,7 @@ package persistence;
 
 import org.apache.log4j.Logger;
 import persistence.dao.UserDao;
+import persistence.exeptions.RuntimeSqlException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class JdbcTemplate {
 
-    private static Logger LOGGER = Logger.getLogger(UserDao.class);
+    private static Logger LOGGER = Logger.getLogger(JdbcTemplate.class);
 
     private ConnectionManager connectionManager;
 
@@ -22,7 +23,66 @@ public class JdbcTemplate {
         this.connectionManager = connectionManager;
     }
 
-    public int insert(String query, Object... parameters){
+    public void startTransaction(int txIsolationLevel) {
+        Connection txConnection = connectionManager.getConnection();
+
+        try {
+            txConnection.setAutoCommit(false);
+            txConnection.setTransactionIsolation(txIsolationLevel);
+        } catch (SQLException e) {
+            LOGGER.error("Cannot start transaction. Your application may be data inconsistent", e);
+            throw new RuntimeSqlException(e);
+        } finally {
+            closeConnection(txConnection);
+        }
+    }
+
+    /**
+     * calls {@link #startTransaction(int)} with txIsolationLevel set to
+     * Connection.TRANSACTION_READ_COMMITTED
+     */
+    public void startTransaction() {
+        startTransaction(Connection.TRANSACTION_READ_COMMITTED);
+    }
+
+    /**
+     * Commits the changes made by the underlying connection
+     *
+     * Note, this method should be called only when the DataSource supports single thread
+     * transaction spanning(e.g. DataSourceTxProxy)
+     */
+    public void commit() {
+        Connection conn = connectionManager.getConnection();
+        try {
+            conn.commit();
+            conn.setAutoCommit(true);
+        } catch (SQLException e) {
+            LOGGER.error("Cannot commit");
+            throw new RuntimeSqlException(e);
+        } finally {
+            closeConnection(conn);
+        }
+    }
+
+    /**
+     * Rollbacks the changes made by the underlying connection
+     *
+     * Note, this method should be called only when the DataSource supports single thread
+     * transaction spanning(e.g. DataSourceTxProxy)
+     */
+    public void rollback() {
+        Connection conn = connectionManager.getConnection();
+        try {
+            conn.rollback();
+        } catch (SQLException e) {
+            LOGGER.error("Cannot call rollback", e);
+            throw new RuntimeSqlException(e);
+        } finally {
+            closeConnection(conn);
+        }
+    }
+
+    public int insert(String query, Object... parameters) {
         Connection connection = connectionManager.getConnection();
 
         try {
@@ -41,7 +101,7 @@ public class JdbcTemplate {
             return -1;
         } catch (SQLException e) {
             LOGGER.error("Exception when trying save entity to DB: " + e);
-            return -1;
+            throw new RuntimeSqlException(e);
         } finally {
             closeConnection(connection);
         }

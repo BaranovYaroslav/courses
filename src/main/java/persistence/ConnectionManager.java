@@ -3,6 +3,7 @@ package persistence;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.apache.log4j.Logger;
 import persistence.dao.UserDao;
+import persistence.transaction.DataSourceTxProxy;
 import util.PropertiesLoader;
 
 import javax.naming.Context;
@@ -40,10 +41,21 @@ public class ConnectionManager {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            LOGGER.error(e);
-            e.printStackTrace();
+            LOGGER.error("Cannot create connection to the database", e);
         }
+
         return null;
+    }
+
+    public void clean() {
+        if (dataSource instanceof DataSourceTxProxy) {
+            DataSourceTxProxy txDs = (DataSourceTxProxy) dataSource;
+            txDs.clean();
+        }
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
     }
 
     public static ConnectionManager fromProperties(String path) {
@@ -55,7 +67,9 @@ public class ConnectionManager {
         dataSource.setUser(properties.getProperty("user"));
         dataSource.setPassword(properties.getProperty("password"));
 
-        return new ConnectionManager(dataSource);
+        DataSource txDataSource = new DataSourceTxProxy(dataSource);
+
+        return new ConnectionManager(txDataSource);
     }
 
     public static ConnectionManager fromJndi(String name) {
@@ -63,7 +77,9 @@ public class ConnectionManager {
             Context initialContext = new InitialContext();
             Context envContext = (Context) initialContext.lookup("java:comp/env");
             DataSource dataSource = (DataSource) envContext.lookup(name);
-            return new ConnectionManager(dataSource);
+            DataSource txDataSource = new DataSourceTxProxy(dataSource);
+
+            return new ConnectionManager(txDataSource);
         } catch (NamingException e) {
             LOGGER.error("Can't create jndi context");
             return null;

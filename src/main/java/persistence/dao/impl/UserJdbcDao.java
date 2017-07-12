@@ -7,6 +7,7 @@ import persistence.JdbcTemplate;
 import persistence.Query;
 import persistence.dao.UserDao;
 import org.apache.log4j.Logger;
+import persistence.exeptions.RuntimeSqlException;
 import persistence.mappers.RoleMapper;
 import persistence.mappers.StringMapper;
 import persistence.mappers.UserMapper;

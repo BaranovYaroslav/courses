@@ -4,6 +4,10 @@ import constants.NavigationConstants;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
+import persistence.ConnectionManager;
+import persistence.dao.UserDao;
+import persistence.dao.factory.JdbcDaoFactory;
+import persistence.transaction.Transaction;
 import service.NavigationService;
 
 /**

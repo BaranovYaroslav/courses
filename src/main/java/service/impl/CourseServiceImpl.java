@@ -4,6 +4,7 @@ import entities.Course;
 import entities.Feedback;
 import entities.User;
 import org.apache.log4j.Logger;
+import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
@@ -29,10 +30,13 @@ public class CourseServiceImpl implements CourseService {
 
     private FeedbackDao feedbackDao;
 
-    public CourseServiceImpl(DaoFactory daoFactory) {
+    private ConnectionManager connectionManager;
+
+    public CourseServiceImpl(DaoFactory daoFactory, ConnectionManager connectionManager) {
         userDao = daoFactory.getUserDao();
         courseDao = daoFactory.getCourseDao();
         feedbackDao = daoFactory.getFeedbackDao();
+        this.connectionManager = connectionManager;
     }
 
     @Override
