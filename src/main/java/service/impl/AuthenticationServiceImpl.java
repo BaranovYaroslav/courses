@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import util.EncodingProvider;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 /**
  * Created by Ярослав on 13.04.2017.
@@ -45,19 +46,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public boolean checkLoginWithPassword(String login, String password) {
-        User user = userDao.getUser(login);
-        LOGGER.error(user == null);
+        Optional<User> user = userDao.getUser(login);
 
-        if(user == null) {
+        if(!user.isPresent()) {
             return false;
         }
 
-        return user.getPassword().equals(EncodingProvider.encode(password));
+        return user.get().getPassword().equals(EncodingProvider.encode(password));
     }
 
     public void processCorrectLogin(HttpWrapper httpWrapper, String login) {
         login(httpWrapper.getRequest(), login);
-        String baseUrl = BaseResourceToRoleMapper.getInstance().getBaseUrlForRole(userDao.getUserRole(login).getRole());
+        String baseUrl = BaseResourceToRoleMapper.getInstance().getBaseUrlForRole(userDao.getUserRole(login).get().getRole());
         NavigationService.redirectTo(httpWrapper, baseUrl);
     }
 

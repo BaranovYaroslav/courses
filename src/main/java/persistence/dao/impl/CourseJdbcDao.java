@@ -13,6 +13,7 @@ import persistence.mappers.UserMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Ярослав on 11.04.2017.
@@ -49,7 +50,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public void delete(int id) {
-        delete(find(id));
+        delete(find(id).get());
     }
 
     @Override
@@ -63,12 +64,12 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     @Override
-    public Course find(int id) {
-        Course course = jdbcTemplate.queryObject(Query.FIND_COURSE_QUERY, CourseMapper::map, id);
+    public Optional<Course> find(int id) {
+        Optional<Course> course = Optional.of(jdbcTemplate.queryObject(Query.FIND_COURSE_QUERY, CourseMapper::map, id));
 
-        if(course != null) {
-            setProfessor(course);
-            setStudents(course);
+        if(course.isPresent()) {
+            setProfessor(course.get());
+            setStudents(course.get());
         }
         return course;
     }
@@ -98,7 +99,7 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     private void setProfessor(Course course) {
-        course.setProfessor(userDao.find(course.getProfessor().getId()));
+        course.setProfessor(userDao.find(course.getProfessor().getId()).get());
     }
 
     private void setStudents(Course course) {

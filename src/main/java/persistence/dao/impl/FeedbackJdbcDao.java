@@ -11,7 +11,9 @@ import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
 import persistence.mappers.FeedbackMapper;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -55,10 +57,14 @@ public class FeedbackJdbcDao implements FeedbackDao {
     }
 
     @Override
-    public Feedback find(int id) {
-        Feedback feedback = jdbcTemplate.queryObject(Query.FIND_FEEDBACK_QUERY, FeedbackMapper::map, id);
-        feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
-        feedback.setStudent(userDao.find(feedback.getStudent().getId()));
+    public Optional<Feedback> find(int id) {
+        Optional<Feedback> feedback = Optional.of(jdbcTemplate.queryObject(Query.FIND_FEEDBACK_QUERY,
+                                                  FeedbackMapper::map, id));
+        if(feedback.isPresent()) {
+            feedback.get().setCourse(courseDao.find(feedback.get().getCourse().getId()).get());
+            feedback.get().setStudent(userDao.find(feedback.get().getStudent().getId()).get());
+        }
+
         return feedback;
     }
 
@@ -66,8 +72,8 @@ public class FeedbackJdbcDao implements FeedbackDao {
     public List<Feedback> findAll() {
         List<Feedback> feedbacks = jdbcTemplate.queryObjects(Query.FIND_ALL_FEEDBACKS_QUERY, FeedbackMapper::map);
         feedbacks.forEach(feedback -> {
-            feedback.setStudent(userDao.find(feedback.getStudent().getId()));
-            feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
+            feedback.setStudent(userDao.find(feedback.getStudent().getId()).get());
+            feedback.setCourse(courseDao.find(feedback.getCourse().getId()).get());
         });
 
         return feedbacks;
@@ -78,8 +84,8 @@ public class FeedbackJdbcDao implements FeedbackDao {
         List<Feedback> feedbacks = jdbcTemplate.queryObjects(Query.GET_FEEDBACKS_FOR_COURSE_QUERY,
                                                             FeedbackMapper::map, id);
         feedbacks.forEach(feedback -> {
-            feedback.setStudent(userDao.find(feedback.getStudent().getId()));
-            feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
+            feedback.setStudent(userDao.find(feedback.getStudent().getId()).get());
+            feedback.setCourse(courseDao.find(feedback.getCourse().getId()).get());
         });
 
         return feedbacks;
@@ -87,15 +93,18 @@ public class FeedbackJdbcDao implements FeedbackDao {
 
     @Override
     public List<Feedback> getFeedBacksForStudentByLogin(String login) {
-        User student = userDao.getUser(login);
-        List<Feedback> feedbacks = jdbcTemplate.queryObjects(Query.GET_FEEDBACKS_FOR_STUDENT_QUERY,
-                                                             FeedbackMapper::map, student.getId());
+        List<Feedback> feedbacks = new ArrayList<>();
+        Optional<User> student = userDao.getUser(login);
+        if(student.isPresent()) {
+            feedbacks = jdbcTemplate.queryObjects(Query.GET_FEEDBACKS_FOR_STUDENT_QUERY,
+                    FeedbackMapper::map, student.get().getId());
+            feedbacks = feedbacks.stream().filter(this::isGraded).collect(Collectors.toList());
+            feedbacks.forEach(feedback -> {
+                feedback.setStudent(userDao.find(feedback.getStudent().getId()).get());
+                feedback.setCourse(courseDao.find(feedback.getCourse().getId()).get());
+            });
+        }
 
-        feedbacks = feedbacks.stream().filter(this::isGraded).collect(Collectors.toList());
-        feedbacks.forEach(feedback -> {
-            feedback.setStudent(userDao.find(feedback.getStudent().getId()));
-            feedback.setCourse(courseDao.find(feedback.getCourse().getId()));
-        });
         return feedbacks;
     }
 

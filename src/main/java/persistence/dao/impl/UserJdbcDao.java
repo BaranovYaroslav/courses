@@ -13,6 +13,7 @@ import persistence.mappers.StringMapper;
 import persistence.mappers.UserMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Ярослав on 11.04.2017.
@@ -50,8 +51,8 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public User find(int id) {
-        return jdbcTemplate.queryObject(Query.FIND_USER_QUERY, UserMapper::map, id);
+    public Optional<User> find(int id) {
+        return Optional.of(jdbcTemplate.queryObject(Query.FIND_USER_QUERY, UserMapper::map, id));
     }
 
     @Override
@@ -60,13 +61,13 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public User getUser(String login) {
-        return jdbcTemplate.queryObject(Query.FIND_USER_BY_LOGIN_QUERY, UserMapper::map, login);
+    public Optional<User> getUser(String login) {
+        return Optional.of(jdbcTemplate.queryObject(Query.FIND_USER_BY_LOGIN_QUERY, UserMapper::map, login));
     }
 
     @Override
-    public Role getUserRole(int id) {
-        return jdbcTemplate.queryObject(Query.GET_USER_ROLE_QUERY, RoleMapper::map, id);
+    public Optional<Role> getUserRole(int id) {
+        return Optional.of(jdbcTemplate.queryObject(Query.GET_USER_ROLE_QUERY, RoleMapper::map, id));
     }
 
     @Override
@@ -75,9 +76,13 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public Role getUserRole(String login) {
-        User user = getUser(login);
-        return jdbcTemplate.queryObject(Query.GET_USER_ROLE_BY_LOGIN_QUERY, RoleMapper::map, user.getId());
+    public Optional<Role> getUserRole(String login) {
+        Optional<User> user = getUser(login);
+        if(user.isPresent()) {
+            return Optional.of(jdbcTemplate.queryObject(Query.GET_USER_ROLE_BY_LOGIN_QUERY,
+                               RoleMapper::map, user.get().getId()));
+        }
+        return Optional.empty();
     }
 
     @Override
