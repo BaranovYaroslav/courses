@@ -39,7 +39,7 @@ public class UpdateCourseController implements Controller {
                 returnToPreviousPage(httpWrapper, Messages.INCORRECT_PROFESSOR_LOGIN_MESSAGE);
             }
         } else {
-            returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
+            returnToPreviousPage(httpWrapper, Messages.INCORRECT_INPUT_DATA_MESSAGE);
         }
     }
 

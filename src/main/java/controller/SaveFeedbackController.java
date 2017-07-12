@@ -24,7 +24,7 @@ public class SaveFeedbackController implements Controller {
             feedbackService.updateFeedback(extractFeedback(httpWrapper.getRequest()));
             NavigationService.redirectTo(httpWrapper, NavigationConstants.FEEDBACKS_FOR_COURSE_URL + courseId);
         } else {
-            returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
+            returnToPreviousPage(httpWrapper, Messages.INCORRECT_INPUT_DATA_MESSAGE);
         }
 
     }

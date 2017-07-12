@@ -15,6 +15,7 @@ import service.ServiceLoader;
 import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.MessageDigest;
 
 /**
  * Created by Ярослав on 16.04.2017.
@@ -40,7 +41,7 @@ public class NewCourseController implements Controller {
             }
         }
         else {
-            returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
+            returnToPreviousPage(httpWrapper, Messages.INCORRECT_INPUT_DATA_MESSAGE);
         }
     }
 

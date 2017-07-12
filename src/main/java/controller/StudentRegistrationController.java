@@ -40,7 +40,7 @@ public class StudentRegistrationController implements Controller {
             }
         }
         else {
-            returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
+            returnToPreviousPage(httpWrapper, Messages.INCORRECT_INPUT_DATA_MESSAGE);
         }
     }
 

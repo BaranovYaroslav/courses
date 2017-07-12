@@ -32,7 +32,7 @@ public class LoginController implements Controller {
             }
         }
         else {
-            httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
+            httpWrapper.getRequest().setAttribute(RequestAttribute.MESSAGE, Messages.INCORRECT_INPUT_DATA_MESSAGE);
             httpWrapper.getRequest().setAttribute(RequestAttribute.PREVIOUS_LOGIN, login);
             NavigationService.navigateTo(httpWrapper, NavigationConstants.LOGIN_URL);
         }
