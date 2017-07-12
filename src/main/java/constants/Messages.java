@@ -1,10 +1,11 @@
 package constants;
 
 /**
- * Created by Ярослав on 21.04.2017.
+ * Holder of message constants.
+ *
+ * @author Yaroslav Baranov
  */
 public interface Messages {
-
     String MESSAGE_403 = "Error 403! You haven't access to this resource.";
     String MESSAGE_404 = "Error 404! Incorrect resource location";
     String ON_INCORRECT_LOGIN_MESSAGE = "Incorrect login or password";

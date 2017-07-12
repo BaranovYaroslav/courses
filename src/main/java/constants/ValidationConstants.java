@@ -1,7 +1,9 @@
 package constants;
 
 /**
- * Created by Ярослав on 26.06.2017.
+ * Holder of regex for validation.
+ *
+ * @author Yaroslav Baranov
  */
 public interface ValidationConstants {
     String LOGIN_REGEX = "^[a-z0-9_-]{3,15}$";

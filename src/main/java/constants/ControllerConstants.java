@@ -1,9 +1,10 @@
 package constants;
 
 /**
- * Created by Ярослав on 10.06.2017.
+ * Holder of controller constants.
+ *
+ * @author Yaroslav Baranov
  */
 public interface ControllerConstants {
-
     String CHECKED_VALUE = "on";
 }

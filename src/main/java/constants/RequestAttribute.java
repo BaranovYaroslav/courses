@@ -1,10 +1,11 @@
 package constants;
 
 /**
- * Created by Ярослав on 08.07.2017.
+ * Holder of http request attribute constants.
+ *
+ * @author Yaroslav Baranov
  */
 public interface RequestAttribute {
-
     String USER = "user";
     String USERS = "users";
     String COURSES_FOR_REGISTRATION = "coursesForRegistration";

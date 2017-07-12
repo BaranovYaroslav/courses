@@ -1,10 +1,11 @@
 package constants;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Holder of application constants.
+ *
+ * @author Yaroslav Baranov
  */
 public interface ApplicationConstants {
-
     String APPLICATION_IDENTIFICATOR = "application";
     String BASE_APPLICATION_URL = "/";
     String RESOURCES_LOCATION = "/resources/";

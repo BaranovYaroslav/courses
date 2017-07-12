@@ -1,10 +1,11 @@
 package constants;
 
 /**
- * Created by Ярослав on 08.07.2017.
+ * Holder of navigation constants.
+ *
+ * @author Yaroslav Baranov
  */
 public interface NavigationConstants {
-
     String INDEX_PAGE = "/index.jsp";
     String ADMIN_PAGE = "/pages/admin/admin.jsp";
     String PROFESSOR_PAGE = "/pages/professor/professor.jsp";

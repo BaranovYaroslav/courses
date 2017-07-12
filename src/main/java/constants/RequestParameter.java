@@ -1,10 +1,11 @@
 package constants;
 
 /**
- * Created by Ярослав on 08.07.2017.
+ * Holder of http request parameter constants.
+ *
+ * @author Yaroslav Baranov
  */
 public interface RequestParameter {
-
     String ID = "id";
     String TYPE = "type";
     String LOCATION = "location";
