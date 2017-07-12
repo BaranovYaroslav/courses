@@ -23,7 +23,7 @@ public class ApplicationSecurityContext {
     public ApplicationSecurityContext() {}
 
     public void login(HttpServletRequest request, String login, String password) {
-        User user = userDao.getUser(login);
+        User user = userDao.getUser(login).get();
         request.getSession().setAttribute(RequestAttribute.USER, user.getLogin());
     }
 
@@ -32,11 +32,11 @@ public class ApplicationSecurityContext {
     }
 
     public boolean isUserInRole(String login, String role) {
-        User user = userDao.getUser(login);
+        User user = userDao.getUser(login).get();
         if(user == null) {
             return false;
         }
-        return userDao.getUserRole(login).getRole().equals(role);
+        return userDao.getUserRole(login).get().getRole().equals(role);
     }
 
     public String getCurrentUser(HttpServletRequest request) {

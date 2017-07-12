@@ -8,6 +8,7 @@ import persistence.dao.factory.DaoFactory;
 import service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
@@ -26,12 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByLogin(String login) {
-        User user = userDao.getUser(login);
-        if(user == null) {
+        Optional<User> user = userDao.getUser(login);
+        if(!user.isPresent()) {
             return null;
         }
 
-        return user;
+        return user.get();
     }
 
     @Override
@@ -56,11 +57,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Role getRole(int id) {
-        return userDao.getUserRole(id);
+        return userDao.getUserRole(id).get();
     }
 
     @Override
     public String getRole(String login) {
-        return userDao.getUserRole(login).getRole();
+        return userDao.getUserRole(login).get().getRole();
     }
 }

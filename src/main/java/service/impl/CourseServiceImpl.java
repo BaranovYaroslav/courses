@@ -41,7 +41,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course getCourse(int id) {
-        return courseDao.find(id);
+        return courseDao.find(id).get();
     }
 
     @Override
@@ -81,13 +81,13 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getCoursesForStudent(String login) {
         List<Course> courses = courseDao.findAll();
-        User user = userDao.getUser(login);
+        User user = userDao.getUser(login).get();
         return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
     }
 
     @Override
     public List<Course> getCoursesForStudentWithSearch(String login, CourseSearchParameters parameters) {
-        User user = userDao.getUser(login);
+        User user = userDao.getUser(login).get();
         List<Course> courses = courseDao.findAll();
 
         if(parameters.getType().length() != 0) {

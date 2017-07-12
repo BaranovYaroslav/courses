@@ -22,7 +22,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public Feedback getFeedback(int id) {
-        return feedbackDao.find(id);
+        return feedbackDao.find(id).get();
     }
 
     @Override

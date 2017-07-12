@@ -11,6 +11,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Created by Ярослав on 05.07.2017.
@@ -38,7 +39,7 @@ public class UserServiceControllerTest {
 
     @Test
     public void testGetUserByLogin() {
-        when(userDao.getUser("login")).thenReturn(new User());
+        when(userDao.getUser("login")).thenReturn(Optional.of(new User()));
         assertNotEquals(userService.getUserByLogin("login"), null);
     }
 }
