@@ -65,7 +65,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public Optional<Course> find(int id) {
-        Optional<Course> course = Optional.of(jdbcTemplate.queryObject(Query.FIND_COURSE_QUERY, CourseMapper::map, id));
+        Optional<Course> course = jdbcTemplate.queryObject(Query.FIND_COURSE_QUERY, CourseMapper::map, id);
 
         if(course.isPresent()) {
             setProfessor(course.get());

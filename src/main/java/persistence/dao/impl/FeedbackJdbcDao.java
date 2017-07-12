@@ -58,8 +58,7 @@ public class FeedbackJdbcDao implements FeedbackDao {
 
     @Override
     public Optional<Feedback> find(int id) {
-        Optional<Feedback> feedback = Optional.of(jdbcTemplate.queryObject(Query.FIND_FEEDBACK_QUERY,
-                                                  FeedbackMapper::map, id));
+        Optional<Feedback> feedback = jdbcTemplate.queryObject(Query.FIND_FEEDBACK_QUERY, FeedbackMapper::map, id);
         if(feedback.isPresent()) {
             feedback.get().setCourse(courseDao.find(feedback.get().getCourse().getId()).get());
             feedback.get().setStudent(userDao.find(feedback.get().getStudent().getId()).get());

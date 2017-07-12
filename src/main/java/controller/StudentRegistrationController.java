@@ -10,6 +10,7 @@ import security.UserRole;
 import service.NavigationService;
 import service.ServiceLoader;
 import service.UserService;
+import sun.rmi.runtime.Log;
 import util.EncodingProvider;
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,18 +28,22 @@ public class StudentRegistrationController implements Controller {
 
     @Override
     public void execute(HttpWrapper httpWrapper) {
+        LOGGER.error(1111);
         if(validateInputData(httpWrapper.getRequest())) {
             String login = httpWrapper.getRequest().getParameter(RequestParameter.LOGIN);
 
             if (userService.getUserByLogin(login) == null) {
+                LOGGER.error(2222);
                 User student = constructStudent(httpWrapper.getRequest());
                 userService.addUser(student);
                 NavigationService.redirectTo(httpWrapper, ApplicationConstants.BASE_APPLICATION_URL);
             } else {
+                LOGGER.error(3333);
                 returnToPreviousPage(httpWrapper, Messages.ON_LOGIN_OCCUPIED_MESSAGE);
             }
         }
         else {
+            LOGGER.error(4444);
             returnToPreviousPage(httpWrapper, ApplicationConstants.INCORRECT_INPUT_DATA_MESSAGE);
         }
     }

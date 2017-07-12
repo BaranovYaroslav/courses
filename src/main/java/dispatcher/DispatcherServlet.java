@@ -61,8 +61,7 @@ public class DispatcherServlet extends HttpServlet {
 
     private void dispatchRequest(HttpWrapper httpWrapper) {
         Optional<HttpMatcher.HttpMatcherEntry> entry = HttpMatcher.getInstance()
-                                                                  .getMatcherEntry(httpWrapper.getRequest().getPathInfo(),
-                                                                                   httpWrapper.getRequest().getMethod());
+                                                                  .getMatcherEntry(httpWrapper.getRequest().getPathInfo());
 
         if(entry.isPresent()) {
             entry.get().executeController(httpWrapper);

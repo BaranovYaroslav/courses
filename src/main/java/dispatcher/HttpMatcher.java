@@ -17,9 +17,9 @@ public class HttpMatcher {
         entries = new ArrayList<>();
     }
 
-    public Optional<HttpMatcherEntry> getMatcherEntry(String url, String method){
+    public Optional<HttpMatcherEntry> getMatcherEntry(String url){
         for(HttpMatcherEntry entry: entries){
-            if(entry.url.equals(url) && entry.httpMethod.getMethod().equals(method)){
+            if(entry.url.equals(url)){
                 return Optional.of(entry);
             }
         }
@@ -43,8 +43,8 @@ public class HttpMatcher {
 
     public class Builder {
 
-        public Builder addEntry(String url, HttpMethod httpMethod, Controller controller) {
-            HttpMatcherEntry httpMatcherEntry = new HttpMatcherEntry(url, httpMethod, controller);
+        public Builder addEntry(String url, Controller controller) {
+            HttpMatcherEntry httpMatcherEntry = new HttpMatcherEntry(url, controller);
             HttpMatcher.this.entries.add(httpMatcherEntry);
             return this;
         }
@@ -58,13 +58,10 @@ public class HttpMatcher {
 
         private String url;
 
-        private HttpMethod httpMethod;
-
         private final Controller controller;
 
-        public HttpMatcherEntry (String url, HttpMethod httpMethod, Controller controller){
+        public HttpMatcherEntry (String url, Controller controller){
             this.url = url;
-            this.httpMethod = httpMethod;
             this.controller = controller;
         }
 
@@ -74,10 +71,6 @@ public class HttpMatcher {
 
         public String getUrl() {
             return url;
-        }
-
-        public HttpMethod getHttpMethod() {
-            return httpMethod;
         }
     }
 }

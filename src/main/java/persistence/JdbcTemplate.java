@@ -7,6 +7,7 @@ import persistence.exeptions.RuntimeSqlException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Ярослав on 11.04.2017.
@@ -167,7 +168,7 @@ public class JdbcTemplate {
         }
     }
 
-    public <R> R queryObject(String query, EntityExtractor<R> producer, Object... params) {
+    public <R> Optional<R> queryObject(String query, EntityExtractor<R> producer, Object... params) {
         Object[] r = new Object[]{null};
         query(query, (rs) -> {
             if (rs.next()) {
@@ -175,7 +176,10 @@ public class JdbcTemplate {
             }
         }, params);
 
-        return (R) r[0];
+        if(r[0] == null) {
+            return Optional.empty();
+        }
+        return Optional.of((R) r[0]);
     }
 
     public <R> List<R> queryObjects(String query, EntityExtractor<R> producer, Object... params) {
