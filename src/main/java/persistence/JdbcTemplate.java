@@ -85,6 +85,10 @@ public class JdbcTemplate {
     public int insert(String query, Object... parameters) {
         Connection connection = connectionManager.getConnection();
 
+        if(connection == null) {
+            return -1;
+        }
+
         try {
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             for (int i = 0; i < parameters.length; i++) {
@@ -110,6 +114,10 @@ public class JdbcTemplate {
     public int update(String query, Object... parameters) {
         Connection connection = connectionManager.getConnection();
 
+        if(connection == null) {
+            return -1;
+        }
+
         try (PreparedStatement statement = connection.prepareStatement(query)) {
 
             for (int i = 0; i < parameters.length; i++) {
@@ -128,8 +136,9 @@ public class JdbcTemplate {
     public void query(String query, ResultSetFunction fn, Object... params) {
         Connection connection = connectionManager.getConnection();
 
-        if(connection == null)
+        if(connection == null) {
             return;
+        }
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             for (int i = 0; i < params.length; i++) {
@@ -183,7 +192,9 @@ public class JdbcTemplate {
 
     private void closeConnection(Connection connection) {
         try {
-            connection.close();
+            if(connection != null) {
+                connection.close();
+            }
         } catch (SQLException e) {
             LOGGER.error("Can't close connection: " + e);
         }
