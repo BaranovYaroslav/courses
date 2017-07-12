@@ -18,11 +18,12 @@ import javax.servlet.ServletContext;
 import java.util.ArrayList;
 
 /**
- * Created by Ярослав on 12.07.2017.
+ * Util class to make configuration of application on start up.
+ *
+ * @author Yaroslav Baranov
  */
-public class Application {
 
-    private static Logger LOGGER = LogManager.getLogger(Application.class);
+public class Application {
 
     private ServletContext servletContext;
 
@@ -30,6 +31,9 @@ public class Application {
 
     private DaoFactory daoFactory;
 
+    /**
+     * Method that provide initialization of application.
+     */
     protected void init() {
         initializeSecurity();
         initializePersistence();
@@ -37,6 +41,11 @@ public class Application {
         initializeDispatching();
     }
 
+    /**
+     * Method that provide initialization of util classes for security aspect of application.
+     *
+     * @see security
+     */
     public void initializeSecurity() {
         ResourceToRoleMapper.getInstance()
                 .addConstrains("/admin", UserRole.ADMIN)
@@ -49,11 +58,22 @@ public class Application {
                 .addMapping(UserRole.ADMIN, "/app/admin");
     }
 
+    /**
+     * Method that provide initialization of persistence.
+     *
+     * @see persistence
+     */
     public void initializePersistence() {
         connectionManager = ConnectionManager.fromJndi("jdbc/courses");
         daoFactory = new JdbcDaoFactory(connectionManager);
     }
 
+    /**
+     * Method that provide initialization of services.
+     *
+     * @see service
+     * @see service.ServiceLoader
+     */
     public void initializeServices() {
         CourseService courseService = new CourseServiceImpl(daoFactory, connectionManager);
         UserService userService = new UserServiceImpl(daoFactory.getUserDao());
@@ -71,6 +91,13 @@ public class Application {
         ServiceLoader.getInstance().loadService(ConnectionManager.class, connectionManager);
     }
 
+    /**
+     * Function that provide initialization of util class for request dispatching.
+     *
+     * @see controller
+     * @see dispatcher.HttpMatcher
+     * @see dispatcher.DispatcherServlet
+     */
     public void initializeDispatching() {
         HttpMatcher.Builder builder = HttpMatcher.newBuilder();
 

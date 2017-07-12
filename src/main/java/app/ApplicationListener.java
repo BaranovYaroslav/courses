@@ -8,7 +8,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
- * Created by Ярослав on 12.07.2017.
+ * Listener for setup application on startup.
+ *
+ * @author Yaroslav Baranov
  */
 @WebListener
 public class ApplicationListener implements ServletContextListener {
@@ -17,6 +19,11 @@ public class ApplicationListener implements ServletContextListener {
 
     private Application application = new Application();
 
+    /**
+     * Method that provide application initializing.
+     *
+     * @param servletContextEvent object that holds context needed to initialize application
+     */
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         servletContextEvent.getServletContext().setAttribute("application", application);
