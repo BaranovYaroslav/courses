@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 12.07.2017.
+ * Class that holds mapping between urls and controllers.
+ *
+ * @author Yaroslav Baranov
  */
 public class HttpMatcher {
 
@@ -19,6 +21,12 @@ public class HttpMatcher {
         entries = new ArrayList<>();
     }
 
+    /**
+     * Method to retrieve holder of controller by giver url.
+     *
+     * @param url url to find controller.
+     * @return Optional of holder.
+     */
     public Optional<HttpMatcherEntry> getMatcherEntry(String url){
         for(HttpMatcherEntry entry: entries){
             if(entry.url.equals(url)){
@@ -56,7 +64,12 @@ public class HttpMatcher {
         }
     }
 
-    static class HttpMatcherEntry {
+    /**
+     * Inner class that hold url and controller.
+     *
+     * @author Yaroslav Baranov
+     */
+    public static class HttpMatcherEntry {
 
         private String url;
 

@@ -1,7 +1,9 @@
 package dispatcher;
 
 /**
- * Created by Ярослав on 04.07.2017.
+ * Enumeration of http methods.
+ *
+ * @author Yaroslav Baranov
  */
 public enum HttpMethod {
     GET("GET"), POST("POST"), UPDATE("UPDATE"), DELETE("DELETE");

@@ -22,6 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Front servlet that process all requests from users.
+ *
+ * @author Yaroslav Baranov
+ */
 @WebServlet("/app/*")
 public class DispatcherServlet extends HttpServlet {
 
@@ -59,6 +64,11 @@ public class DispatcherServlet extends HttpServlet {
         dispatchRequest(httpWrapper);
     }
 
+    /**
+     * Method that find and invoke controller according given url.
+     *
+     * @param httpWrapper holder of http request and response.
+     */
     private void dispatchRequest(HttpWrapper httpWrapper) {
         Optional<HttpMatcher.HttpMatcherEntry> entry = HttpMatcher.getInstance()
                                                                   .getMatcherEntry(httpWrapper.getRequest().getPathInfo());

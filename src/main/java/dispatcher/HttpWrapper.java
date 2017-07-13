@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Holder of http request and response
+ *
+ * @author Yaroslav Baranov
  */
 public class HttpWrapper {
 
