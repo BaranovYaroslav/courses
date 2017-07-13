@@ -2,9 +2,6 @@ package app;
 
 import controller.*;
 import dispatcher.HttpMatcher;
-import dispatcher.HttpMethod;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
 import persistence.dao.factory.DaoFactory;
 import persistence.dao.factory.JdbcDaoFactory;
@@ -15,7 +12,6 @@ import service.*;
 import service.impl.*;
 
 import javax.servlet.ServletContext;
-import java.util.ArrayList;
 
 /**
  * Util class to make configuration of application on start up.
@@ -127,7 +123,7 @@ public class Application {
                .addEntry("/student/register", new RegisterStudentController())
                .addEntry("/student/courses", new LoadStudentCoursesPageController())
                .addEntry("/student/courses/unregister", new UnregisterStudentController())
-               .addEntry("/student/feedbacks", new LoadStudentsFeedbacksPageController())
+               .addEntry("/student/feedbacks", new LoadStudentFeedbacksPageController())
                .addEntry("/locale", new LocaleController())
                .addEntry("/index", new IndexPageController())
                .addEntry("/search", new CourseSearchController());

@@ -1,16 +1,24 @@
 package controller;
 
 import constants.NavigationConstants;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import service.NavigationService;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Controller that load page to create new professor account.
+ *
+ * @author Yaroslav Baranov
  */
 public class LoadNewProfessorPageController implements Controller {
+
+    /**
+     * Method that forward to page for creation of new professor account.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
-    public void execute(HttpWrapper reqService) {
-        NavigationService.navigateTo(reqService, NavigationConstants.NEW_PROFESSOR_PAGE);
+    public void execute(HttpWrapper httpWrapper) {
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.NEW_PROFESSOR_PAGE);
     }
 }

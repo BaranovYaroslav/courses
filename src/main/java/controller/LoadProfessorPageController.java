@@ -2,26 +2,31 @@ package controller;
 
 import constants.NavigationConstants;
 import constants.RequestAttribute;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
-import org.apache.log4j.Logger;
-import service.CourseService;
 import service.NavigationService;
 import service.ProfessorService;
 import service.ServiceLoader;
-import service.impl.CourseServiceImpl;
 
 /**
- * Created by Ярослав on 17.04.2017.
+ * Controller that load professor base page.
+ *
+ * @author Yaroslav Baranov
  */
 public class LoadProfessorPageController implements Controller {
 
     private ProfessorService professorService = ServiceLoader.getInstance().getService(ProfessorService.class);
 
+    /**
+     * Method that get professor login from session and forward
+     * to page that represent all courses of this professor.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
-    public void execute(HttpWrapper reqService) {
-        String login = (String) reqService.getRequest().getSession().getAttribute(RequestAttribute.USER);
-        reqService.getRequest().setAttribute(RequestAttribute.COURSES, professorService.getCoursesForProfessor(login));
-        NavigationService.navigateTo(reqService, NavigationConstants.PROFESSOR_PAGE);
+    public void execute(HttpWrapper httpWrapper) {
+        String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
+        httpWrapper.getRequest().setAttribute(RequestAttribute.COURSES, professorService.getCoursesForProfessor(login));
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.PROFESSOR_PAGE);
     }
 }

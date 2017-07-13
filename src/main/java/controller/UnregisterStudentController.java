@@ -2,14 +2,15 @@ package controller;
 
 import constants.RequestAttribute;
 import constants.RequestParameter;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
 import entities.User;
 import service.*;
 
 /**
- * Created by Ярослав on 18.04.2017.
+ * Controller that provide to user possibility to unregister from course.
+ *
+ * @author Yaroslav Baranov
  */
 public class UnregisterStudentController implements Controller {
 
@@ -21,10 +22,16 @@ public class UnregisterStudentController implements Controller {
 
     private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
 
+    /**
+     * Method that unregister user from course. Parameters are passed by http request.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
-    public void execute(HttpWrapper reqService) {
-        String login = (String) reqService.getRequest().getSession().getAttribute(RequestAttribute.USER);
-        int courseId = Integer.parseInt(reqService.getRequest().getParameter(RequestParameter.COURSE_ID));
+    public void execute(HttpWrapper httpWrapper) {
+        String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
+        int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.COURSE_ID));
 
         Course course = courseService.getCourse(courseId);
         User user = userService.getUserByLogin(login);

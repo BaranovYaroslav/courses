@@ -2,16 +2,16 @@ package controller;
 
 import constants.NavigationConstants;
 import constants.RequestParameter;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
 import service.CourseService;
 import service.NavigationService;
 import service.ServiceLoader;
-import service.impl.CourseServiceImpl;
 
 /**
- * Created by Ярослав on 16.04.2017.
+ * Controller that provide possibility to delete course for admin.
+ *
+ * @author Yaroslav Baranov
  */
 public class DeleteCourseController implements Controller {
 
@@ -19,10 +19,16 @@ public class DeleteCourseController implements Controller {
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
+    /**
+     * Method that get course id from http request and delete it.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
-    public void execute(HttpWrapper reqService) {
-        Integer id = Integer.parseInt(reqService.getRequest().getParameter(RequestParameter.ID));
+    public void execute(HttpWrapper httpWrapper) {
+        Integer id = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.ID));
         courseService.deleteCourse(id);
-        NavigationService.redirectTo(reqService, NavigationConstants.ADMIN_ROOT_URL);
+        NavigationService.redirectTo(httpWrapper, NavigationConstants.ADMIN_ROOT_URL);
     }
 }

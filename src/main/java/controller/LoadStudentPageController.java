@@ -2,16 +2,14 @@ package controller;
 
 import constants.NavigationConstants;
 import constants.RequestAttribute;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.CourseType;
-import persistence.dao.UserDao;
 import service.*;
-import service.impl.StudentServiceImpl;
-import service.impl.UserServiceImpl;
 
 /**
- * Created by Ярослав on 18.04.2017.
+ * Controller that load student base page.
+ *
+ * @author Yaroslav Baranov
  */
 public class LoadStudentPageController implements Controller {
 
@@ -21,6 +19,12 @@ public class LoadStudentPageController implements Controller {
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
+    /**
+     * Method that forward to student base page.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);

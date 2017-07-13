@@ -1,7 +1,6 @@
 package controller;
 
 import constants.*;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 
 import org.apache.log4j.Logger;
@@ -10,7 +9,9 @@ import service.NavigationService;
 import service.ServiceLoader;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Controller of login case.
+ *
+ * @author Yaroslav Baranov
  */
 public class LoginController implements Controller {
 
@@ -18,6 +19,12 @@ public class LoginController implements Controller {
 
     private AuthenticationService authenticationService = ServiceLoader.getInstance().getService(AuthenticationService.class);
 
+    /**
+     * Method that compare user inputs with account info and provide processing of login case.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         String login = httpWrapper.getRequest().getParameter(RequestParameter.LOGIN);

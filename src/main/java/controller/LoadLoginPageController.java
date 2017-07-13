@@ -1,22 +1,25 @@
 package controller;
 
 import constants.NavigationConstants;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
-import persistence.ConnectionManager;
-import persistence.dao.UserDao;
-import persistence.dao.factory.JdbcDaoFactory;
-import persistence.transaction.Transaction;
 import service.NavigationService;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Controller that load login page.
+ *
+ * @author Yaroslav Baranov
  */
 public class LoadLoginPageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoadLoginPageController.class);
 
+    /**
+     * Method that forward to login page.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         NavigationService.navigateTo(httpWrapper, NavigationConstants.LOGIN_PAGE);

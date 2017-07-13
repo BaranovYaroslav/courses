@@ -1,7 +1,6 @@
 package controller;
 
 import constants.*;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
 import entities.CourseType;
@@ -17,7 +16,9 @@ import service.UserService;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by Ярослав on 16.04.2017.
+ * Controller that provide to admin possibility to update course.
+ *
+ * @author Yaroslav Baranov
  */
 public class UpdateCourseController implements Controller {
 
@@ -27,6 +28,12 @@ public class UpdateCourseController implements Controller {
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
+    /**
+     * Method that process editing of course and forward to admin base page.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
@@ -43,6 +50,11 @@ public class UpdateCourseController implements Controller {
         }
     }
 
+    /**
+     * Method that construct course from request parameters.
+     *
+     * @param request http request that contains parameters of new course.
+     */
     private Course constructCourse(HttpServletRequest request){
         Course.Builder builder = Course.newBuilder();
 
@@ -69,6 +81,13 @@ public class UpdateCourseController implements Controller {
         return builder.build();
     }
 
+    /**
+     * Method that provide validation of request parameters.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     * @see constants.ValidationConstants
+     */
     private boolean validateInputData(HttpWrapper httpWrapper) {
         HttpServletRequest request = httpWrapper.getRequest();
 

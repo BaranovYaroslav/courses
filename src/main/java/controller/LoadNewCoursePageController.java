@@ -2,15 +2,23 @@ package controller;
 
 import constants.NavigationConstants;
 import constants.RequestAttribute;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.CourseType;
 import service.NavigationService;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Controller that load page to create new course.
+ *
+ * @author Yaroslav Baranov
  */
 public class LoadNewCoursePageController implements Controller {
+
+    /**
+     * Method that forward to page for creation of new course.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         httpWrapper.getRequest().setAttribute(RequestAttribute.TYPES, CourseType.values());

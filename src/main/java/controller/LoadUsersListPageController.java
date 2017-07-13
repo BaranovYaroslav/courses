@@ -2,7 +2,6 @@ package controller;
 
 import constants.NavigationConstants;
 import constants.RequestAttribute;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
 import service.NavigationService;
@@ -10,7 +9,9 @@ import service.ServiceLoader;
 import service.UserService;
 
 /**
- * Created by Ярослав on 16.04.2017.
+ * Controller that provide to admin possibility to see information about all users.
+ *
+ * @author Yaroslav Baranov
  */
 public class LoadUsersListPageController implements Controller {
 
@@ -18,10 +19,15 @@ public class LoadUsersListPageController implements Controller {
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
+    /**
+     * Method that forward to page that contains list of users.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
-    public void execute(HttpWrapper reqService) {
-
-        reqService.getRequest().setAttribute(RequestAttribute.USERS, userService.getAllUsers());
-        NavigationService.navigateTo(reqService, NavigationConstants.USERS_LIST_PAGE);
+    public void execute(HttpWrapper httpWrapper) {
+        httpWrapper.getRequest().setAttribute(RequestAttribute.USERS, userService.getAllUsers());
+        NavigationService.navigateTo(httpWrapper, NavigationConstants.USERS_LIST_PAGE);
     }
 }

@@ -3,7 +3,6 @@ package controller;
 import constants.NavigationConstants;
 import constants.RequestAttribute;
 import constants.RequestParameter;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
 import entities.CourseType;
@@ -14,18 +13,30 @@ import service.ServiceLoader;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Controller provide to admin possibility to edit course.
+ *
+ * @author Yaroslav Baranov
+ */
 public class LoadEditCoursePageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoginController.class);
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
+    /**
+     * Method that set previous course information to request and forward admin to edit page.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         int id = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.ID));
         setAttributesToRequest(httpWrapper, courseService.getCourse(id));
         NavigationService.navigateTo(httpWrapper, NavigationConstants.EDIT_COURSE_PAGE);
     }
+
 
     public void setAttributesToRequest(HttpWrapper httpWrapper, Course course) {
         HttpServletRequest request = httpWrapper.getRequest();

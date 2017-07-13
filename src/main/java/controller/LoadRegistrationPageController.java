@@ -1,14 +1,22 @@
 package controller;
 
 import constants.NavigationConstants;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import service.NavigationService;
 
-import java.io.IOException;
-
+/**
+ * Controller that registration page.
+ *
+ * @author Yaroslav Baranov
+ */
 public class LoadRegistrationPageController implements Controller{
 
+    /**
+     * Method that forward to registration page.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         NavigationService.navigateTo(httpWrapper, NavigationConstants.REGISTRATION_PAGE);

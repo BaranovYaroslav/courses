@@ -1,17 +1,18 @@
 package controller;
 
-
 import constants.NavigationConstants;
 import constants.RequestAttribute;
 import constants.RequestParameter;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
 import entities.User;
 import service.*;
-import service.impl.CourseServiceImpl;
-import service.impl.UserServiceImpl;
 
+/**
+ * Controller that provide to student possibility to make registration to certain course.
+ *
+ * @author Yaroslav Baranov
+ */
 public class RegisterStudentController implements Controller{
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
@@ -20,6 +21,12 @@ public class RegisterStudentController implements Controller{
 
     private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
 
+    /**
+     * Method that process registration and forward to student base page.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
@@ -27,7 +34,6 @@ public class RegisterStudentController implements Controller{
 
         Course course = courseService.getCourse(courseId);
         User user = userService.getUserByLogin(login);
-
         studentService.registerStudent(course, user);
 
         NavigationService.redirectTo(httpWrapper, NavigationConstants.STUDENT_ROOT_URL);

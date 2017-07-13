@@ -1,7 +1,6 @@
 package controller;
 
 import constants.*;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 
 import entities.Role;
@@ -16,7 +15,9 @@ import util.EncodingProvider;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by Ярослав on 16.04.2017.
+ * Controller that provide to admin possibility to create new professor account.
+ *
+ * @author Yaroslav Baranov
  */
 public class NewProfessorController implements Controller {
 
@@ -24,6 +25,12 @@ public class NewProfessorController implements Controller {
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
+    /**
+     * Method that provide creation of new professor account.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         String login = httpWrapper.getRequest().getParameter(RequestParameter.LOGIN);
@@ -41,6 +48,13 @@ public class NewProfessorController implements Controller {
         }
     }
 
+    /**
+     * Method that provide validation of request parameters.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     * @see constants.ValidationConstants
+     */
     private boolean validateInputData(HttpWrapper httpWrapper) {
         HttpServletRequest request = httpWrapper.getRequest();
 
@@ -49,16 +63,27 @@ public class NewProfessorController implements Controller {
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
 
-        LOGGER.error(login + " " + fullName + " " + email + " " + password);
-        LOGGER.error(login.matches(ValidationConstants.LOGIN_REGEX) + " " +
-                fullName.matches(ValidationConstants.NAME_REGEX) + " " +
-                email.matches(ValidationConstants.EMAIL_REGEX)  + " " +
-                password.matches(ValidationConstants.PASSWORD_REGEX));
-
         return login.matches(ValidationConstants.LOGIN_REGEX) &&
                fullName.matches(ValidationConstants.NAME_REGEX) &&
                email.matches(ValidationConstants.EMAIL_REGEX) &&
                password.matches(ValidationConstants.PASSWORD_REGEX);
+    }
+
+    /**
+     * Method that construct new professor account from request parameters.
+     *
+     * @param request http request that contains parameters of new course.
+     */
+    private User constructProfessor(HttpServletRequest request) {
+        User.Builder builder = User.newBuilder();
+
+        builder.setLogin(request.getParameter(RequestParameter.LOGIN))
+               .setFullName(request.getParameter(RequestParameter.FULL_NAME))
+               .setEmail(request.getParameter(RequestParameter.EMAIL))
+               .setPassword(EncodingProvider.encode(request.getParameter(RequestParameter.PASSWORD)))
+               .setRole(new Role(UserRole.PROFESSOR)) ;
+
+        return builder.build();
     }
 
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
@@ -73,17 +98,5 @@ public class NewProfessorController implements Controller {
         request.setAttribute(RequestAttribute.MESSAGE, message);
 
         NavigationService.navigateTo(httpWrapper, NavigationConstants.NEW_PROFESSOR_PAGE);
-    }
-
-    private User constructProfessor(HttpServletRequest request) {
-        User.Builder builder = User.newBuilder();
-
-        builder.setLogin(request.getParameter(RequestParameter.LOGIN))
-               .setFullName(request.getParameter(RequestParameter.FULL_NAME))
-               .setEmail(request.getParameter(RequestParameter.EMAIL))
-               .setPassword(EncodingProvider.encode(request.getParameter(RequestParameter.PASSWORD)))
-               .setRole(new Role(UserRole.PROFESSOR)) ;
-
-        return builder.build();
     }
 }

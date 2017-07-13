@@ -1,6 +1,5 @@
 package controller;
 
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import service.InformationService;
 import service.ServiceLoader;
@@ -8,12 +7,20 @@ import service.ServiceLoader;
 import java.io.IOException;
 
 /**
- * Created by Ярослав on 08.06.2017.
+ * Controller that provide information to be represented at index page.
+ *
+ * @author Yaroslav Baranov
  */
 public class IndexPageController implements Controller {
 
     private InformationService informationService = ServiceLoader.getInstance().getService(InformationService.class);
 
+    /**
+     * Method that send response to user browser.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         try {
@@ -24,6 +31,11 @@ public class IndexPageController implements Controller {
         }
     }
 
+    /**
+     * Method provide analytic information.
+     *
+     * @see service.InformationService
+     */
     private String getInformationAsJSON() {
         return String.format("{\"courseNumber\": %d," +
                         "\"studentNumber\": %d," +

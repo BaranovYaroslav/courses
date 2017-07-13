@@ -1,10 +1,8 @@
 package controller;
 
 import constants.*;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.CourseType;
-import entities.Student;
 import org.apache.log4j.Logger;
 import service.CourseService;
 import service.NavigationService;
@@ -13,7 +11,9 @@ import service.StudentService;
 import service.util.CourseSearchParameters;
 
 /**
- * Created by Ярослав on 09.06.2017.
+ * Controller for parametrized course search.
+ *
+ * @author Yaroslav Baranov
  */
 public class CourseSearchController implements Controller {
 
@@ -23,6 +23,13 @@ public class CourseSearchController implements Controller {
 
     private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
 
+    /**
+     * Method that construct list of courses according search parameters
+     * and return user to previous page.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
@@ -34,7 +41,13 @@ public class CourseSearchController implements Controller {
         }
     }
 
-
+    /**
+     * Method that provide validation of request parameters.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     * @see constants.ValidationConstants
+     */
     private boolean validateInputData(HttpWrapper httpWrapper) {
         String type = httpWrapper.getRequest().getParameter(RequestParameter.TYPE);
         String location = httpWrapper.getRequest().getParameter(RequestParameter.LOCATION);
@@ -49,6 +62,12 @@ public class CourseSearchController implements Controller {
                (onlyFree == null || onlyFree.equals(ControllerConstants.CHECKED_VALUE));
     }
 
+    /**
+     * Method that construct search parameters from http request.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     private CourseSearchParameters constructSearchParametersFromRequest(HttpWrapper httpWrapper) {
         CourseSearchParameters.Builder builder = CourseSearchParameters.newBuilder();
 

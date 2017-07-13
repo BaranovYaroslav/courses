@@ -1,14 +1,15 @@
 package controller;
 
 import constants.RequestParameter;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 
 import javax.servlet.jsp.jstl.core.Config;
 import org.apache.log4j.Logger;
 
 /**
- * Created by Ярослав on 25.04.2017.
+ * Controller that provide localization.
+ *
+ * @author Yaroslav Baranov
  */
 public class LocaleController implements Controller {
 
@@ -18,9 +19,15 @@ public class LocaleController implements Controller {
 
     private final String LOCALE = "locale";
 
+    /**
+     * Method that locale from request ans save it in session.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        String lang = (String) httpWrapper.getRequest().getParameter(RequestParameter.LANGUAGE);
+        String lang = httpWrapper.getRequest().getParameter(RequestParameter.LANGUAGE);
 
         if(lang != null && !lang.isEmpty()) {
             httpWrapper.getRequest().getSession().setAttribute(LANG, lang);

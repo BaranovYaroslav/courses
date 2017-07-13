@@ -1,7 +1,6 @@
 package controller;
 
 import constants.*;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Course;
 import entities.CourseType;
@@ -15,10 +14,11 @@ import service.ServiceLoader;
 import service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.MessageDigest;
 
 /**
- * Created by Ярослав on 16.04.2017.
+ * Controller that provide to admin possibility to create new course.
+ *
+ * @author Yaroslav Baranov
  */
 public class NewCourseController implements Controller {
 
@@ -28,6 +28,12 @@ public class NewCourseController implements Controller {
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
+    /**
+     * Method that provide processing of new course creation.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
@@ -45,6 +51,11 @@ public class NewCourseController implements Controller {
         }
     }
 
+    /**
+     * Method that construct new course from request parameters.
+     *
+     * @param request http request that contains parameters of new course.
+     */
     private Course constructCourse(HttpServletRequest request) {
         Course.Builder builder = Course.newBuilder();
 
@@ -70,6 +81,13 @@ public class NewCourseController implements Controller {
         return builder.build();
     }
 
+    /**
+     * Method that provide validation of request parameters.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     * @see constants.ValidationConstants
+     */
     private boolean validateInputData(HttpWrapper httpWrapper) {
         HttpServletRequest request = httpWrapper.getRequest();
 

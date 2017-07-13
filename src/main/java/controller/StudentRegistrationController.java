@@ -1,7 +1,6 @@
 package controller;
 
 import constants.*;
-import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Role;
 import entities.User;
@@ -10,10 +9,14 @@ import security.UserRole;
 import service.NavigationService;
 import service.ServiceLoader;
 import service.UserService;
-import sun.rmi.runtime.Log;
 import util.EncodingProvider;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Controller provide possibility to create student account.
+ *
+ * @author Yaroslav Baranov
+ */
 public class StudentRegistrationController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(StudentRegistrationController.class);
@@ -26,9 +29,15 @@ public class StudentRegistrationController implements Controller {
         this.userService = userService;
     }
 
+    /**
+     * Method process registration.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
-        if(validateInputData(httpWrapper.getRequest())) {
+        if(validateInputData(httpWrapper)) {
             String login = httpWrapper.getRequest().getParameter(RequestParameter.LOGIN);
 
             if (userService.getUserByLogin(login) == null) {
@@ -44,6 +53,11 @@ public class StudentRegistrationController implements Controller {
         }
     }
 
+    /**
+     * Method that construct new user account from request parameters.
+     *
+     * @param request http request that contains parameters of new course.
+     */
     private User constructStudent(HttpServletRequest request) {
         User.Builder builder = User.newBuilder();
 
@@ -56,7 +70,16 @@ public class StudentRegistrationController implements Controller {
         return builder.build();
     }
 
-    private boolean validateInputData(HttpServletRequest request) {
+    /**
+     * Method that provide validation of request parameters.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     * @see constants.ValidationConstants
+     */
+    private boolean validateInputData(HttpWrapper httpWrapper) {
+        HttpServletRequest request = httpWrapper.getRequest();
+
         String login = request.getParameter(RequestParameter.LOGIN);
         String fullName = request.getParameter(RequestParameter.FULL_NAME);
         String email = request.getParameter(RequestParameter.EMAIL);
