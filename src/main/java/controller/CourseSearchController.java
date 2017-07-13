@@ -46,7 +46,7 @@ public class CourseSearchController implements Controller {
     }
 
     private CourseSearchParameters constructSearchParametersFromRequest(HttpWrapper httpWrapper) {
-        CourseSearchParameters parameters = new CourseSearchParameters();
+        CourseSearchParameters.Builder builder = CourseSearchParameters.newBuider();
 
         String type = httpWrapper.getRequest().getParameter(RequestParameter.TYPE);
         String location = httpWrapper.getRequest().getParameter(RequestParameter.LOCATION);
@@ -54,13 +54,13 @@ public class CourseSearchController implements Controller {
         String max = httpWrapper.getRequest().getParameter(RequestParameter.MAX_COURSE_PRICE);
         String onlyFree = httpWrapper.getRequest().getParameter(RequestParameter.ONLY_FREE_COURSES);
 
-        parameters.setType(type)
-                  .setLocation(location)
-                  .setMinPrice(Double.parseDouble(min))
-                  .setMaxPrice(Double.parseDouble(max))
-                  .setOnlyFree(onlyFree != null);
+        builder.setType(type)
+               .setLocation(location)
+               .setMinPrice(Double.parseDouble(min))
+               .setMaxPrice(Double.parseDouble(max))
+               .setOnlyFree(onlyFree != null);
 
-        return parameters;
+        return builder.build();
     }
 
     private void goToStudentPage(HttpWrapper httpWrapper) {

@@ -1,5 +1,8 @@
 package service.util;
 
+import dispatcher.HttpMatcher;
+import entities.Course;
+
 /**
  * Created by Ярослав on 09.06.2017.
  */
@@ -15,30 +18,43 @@ public class CourseSearchParameters {
 
     private boolean onlyFree;
 
-    public CourseSearchParameters setType(String type) {
-        this.type = type;
-        return this;
+    public static Builder newBuider() {
+        return new CourseSearchParameters().new Builder();
     }
 
-    public CourseSearchParameters setLocation(String location) {
-        this.location = location;
-        return this;
+    public class Builder {
+        public Builder() {}
+
+        public Builder setType(String type) {
+            CourseSearchParameters.this.type = type;
+            return this;
+        }
+
+        public Builder setLocation(String location) {
+            CourseSearchParameters.this.location = location;
+            return this;
+        }
+
+        public Builder setMinPrice(double minPrice) {
+            CourseSearchParameters.this.minPrice = minPrice;
+            return this;
+        }
+
+        public Builder setMaxPrice(double maxPrice) {
+            CourseSearchParameters.this.maxPrice = maxPrice;
+            return this;
+        }
+
+        public Builder setOnlyFree(boolean onlyFree) {
+            CourseSearchParameters.this.onlyFree = onlyFree;
+            return this;
+        }
+
+        public CourseSearchParameters build() {
+            return CourseSearchParameters.this;
+        }
     }
 
-    public CourseSearchParameters setMinPrice(double minPrice) {
-        this.minPrice = minPrice;
-        return this;
-    }
-
-    public CourseSearchParameters setMaxPrice(double maxPrice) {
-        this.maxPrice = maxPrice;
-        return this;
-    }
-
-    public CourseSearchParameters setOnlyFree(boolean onlyFree) {
-        this.onlyFree = onlyFree;
-        return this;
-    }
 
     public String getType() {
         return type;
