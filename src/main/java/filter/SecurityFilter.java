@@ -12,6 +12,11 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Filter that provide security access to requested resource.
+ *
+ * @author Yaroslav Baranov
+ */
 @WebFilter("/*")
 public class SecurityFilter implements Filter {
 
@@ -28,6 +33,13 @@ public class SecurityFilter implements Filter {
 
     }
 
+    /**
+     * Method that process user access to resource according security constrains.
+     *
+     * @see security.ApplicationSecurityContext
+     * @see security.SecuredAccessStrategy
+     * @see security.SimpleSecuredAccessStrategy
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;

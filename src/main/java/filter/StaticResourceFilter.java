@@ -8,6 +8,11 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * Filter for static resources.
+ *
+ * @author Yaroslav Baranov
+ */
 @WebFilter("/*")
 public class StaticResourceFilter implements Filter {
 
