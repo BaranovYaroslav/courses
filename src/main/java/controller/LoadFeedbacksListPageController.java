@@ -7,10 +7,7 @@ import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.Feedback;
 import org.apache.log4j.Logger;
-import service.CourseService;
-import service.NavigationService;
-import service.ServiceLoader;
-import service.UserService;
+import service.*;
 import service.impl.CourseServiceImpl;
 import service.impl.UserServiceImpl;
 
@@ -25,12 +22,12 @@ public class LoadFeedbacksListPageController implements Controller {
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
 
     @Override
     public void execute(HttpWrapper reqService) {
         int id = Integer.parseInt(reqService.getRequest().getParameter(RequestParameter.ID));
-        List<Feedback> feedbacks = courseService.getFeedbacksByCourseId(id);
+        List<Feedback> feedbacks = feedbackService.getFeedbacksByCourseId(id);
         reqService.getRequest().setAttribute(RequestAttribute.FEEDBACKS, feedbacks);
         NavigationService.navigateTo(reqService, NavigationConstants.COURSE_FEEDBACKS_LIST_PAGE);
     }

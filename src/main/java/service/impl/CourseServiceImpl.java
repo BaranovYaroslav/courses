@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
  */
 public class CourseServiceImpl implements CourseService {
 
-    private static Logger LOGGER = Logger.getLogger(CourseServiceImpl.class);
-
     private UserDao userDao;
 
     private CourseDao courseDao;
@@ -31,6 +29,13 @@ public class CourseServiceImpl implements CourseService {
     private FeedbackDao feedbackDao;
 
     private ConnectionManager connectionManager;
+
+    public CourseServiceImpl(UserDao userDao, CourseDao courseDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
+        this.userDao = userDao;
+        this.courseDao = courseDao;
+        this.feedbackDao = feedbackDao;
+        this.connectionManager = connectionManager;
+    }
 
     public CourseServiceImpl(DaoFactory daoFactory, ConnectionManager connectionManager) {
         userDao = daoFactory.getUserDao();
@@ -72,63 +77,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCoursesForProfessor(String professorLogin) {
-        List<Course> courses = courseDao.findAll();
-        return courses.stream().filter(course -> course.getProfessor().getLogin().equals(professorLogin))
-                               .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Course> getCoursesForStudent(String login) {
-        List<Course> courses = courseDao.findAll();
-        User user = userDao.getUser(login).get();
-        return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Course> getCoursesForStudentWithSearch(String login, CourseSearchParameters parameters) {
-        User user = userDao.getUser(login).get();
-        List<Course> courses = courseDao.findAll();
-
-        if(parameters.getType().length() != 0) {
-            courses = courses.stream().filter(course -> course.getType().getType().equals(parameters.getType()))
-                                      .collect(Collectors.toList());
-        }
-        if(parameters.getLocation().length() != 0) {
-            courses = courses.stream().filter(course -> course.getLocation().getCity().equals(parameters.getLocation()))
-                                      .collect(Collectors.toList());
-        }
-        if(parameters.isOnlyFree()) {
-            courses = courses.stream().filter(Course::getIsFree).collect(Collectors.toList());
-        } else {
-            courses = courses.stream().filter(course -> course.getPrice() >= parameters.getMinPrice() &&
-                                                        course.getPrice() <= parameters.getMaxPrice())
-                                      .collect(Collectors.toList());
-        }
-
-        return courses;
-    }
-
-    @Override
-    public List<Feedback> getFeedbacksByCourseId(int id) {
-        return feedbackDao.getFeedbacksForCourse(id);
-    }
-
-    @Override
-    public synchronized void registerStudent(Course course, User user) {
-        if(course.getStudents().size() < course.getNumberOfStudents()) {
-            courseDao.registerStudent(course, user);
-            Feedback feedback = createEmptyFeedback(course, user);
-            feedbackDao.add(feedback);
-        }
-    }
-
-    @Override
-    public void unregisterUser(Course course, User user) {
-        courseDao.unregisterStudent(course, user);
-    }
-
-    @Override
     public List<String> getDistinctCourseLocations() {
         List<Course> courses = courseDao.findAll();
         List<String> cities = new ArrayList<>();
@@ -160,16 +108,5 @@ public class CourseServiceImpl implements CourseService {
         }
 
         return result;
-    }
-
-    private Feedback createEmptyFeedback(Course course, User user) {
-        Feedback.Builder builder = Feedback.newBuilder();
-
-        builder.setComment("")
-               .setScore(0)
-               .setStudent(user)
-               .setCourse(course);
-
-        return builder.build();
     }
 }

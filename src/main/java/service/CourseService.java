@@ -24,18 +24,6 @@ public interface CourseService {
 
     public void updateCourse(Course course);
 
-    public List<Course> getCoursesForProfessor(String professorLogin);
-
-    public List<Course> getCoursesForStudent(String login);
-
-    public List<Course> getCoursesForStudentWithSearch(String login, CourseSearchParameters parameters);
-
-    public List<Feedback> getFeedbacksByCourseId(int id);
-
-    public void registerStudent(Course course, User user);
-
-    public void unregisterUser(Course course, User user);
-
     public List<String> getDistinctCourseLocations();
 
     public double getMaxPriceOfCourse();

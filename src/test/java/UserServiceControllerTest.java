@@ -5,6 +5,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import persistence.dao.UserDao;
+import persistence.dao.factory.DaoFactory;
 import service.impl.UserServiceImpl;
 
 import static org.mockito.Mockito.*;
@@ -19,8 +20,7 @@ import java.util.Optional;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceControllerTest {
 
-    @Mock
-    private UserDao userDao;
+    @Mock UserDao userDao;
 
     @InjectMocks
     private UserServiceImpl userService;

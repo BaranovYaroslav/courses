@@ -7,6 +7,7 @@ import dispatcher.HttpWrapper;
 import org.apache.log4j.Logger;
 import service.CourseService;
 import service.NavigationService;
+import service.ProfessorService;
 import service.ServiceLoader;
 import service.impl.CourseServiceImpl;
 
@@ -15,12 +16,12 @@ import service.impl.CourseServiceImpl;
  */
 public class LoadProfessorPageController implements Controller {
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private ProfessorService professorService = ServiceLoader.getInstance().getService(ProfessorService.class);
 
     @Override
     public void execute(HttpWrapper reqService) {
         String login = (String) reqService.getRequest().getSession().getAttribute(RequestAttribute.USER);
-        reqService.getRequest().setAttribute(RequestAttribute.COURSES, courseService.getCoursesForProfessor(login));
+        reqService.getRequest().setAttribute(RequestAttribute.COURSES, professorService.getCoursesForProfessor(login));
         NavigationService.navigateTo(reqService, NavigationConstants.PROFESSOR_PAGE);
     }
 }

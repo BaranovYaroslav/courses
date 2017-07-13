@@ -12,12 +12,14 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
-    private Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
-
     private UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    public UserServiceImpl(DaoFactory daoFactory) {
+        this.userDao = daoFactory.getUserDao();
     }
 
     @Override
@@ -63,5 +65,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getRole(String login) {
         return userDao.getUserRole(login).get().getRole();
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

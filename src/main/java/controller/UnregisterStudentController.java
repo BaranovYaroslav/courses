@@ -7,8 +7,6 @@ import dispatcher.HttpWrapper;
 import entities.Course;
 import entities.User;
 import service.*;
-import service.impl.CourseServiceImpl;
-import service.impl.UserServiceImpl;
 
 /**
  * Created by Ярослав on 18.04.2017.
@@ -18,6 +16,8 @@ public class UnregisterStudentController implements Controller {
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+
+    private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
 
     private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
 
@@ -29,7 +29,7 @@ public class UnregisterStudentController implements Controller {
         Course course = courseService.getCourse(courseId);
         User user = userService.getUserByLogin(login);
 
-        courseService.unregisterUser(course, user);
+        studentService.unregisterStudent(course, user);
         feedbackService.deleteFeedback(course.getId(), user.getId());
     }
 }

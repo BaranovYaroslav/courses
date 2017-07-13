@@ -4,10 +4,12 @@ import constants.*;
 import dispatcher.Controller;
 import dispatcher.HttpWrapper;
 import entities.CourseType;
+import entities.Student;
 import org.apache.log4j.Logger;
 import service.CourseService;
 import service.NavigationService;
 import service.ServiceLoader;
+import service.StudentService;
 import service.util.CourseSearchParameters;
 
 /**
@@ -19,13 +21,15 @@ public class CourseSearchController implements Controller {
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
+    private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
+
     @Override
     public void execute(HttpWrapper httpWrapper) {
         if(validateInputData(httpWrapper)) {
             String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
             CourseSearchParameters searchParameters = constructSearchParametersFromRequest(httpWrapper);
             httpWrapper.getRequest().setAttribute(RequestAttribute.COURSES_FOR_REGISTRATION,
-                    courseService.getCoursesForStudentWithSearch(login, searchParameters));
+                    studentService.getCoursesForStudentWithSearch(login, searchParameters));
             goToStudentPage(httpWrapper);
         }
     }
@@ -46,7 +50,7 @@ public class CourseSearchController implements Controller {
     }
 
     private CourseSearchParameters constructSearchParametersFromRequest(HttpWrapper httpWrapper) {
-        CourseSearchParameters.Builder builder = CourseSearchParameters.newBuider();
+        CourseSearchParameters.Builder builder = CourseSearchParameters.newBuilder();
 
         String type = httpWrapper.getRequest().getParameter(RequestParameter.TYPE);
         String location = httpWrapper.getRequest().getParameter(RequestParameter.LOCATION);

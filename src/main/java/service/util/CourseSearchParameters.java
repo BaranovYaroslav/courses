@@ -18,7 +18,7 @@ public class CourseSearchParameters {
 
     private boolean onlyFree;
 
-    public static Builder newBuider() {
+    public static Builder newBuilder() {
         return new CourseSearchParameters().new Builder();
     }
 

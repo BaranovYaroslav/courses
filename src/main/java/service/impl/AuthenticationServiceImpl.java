@@ -21,9 +21,11 @@ import java.util.Optional;
  */
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    private static Logger LOGGER = Logger.getLogger(AuthenticationServiceImpl.class);
-
     private UserDao userDao;
+
+    public AuthenticationServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public AuthenticationServiceImpl(DaoFactory daoFactory) {
         userDao = daoFactory.getUserDao();

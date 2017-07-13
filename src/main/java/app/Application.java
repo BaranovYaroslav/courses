@@ -76,16 +76,19 @@ public class Application {
      */
     public void initializeServices() {
         CourseService courseService = new CourseServiceImpl(daoFactory, connectionManager);
-        UserService userService = new UserServiceImpl(daoFactory.getUserDao());
-        FeedbackService feedbackService = new FeedbackServiceImpl(daoFactory);
+        UserService userService = new UserServiceImpl(daoFactory);
+        ProfessorService professorService = new ProfessorServiceImpl(daoFactory);
         StudentService studentService = new StudentServiceImpl(daoFactory);
+        FeedbackService feedbackService = new FeedbackServiceImpl(daoFactory);
+
         AuthenticationService authenticationService = new AuthenticationServiceImpl(daoFactory);
         InformationService informationService = new InformationServiceImpl(daoFactory);
 
         ServiceLoader.getInstance().loadService(CourseService.class, courseService);
         ServiceLoader.getInstance().loadService(UserService.class, userService);
-        ServiceLoader.getInstance().loadService(FeedbackService.class, feedbackService);
+        ServiceLoader.getInstance().loadService(ProfessorService.class, professorService);
         ServiceLoader.getInstance().loadService(StudentService.class, studentService);
+        ServiceLoader.getInstance().loadService(FeedbackService.class, feedbackService);
         ServiceLoader.getInstance().loadService(AuthenticationService.class, authenticationService);
         ServiceLoader.getInstance().loadService(InformationService.class, informationService);
         ServiceLoader.getInstance().loadService(ConnectionManager.class, connectionManager);

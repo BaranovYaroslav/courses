@@ -16,6 +16,10 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     private FeedbackDao feedbackDao;
 
+    public FeedbackServiceImpl(FeedbackDao feedbackDao) {
+        this.feedbackDao = feedbackDao;
+    }
+
     public FeedbackServiceImpl(DaoFactory daoFactory) {
         feedbackDao = daoFactory.getFeedbackDao();
     }
@@ -38,5 +42,10 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public void deleteFeedback(int courseId, int studentId) {
         feedbackDao.deleteByCourseAndStudentId(courseId, studentId);
+    }
+
+    @Override
+    public List<Feedback> getFeedbacksByCourseId(int id) {
+        return feedbackDao.getFeedbacksForCourse(id);
     }
 }
