@@ -14,7 +14,10 @@ import service.NotificationService;
 import java.io.IOException;
 
 /**
- * Created by Ярослав on 21.04.2017.
+ * Realization of SecuredAccessStrategy.
+ *
+ * @see security.SecuredAccessStrategy
+ * @author Yaroslav Baranov
  */
 public class SimpleSecuredAccessStrategy implements SecuredAccessStrategy {
 
@@ -28,6 +31,12 @@ public class SimpleSecuredAccessStrategy implements SecuredAccessStrategy {
         this.securityContext = securityContext;
     }
 
+    /**
+     * Method that process user access to app resources.
+     *
+     * @param url resource to be accessed
+     * @param httpWrapper holder of http request and response
+     */
     @Override
     public void processAccess(String url, HttpWrapper httpWrapper, FilterChain filterChain) throws IOException, ServletException{
         if(url == null) {

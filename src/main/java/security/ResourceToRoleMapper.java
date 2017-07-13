@@ -5,6 +5,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Holder of mapping between user role and accessible resources for this role.
+ *
+ * @author Yaroslav Baranov
+ */
 public class ResourceToRoleMapper {
 
     private Logger LOGGER = Logger.getLogger(ResourceToRoleMapper.class);

@@ -4,7 +4,9 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by Ярослав on 19.04.2017.
+ * Holder of mapping between user role and base resources for this role.
+ *
+ * @author Yaroslav Baranov
  */
 public class BaseResourceToRoleMapper {
 

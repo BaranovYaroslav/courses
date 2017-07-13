@@ -10,7 +10,9 @@ import persistence.dao.impl.UserJdbcDao;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by Ярослав on 13.04.2017.
+ * Class that provide functionality that need to be secured.
+ *
+ * @author Yaroslav Baranov
  */
 public class ApplicationSecurityContext {
 
@@ -22,15 +24,35 @@ public class ApplicationSecurityContext {
 
     public ApplicationSecurityContext() {}
 
-    public void login(HttpServletRequest request, String login, String password) {
+    /**
+     * Method that save user in session.
+     *
+     * @param request http request
+     * @param login login of user
+     */
+    public void login(HttpServletRequest request, String login) {
         User user = userDao.getUser(login).get();
         request.getSession().setAttribute(RequestAttribute.USER, user.getLogin());
     }
 
+
+    /**
+     * Method that invalidate user session.
+     *
+     * @param request http request
+     */
     public void logout(HttpServletRequest request) {
         request.getSession().invalidate();
     }
 
+    /**
+     * Method determine if user is in given role.
+     *
+     * @param login login of user
+     * @param role given role
+     *
+     * @return result of determination
+     */
     public boolean isUserInRole(String login, String role) {
         User user = userDao.getUser(login).get();
         if(user == null) {
@@ -39,6 +61,13 @@ public class ApplicationSecurityContext {
         return userDao.getUserRole(login).get().getRole().equals(role);
     }
 
+
+    /**
+     * Method that return current user from session.
+     *
+     * @param request http request
+     * @return login of user
+     */
     public String getCurrentUser(HttpServletRequest request) {
         return (String) request.getSession().getAttribute(RequestAttribute.USER);
     }
