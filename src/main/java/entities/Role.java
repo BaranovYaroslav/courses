@@ -1,7 +1,9 @@
 package entities;
 
 /**
- * Created by Ярослав on 21.04.2017.
+ * Class that represents user role.
+ *
+ * @author Yaroslav Baranov
  */
 public class Role {
 

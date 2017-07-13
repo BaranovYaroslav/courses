@@ -1,7 +1,9 @@
 package entities;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Class that represents user entity.
+ *
+ * @author Yaroslav Baranov
  */
 public class User {
 

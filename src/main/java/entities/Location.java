@@ -1,7 +1,9 @@
 package entities;
 
 /**
- * Created by Ярослав on 24.06.2017.
+ * Class that represents location entity.
+ *
+ * @author Yaroslav Baranov
  */
 public class Location {
 

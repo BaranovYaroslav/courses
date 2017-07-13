@@ -3,6 +3,11 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Class that represents student entity.
+ *
+ * @author Yaroslav Baranov
+ */
 public class Student extends User {
 
     private List<Course> courses;

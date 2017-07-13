@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Class that represents course entity.
+ *
+ * @author Yaroslav Baranov
  */
 public class Course {
 

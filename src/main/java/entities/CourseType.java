@@ -1,7 +1,9 @@
 package entities;
 
 /**
- * Created by Ярослав on 30.06.2017.
+ * Enumeration of course types.
+ *
+ * @author Yaroslav Baranov
  */
 public enum CourseType {
     MATH("Math"), IT("IT"), NATURAL("Natural"),

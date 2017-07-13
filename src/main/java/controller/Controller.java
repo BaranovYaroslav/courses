@@ -3,8 +3,16 @@ package controller;
 import dispatcher.HttpWrapper;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Interface of po process user options.
+ *
+ * @author Yaroslav Baranov
  */
 public interface Controller {
+
+    /**
+     * Method to process certain business option.
+     *
+     * @param httpWrapper holder of http request and response
+     */
     public void execute(HttpWrapper httpWrapper);
 }

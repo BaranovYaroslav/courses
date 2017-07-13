@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ярослав on 17.04.2017.
+ * Class that represents professor entity.
+ *
+ * @author Yaroslav Baranov
  */
 public class Professor extends User {
 
