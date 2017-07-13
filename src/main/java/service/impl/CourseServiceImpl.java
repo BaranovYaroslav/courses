@@ -22,23 +22,19 @@ import java.util.stream.Collectors;
  */
 public class CourseServiceImpl implements CourseService {
 
-    private UserDao userDao;
-
     private CourseDao courseDao;
 
     private FeedbackDao feedbackDao;
 
     private ConnectionManager connectionManager;
 
-    public CourseServiceImpl(UserDao userDao, CourseDao courseDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
-        this.userDao = userDao;
+    public CourseServiceImpl(CourseDao courseDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
         this.courseDao = courseDao;
         this.feedbackDao = feedbackDao;
         this.connectionManager = connectionManager;
     }
 
     public CourseServiceImpl(DaoFactory daoFactory, ConnectionManager connectionManager) {
-        userDao = daoFactory.getUserDao();
         courseDao = daoFactory.getCourseDao();
         feedbackDao = daoFactory.getFeedbackDao();
         this.connectionManager = connectionManager;
@@ -62,7 +58,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(int id) {
         courseDao.delete(id);
-        userDao.unregisterUsersFromCourse(id);
+        courseDao.unregisterUsersFromCourse(id);
         feedbackDao.deleteFeedbacksByCourseId(id);
     }
 

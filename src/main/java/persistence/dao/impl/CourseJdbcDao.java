@@ -16,7 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Realization of CourseDao interface.
+ *
+ * @see persistence.dao.CourseDao
+ * @author Yaroslav Baranov
  */
 public class CourseJdbcDao implements CourseDao {
 
@@ -96,6 +99,11 @@ public class CourseJdbcDao implements CourseDao {
     @Override
     public void unregisterStudent(Course course, User user) {
         jdbcTemplate.update(Query.UNREGISTER_STUDENT_QUERY, user.getId(), course.getId());
+    }
+
+    @Override
+    public void unregisterUsersFromCourse(int courseId) {
+        jdbcTemplate.update(Query.UNREGISTER_ALL_STUDENTS_FROM_COURSE_QUERY, courseId);
     }
 
     private void setProfessor(Course course) {

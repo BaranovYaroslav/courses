@@ -8,7 +8,9 @@ import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
 /**
- * Created by Ярослав on 12.07.2017.
+ * Class to provide proxy of data sourse.
+ *
+ * @author Yaroslav Baranov
  */
 public class DataSourceTxProxy implements DataSource {
     private DataSource ds;

@@ -16,7 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Realization of UserDao interface.
+ *
+ * @see persistence.dao.UserDao
+ * @author Yaroslav Baranov
  */
 public class UserJdbcDao implements UserDao {
 
@@ -82,10 +85,5 @@ public class UserJdbcDao implements UserDao {
             return jdbcTemplate.queryObject(Query.GET_USER_ROLE_BY_LOGIN_QUERY, RoleMapper::map, user.get().getId());
         }
         return Optional.empty();
-    }
-
-    @Override
-    public void unregisterUsersFromCourse(int courseId) {
-        jdbcTemplate.update(Query.UNREGISTER_ALL_STUDENTS_FROM_COURSE_QUERY, courseId);
     }
 }

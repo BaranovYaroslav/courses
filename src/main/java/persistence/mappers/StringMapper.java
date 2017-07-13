@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Ярослав on 16.04.2017.
+ * Class that extract string object from database result set.
+ *
+ * @author Yaroslav Baranov
  */
 public class StringMapper {
     public static String map(ResultSet rs) throws SQLException {

@@ -1,7 +1,9 @@
 package persistence;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Holder of query constants.
+ *
+ * @author Yaroslav Baranov
  */
 public interface Query {
 

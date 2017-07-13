@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Class that provide template for base operation with database.
+ *
+ * @author Yaroslav Baranov
  */
 public class JdbcTemplate {
 
@@ -24,65 +26,13 @@ public class JdbcTemplate {
         this.connectionManager = connectionManager;
     }
 
-    public void startTransaction(int txIsolationLevel) {
-        Connection txConnection = connectionManager.getConnection();
-
-        try {
-            txConnection.setAutoCommit(false);
-            txConnection.setTransactionIsolation(txIsolationLevel);
-        } catch (SQLException e) {
-            LOGGER.error("Cannot start transaction. Your application may be data inconsistent", e);
-            throw new RuntimeSqlException(e);
-        } finally {
-            closeConnection(txConnection);
-        }
-    }
-
     /**
-     * calls {@link #startTransaction(int)} with txIsolationLevel set to
-     * Connection.TRANSACTION_READ_COMMITTED
-     */
-    public void startTransaction() {
-        startTransaction(Connection.TRANSACTION_READ_COMMITTED);
-    }
-
-    /**
-     * Commits the changes made by the underlying connection
+     * Method that insert row in database
      *
-     * Note, this method should be called only when the DataSource supports single thread
-     * transaction spanning(e.g. DataSourceTxProxy)
+     * @param query sql query to be executed
+     * @param parameters parameters of query
+     * @return index of database row that was inserted
      */
-    public void commit() {
-        Connection conn = connectionManager.getConnection();
-        try {
-            conn.commit();
-            conn.setAutoCommit(true);
-        } catch (SQLException e) {
-            LOGGER.error("Cannot commit");
-            throw new RuntimeSqlException(e);
-        } finally {
-            closeConnection(conn);
-        }
-    }
-
-    /**
-     * Rollbacks the changes made by the underlying connection
-     *
-     * Note, this method should be called only when the DataSource supports single thread
-     * transaction spanning(e.g. DataSourceTxProxy)
-     */
-    public void rollback() {
-        Connection conn = connectionManager.getConnection();
-        try {
-            conn.rollback();
-        } catch (SQLException e) {
-            LOGGER.error("Cannot call rollback", e);
-            throw new RuntimeSqlException(e);
-        } finally {
-            closeConnection(conn);
-        }
-    }
-
     public int insert(String query, Object... parameters) {
         Connection connection = connectionManager.getConnection();
 
@@ -112,6 +62,13 @@ public class JdbcTemplate {
         }
     }
 
+    /**
+     * Method that update row in database
+     *
+     * @param query sql query to be executed
+     * @param parameters parameters of query
+     * @return index of database row that was updated
+     */
     public int update(String query, Object... parameters) {
         Connection connection = connectionManager.getConnection();
 
@@ -134,7 +91,15 @@ public class JdbcTemplate {
         }
     }
 
-    public void query(String query, ResultSetFunction fn, Object... params) {
+    /**
+     * Method that query data from database according query and parameters and map
+     * this data to certain entity.
+     *
+     * @param query sql query to be executed
+     * @param fn function to be applied to result set
+     * @param parameters parameters of query
+     */
+    public void query(String query, ResultSetFunction fn, Object... parameters) {
         Connection connection = connectionManager.getConnection();
 
         if(connection == null) {
@@ -142,8 +107,8 @@ public class JdbcTemplate {
         }
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
+            for (int i = 0; i < parameters.length; i++) {
+                stmt.setObject(i + 1, parameters[i]);
             }
 
             ResultSet rs = stmt.executeQuery();
@@ -154,6 +119,13 @@ public class JdbcTemplate {
             closeConnection(connection);
         }
     }
+
+    /**
+     * Method that apply result set function to given result set.
+     *
+     * @param rs result set from database
+     * @param fn function to be applied to result set
+     */
     public void withRs(ResultSet rs, ResultSetFunction fn) {
         try {
             fn.apply(rs);
@@ -168,13 +140,20 @@ public class JdbcTemplate {
         }
     }
 
-    public <R> Optional<R> queryObject(String query, EntityExtractor<R> producer, Object... params) {
+    /**
+     * Method that query one entity from database according query, query parameters and producer.
+     *
+     * @param query sql query to be executed
+     * @param producer function to be applied to for mapping
+     * @param parameters parameters of query
+     */
+    public <R> Optional<R> queryObject(String query, EntityExtractor<R> producer, Object... parameters) {
         Object[] r = new Object[]{null};
         query(query, (rs) -> {
             if (rs.next()) {
                 r[0] = producer.apply(rs);
             }
-        }, params);
+        }, parameters);
 
         if(r[0] == null) {
             return Optional.empty();
@@ -182,18 +161,30 @@ public class JdbcTemplate {
         return Optional.of((R) r[0]);
     }
 
-    public <R> List<R> queryObjects(String query, EntityExtractor<R> producer, Object... params) {
+    /**
+     * Method that query list entities from database according query, query parameters and producer.
+     *
+     * @param query sql query to be executed
+     * @param producer function to be applied to for mapping
+     * @param parameters parameters of query
+     */
+    public <R> List<R> queryObjects(String query, EntityExtractor<R> producer, Object... parameters) {
         List<R> entities = new ArrayList<>();
 
         query(query, rs -> {
             while (rs.next()) {
                 entities.add(producer.apply(rs));
             }
-        }, params);
+        }, parameters);
 
         return entities;
     }
 
+    /**
+     * Method that close database connection
+     *
+     * @param connection connection to close
+     */
     private void closeConnection(Connection connection) {
         try {
             if(connection != null) {

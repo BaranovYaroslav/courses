@@ -8,7 +8,9 @@ import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Interface of factory to retrieve objects of DAO.
+ *
+ * @author Yaroslav Baranov
  */
 public interface DaoFactory {
     public UserDao getUserDao();

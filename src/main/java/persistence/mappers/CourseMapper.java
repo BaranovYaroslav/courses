@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Class that extract course from database result set.
+ *
+ * @author Yaroslav Baranov
  */
 public class CourseMapper {
     public static Course map(ResultSet rs) throws SQLException{

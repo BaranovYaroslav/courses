@@ -17,7 +17,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Realization of FeedbackDao interface.
+ *
+ * @see persistence.dao.FeedbackDao
+ * @author Yaroslav Baranov
  */
 public class FeedbackJdbcDao implements FeedbackDao {
 

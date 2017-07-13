@@ -5,7 +5,9 @@ import java.util.*;
 import java.util.concurrent.Executor;
 
 /**
- * Created by Ярослав on 12.07.2017.
+ * Class to provide proxy of database connection.
+ *
+ * @author Yaroslav Baranov
  */
 public class ConnectionTxProxy implements Connection {
     private Connection connection;

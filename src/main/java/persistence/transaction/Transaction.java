@@ -11,9 +11,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by Ярослав on 12.07.2017.
+ * Database transaction realization.
+ *
+ * @author Yaroslav Baranov.
  */
-
 @FunctionalInterface
 public interface Transaction {
 
@@ -21,6 +22,13 @@ public interface Transaction {
 
     void span();
 
+    /**
+     * Transaction wrapper for DataSourceTxProxy.
+     *
+     * @param connectionManager is the DataSource holder object
+     * @param transaction is a method object or lambda that contains the database operations
+     * @param isolationLevel is the level of database transaction isolation level
+     */
     static void of(ConnectionManager connectionManager, Transaction transaction, int isolationLevel) {
         Connection conn = connectionManager.getConnection();
 

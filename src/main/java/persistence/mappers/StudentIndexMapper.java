@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Class that integer object course from database result set.
+ *
+ * @author Yaroslav Baranov
  */
 public class StudentIndexMapper {
     public static Integer map(ResultSet rs) throws SQLException{

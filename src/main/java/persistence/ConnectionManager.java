@@ -23,7 +23,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Holder of access to database via connections.
+ *
+ * @author Yaroslav Baranov
  */
 public class ConnectionManager {
 
@@ -37,6 +39,11 @@ public class ConnectionManager {
         this.dataSource = dataSource;
     }
 
+    /**
+     * Method to obtain connection to database.
+     *
+     * @return connection to database
+     */
     public Connection getConnection() {
         try {
             return dataSource.getConnection();
@@ -58,6 +65,12 @@ public class ConnectionManager {
         return dataSource;
     }
 
+    /**
+     * Method to obtain instance of ConnectionManager according settings from properties file.
+     *
+     * @param path path of properties file.
+     * @return instance of ConnectionManager
+     */
     public static ConnectionManager fromProperties(String path) {
         MysqlDataSource dataSource = new MysqlDataSource();
 
@@ -72,6 +85,12 @@ public class ConnectionManager {
         return new ConnectionManager(txDataSource);
     }
 
+    /**
+     * Method to obtain instance of ConnectionManager according from jndi.
+     *
+     * @param name jndi name.
+     * @return instance of ConnectionManager
+     */
     public static ConnectionManager fromJndi(String name) {
         try {
             Context initialContext = new InitialContext();

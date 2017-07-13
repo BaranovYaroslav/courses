@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Ярослав on 18.04.2017.
+ * Class that extract Feedback from database result set.
+ *
+ * @author Yaroslav Baranov
  */
 public class FeedbackMapper {
     public static Feedback map(ResultSet resultSet) throws SQLException{

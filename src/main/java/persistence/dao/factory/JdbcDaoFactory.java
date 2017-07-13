@@ -11,7 +11,10 @@ import persistence.dao.impl.FeedbackJdbcDao;
 import persistence.dao.impl.UserJdbcDao;
 
 /**
- * Created by Ярослав on 11.04.2017.
+ * Realization of DaoFactory interface.
+ *
+ * @see persistence.dao.factory.DaoFactory
+ * @author Yaroslav Baranov
  */
 public class JdbcDaoFactory implements DaoFactory {
 

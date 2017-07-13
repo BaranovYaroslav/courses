@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Ярослав on 17.04.2017.
+ * Class that extract user role from database result set.
+ *
+ * @author Yaroslav Baranov
  */
 public class RoleMapper {
     public static Role map(ResultSet rs) throws SQLException {
