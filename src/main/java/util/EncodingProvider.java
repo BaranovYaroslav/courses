@@ -10,9 +10,9 @@ import constants.SecurityAccessConstants;
 import org.apache.log4j.Logger;
 
 /**
- * @author Yaroslav Baranov
+ * Class that provide data encoding.
  *
- * class that provide simple encoding functionality
+ * @author Yaroslav Baranov
  **/
 public class EncodingProvider {
 
@@ -20,10 +20,10 @@ public class EncodingProvider {
 
     /**
      * Encodes given string according application hashing algorithm
-     * @param string string to be encoded
      *
+     * @param string string to be encoded
      * @return encoded string
-     **/
+     */
     public static String encode(String string) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance(ApplicationConstants.HASHING_ALGORITHM);

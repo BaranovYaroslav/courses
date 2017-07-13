@@ -12,12 +12,20 @@ import java.util.Optional;
 import java.util.Properties;
 
 /**
- * Created by Ярослав on 23.04.2017.
+ * Util class that load properties.
+ *
+ * @author Yaroslav Baranov
  */
 public class PropertiesLoader {
 
     private static Logger LOGGER = Logger.getLogger(PropertiesLoader.class);
 
+    /**
+     * Method that create object of properties.
+     *
+     * @param path path to properties file
+     * @return object of Properties class
+     */
     public static Properties fromFile(String path) {
         Properties properties = new Properties();
 
