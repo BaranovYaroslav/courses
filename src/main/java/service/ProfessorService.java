@@ -6,9 +6,17 @@ import entities.Feedback;
 import java.util.List;
 
 /**
- * Created by Ярослав on 13.07.2017.
+ * Interface of service to provide business options with professor.
+ *
+ * @author Yaroslav Baranov
  */
 public interface ProfessorService {
 
+    /**
+     * Method to get all courses for professor
+     *
+     * @param professorLogin login of professor
+     * @return list of courses
+     */
     public List<Course> getCoursesForProfessor(String professorLogin);
 }

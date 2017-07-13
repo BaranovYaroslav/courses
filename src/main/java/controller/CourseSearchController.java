@@ -36,7 +36,7 @@ public class CourseSearchController implements Controller {
             String login = (String) httpWrapper.getRequest().getSession().getAttribute(RequestAttribute.USER);
             CourseSearchParameters searchParameters = constructSearchParametersFromRequest(httpWrapper);
             httpWrapper.getRequest().setAttribute(RequestAttribute.COURSES_FOR_REGISTRATION,
-                    studentService.getCoursesForStudentWithSearch(login, searchParameters));
+                    studentService.getCoursesForRegistrationWithSearch(login, searchParameters));
             goToStudentPage(httpWrapper);
         }
     }

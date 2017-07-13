@@ -1,5 +1,6 @@
 package service;
 
+import constants.NavigationConstants;
 import dispatcher.HttpWrapper;
 
 import javax.servlet.ServletException;
@@ -8,12 +9,20 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Service that provide navigation.
+ *
+ * @author Yaroslav Baranov
  */
 public class NavigationService {
 
     private static Logger LOGGER = Logger.getLogger(NavigationService.class);
 
+    /**
+     * Method that forward user to given url.
+     *
+     * @param httpWrapper holder of http request and response
+     * @param url url to forward
+     */
     public static void navigateTo(HttpWrapper httpWrapper, String url) {
         try {
             httpWrapper.getRequest().getRequestDispatcher(url)
@@ -23,9 +32,15 @@ public class NavigationService {
         }
     }
 
+    /**
+     * Method that redirect user to given url.
+     *
+     * @param httpWrapper holder of http request and response
+     * @param url url to redirect
+     */
     public static void redirectTo(HttpWrapper httpWrapper, String url) {
         try {
-            httpWrapper.getResponse().sendRedirect("/pro" + url);
+            httpWrapper.getResponse().sendRedirect(NavigationConstants.BASE_APPLICATION_URL + url);
         } catch (IOException e) {
             LOGGER.error("Error when trying redirect to " + url + " " + e);
         }

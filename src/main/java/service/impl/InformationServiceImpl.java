@@ -9,7 +9,10 @@ import security.UserRole;
 import service.InformationService;
 
 /**
- * Created by Ярослав on 26.06.2017.
+ * Realization of InformationService interface.
+ *
+ * @see service.InformationService
+ * @author Yaroslav Baranov
  */
 public class InformationServiceImpl implements InformationService{
 
@@ -57,14 +60,14 @@ public class InformationServiceImpl implements InformationService{
     }
 
     @Override
-    public long getStudentsNumber() {
-        checkTimeout();
-        return studentNumber;
-    }
-
-    @Override
     public long getProfessorsNumber() {
         checkTimeout();
         return professorNumber;
+    }
+
+    @Override
+    public long getStudentsNumber() {
+        checkTimeout();
+        return studentNumber;
     }
 }

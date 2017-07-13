@@ -7,20 +7,59 @@ import entities.User;
 import java.util.List;
 
 /**
- * Created by Ярослав on 18.04.2017.
+ * Interface of service to provide business options with feedback.
+ *
+ * @author Yaroslav Baranov
  */
 public interface FeedbackService {
 
+    /**
+     * Method to get feedback by id.
+     *
+     * @param id id of feedback
+     * @return found feedback
+     */
     public Feedback getFeedback(int id);
 
+    /**
+     * Method to update feedback in database.
+     *
+     * @param feedback feedback to be updated
+     */
     public void updateFeedback(Feedback feedback);
 
+    /**
+     * Method to get all feedback for student.
+     *
+     * @param login login of student
+     * @return list of feedbacks
+     */
     public List<Feedback> getFeedbacksForStudent(String login);
 
+    /**
+     * Method to delete feedback by course id and student id.
+     *
+     * @param courseId id of course
+     * @param studentId id of student
+     */
     public void deleteFeedback(int courseId, int studentId);
 
-    public List<Feedback> getFeedbacksByCourseId(int id);
+    /**
+     * Method to get all feedback for course.
+     *
+     * @param courseId id of course
+     * @return list of feedbacks
+     */
+    public List<Feedback> getFeedbacksByCourseId(int courseId);
 
+    /**
+     * Method to create empty feedback.
+     *
+     * @param course course of feedback
+     * @param user user of feedback
+     *
+     * @return created feedback
+     */
     public static Feedback createEmptyFeedback(Course course, User user) {
         Feedback.Builder builder = Feedback.newBuilder();
 

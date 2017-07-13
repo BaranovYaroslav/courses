@@ -20,6 +20,7 @@ public interface NavigationConstants {
     String STUDENT_COURSES_PAGE = "/pages/student/student-courses.jsp";
     String STUDENT_FEEDBACKS_PAGE = "/pages/student/student-feedbacks.jsp";
     String USERS_LIST_PAGE = "/pages/admin/users-list.jsp";
+    String NOTIFICATION_PAGE = "/pages/notification.jsp";
 
     String ADMIN_ROOT_URL = "/app/admin";
     String STUDENT_ROOT_URL = "/app/student";
@@ -27,4 +28,5 @@ public interface NavigationConstants {
     String STUDENT_REGISTRATION_URL = "/app/registration";
     String FEEDBACKS_FOR_COURSE_URL = "/app/professor/feedbacks?id=";
     String FEEDBACK_URL = "/app/professor/feedback?id=";
+    String BASE_APPLICATION_URL = "/pro";
 }

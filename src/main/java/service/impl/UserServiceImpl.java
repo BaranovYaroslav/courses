@@ -1,8 +1,6 @@
 package service.impl;
 
-import entities.Role;
 import entities.User;
-import org.apache.log4j.Logger;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
 import service.UserService;
@@ -10,6 +8,12 @@ import service.UserService;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Realization of UserService interface.
+ *
+ * @see service.UserService
+ * @author Yaroslav Baranov
+ */
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
@@ -55,16 +59,6 @@ public class UserServiceImpl implements UserService {
         }
 
         return false;
-    }
-
-    @Override
-    public Role getRole(int id) {
-        return userDao.getUserRole(id).get();
-    }
-
-    @Override
-    public String getRole(String login) {
-        return userDao.getUserRole(login).get().getRole();
     }
 
     public void setUserDao(UserDao userDao) {

@@ -4,7 +4,9 @@ import dispatcher.HttpMatcher;
 import entities.Course;
 
 /**
- * Created by Ярослав on 09.06.2017.
+ * Holder of date needed for course search.
+ *
+ * @author Yaroslav Baranov
  */
 public class CourseSearchParameters {
 

@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Ярослав on 13.07.2017.
+ * Realization of ProfessorService interface.
+ *
+ * @see service.ProfessorService
+ * @author Yaroslav Baranov
  */
 public class ProfessorServiceImpl implements ProfessorService {
 

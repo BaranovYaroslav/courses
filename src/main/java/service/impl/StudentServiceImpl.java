@@ -15,7 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Ярослав on 18.04.2017.
+ * Realization of StudentService interface.
+ *
+ * @see service.StudentService
+ * @author Yaroslav Baranov
  */
 public class StudentServiceImpl implements StudentService {
 
@@ -52,7 +55,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Course> getCoursesForStudentWithSearch(String login, CourseSearchParameters parameters) {
+    public List<Course> getCoursesForRegistrationWithSearch(String login, CourseSearchParameters parameters) {
         User user = userDao.getUser(login).get();
         List<Course> courses = courseDao.findAll();
 

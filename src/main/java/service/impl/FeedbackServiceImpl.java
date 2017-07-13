@@ -10,7 +10,10 @@ import service.FeedbackService;
 import java.util.List;
 
 /**
- * Created by Ярослав on 18.04.2017.
+ * Realization of FeedbackService interface.
+ *
+ * @see service.FeedbackService
+ * @author Yaroslav Baranov
  */
 public class FeedbackServiceImpl implements FeedbackService {
 

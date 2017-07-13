@@ -18,7 +18,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Ярослав on 15.04.2017.
+ * Realization of CourseService interface.
+ *
+ * @see service.CourseService
+ * @author Yaroslav Baranov
  */
 public class CourseServiceImpl implements CourseService {
 

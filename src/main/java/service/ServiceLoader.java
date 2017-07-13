@@ -7,7 +7,9 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by Ярослав on 13.04.2017.
+ * Holder of services.
+ *
+ * @author Yaroslav Baranov
  */
 public class ServiceLoader {
 
@@ -29,6 +31,11 @@ public class ServiceLoader {
         return instance;
     }
 
+    /**
+     * Method that load given service.
+     *
+     * @param clazz class of service to be loaded
+     */
     public <T> void loadService(Class<T> clazz) {
         try {
             loadedServices.put(clazz.getSimpleName(), clazz.newInstance());
@@ -37,10 +44,22 @@ public class ServiceLoader {
         }
     }
 
+    /**
+     * Method that load given service.
+     *
+     * @param clazz class of service to be loaded
+     * @param o object of given class
+     */
     public <T> void loadService(Class<T> clazz, T o) {
         loadedServices.put(clazz.getSimpleName(), o);
     }
 
+    /**
+     * Method that return object of needed service.
+     *
+     * @param clazz class of service to be returned
+     * @return object of service
+     */
     public <T> T getService(Class<T> clazz) {
         Object serviceObject = loadedServices.get(clazz.getSimpleName());
         return clazz.cast(serviceObject);

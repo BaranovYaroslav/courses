@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 13.04.2017.
+ * Realization of AuthenticationService interface.
+ *
+ * @see service.AuthenticationService
+ * @author Yaroslav Baranov
  */
 public class AuthenticationServiceImpl implements AuthenticationService {
 
