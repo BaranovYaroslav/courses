@@ -3,10 +3,12 @@ package service.impl;
 import entities.Course;
 import entities.Feedback;
 import entities.User;
+import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
+import persistence.transaction.Transaction;
 import service.FeedbackService;
 import service.StudentService;
 import service.util.CourseSearchParameters;
@@ -28,16 +30,20 @@ public class StudentServiceImpl implements StudentService {
 
     private FeedbackDao feedbackDao;
 
-    public StudentServiceImpl(CourseDao courseDao, UserDao userDao, FeedbackDao feedbackDao) {
+    private ConnectionManager connectionManager;
+
+    public StudentServiceImpl(CourseDao courseDao, UserDao userDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
         this.courseDao = courseDao;
         this.userDao = userDao;
         this.feedbackDao = feedbackDao;
+        this.connectionManager = connectionManager;
     }
 
-    public StudentServiceImpl(DaoFactory daoFactory) {
+    public StudentServiceImpl(DaoFactory daoFactory, ConnectionManager connectionManager) {
         courseDao = daoFactory.getCourseDao();
         feedbackDao = daoFactory.getFeedbackDao();
         userDao = daoFactory.getUserDao();
+        this.connectionManager = connectionManager;
     }
 
     @Override
@@ -81,9 +87,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public synchronized void registerStudent(Course course, User user) {
         if(course.getStudents().size() < course.getNumberOfStudents()) {
-            courseDao.registerStudent(course, user);
-            Feedback feedback = FeedbackService.createEmptyFeedback(course, user);
-            feedbackDao.add(feedback);
+            Transaction.of(connectionManager, () -> {
+                courseDao.registerStudent(course, user);
+                Feedback feedback = FeedbackService.createEmptyFeedback(course, user);
+                feedbackDao.add(feedback);}
+            );
         }
     }
 

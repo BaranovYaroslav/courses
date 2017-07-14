@@ -9,6 +9,7 @@ import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
+import persistence.transaction.Transaction;
 import service.CourseService;
 import service.util.CourseSearchParameters;
 
@@ -60,9 +61,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourse(int id) {
-        courseDao.delete(id);
-        courseDao.unregisterUsersFromCourse(id);
-        feedbackDao.deleteFeedbacksByCourseId(id);
+        Transaction.of(connectionManager, () -> {
+            feedbackDao.deleteFeedbacksByCourseId(id);
+            courseDao.unregisterUsersFromCourse(id);
+            courseDao.delete(id);
+        });
     }
 
     @Override
