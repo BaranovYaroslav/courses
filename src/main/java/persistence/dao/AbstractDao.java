@@ -8,7 +8,7 @@ import java.util.Optional;
  *
  * @author Yaroslav Baranov
  */
-public interface AbstractDao<T> {
+public interface AbstractDao<T, K> {
 
     /**
      * Method that add entity to database.
@@ -16,7 +16,7 @@ public interface AbstractDao<T> {
      * @param entity object of entity to be added
      * @return index of database row that contains inserted entity
      */
-    public int add(T entity);
+    public K add(T entity);
 
     /**
      * Method that delete entity from database.
@@ -31,7 +31,7 @@ public interface AbstractDao<T> {
      * @param entity object of entity to be updated
      * @return index of database row that contains updated entity
      */
-    public int update(T entity);
+    public K update(T entity);
 
     /**
      * Method that extract entity from database.
@@ -39,7 +39,7 @@ public interface AbstractDao<T> {
      * @param id id of entity to be found
      * @return Optional of found entity
      */
-    public Optional<T> find(int id);
+    public Optional<T> find(K id);
 
     /**
      * Method that extract all entities from database.

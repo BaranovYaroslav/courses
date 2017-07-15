@@ -38,7 +38,7 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     @Override
-    public int add(Course course) {
+    public Integer add(Course course) {
         return jdbcTemplate.insert(Query.INSERT_COURSE_QUERY,
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
@@ -57,7 +57,7 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     @Override
-    public int update(Course course) {
+    public Integer update(Course course) {
         return jdbcTemplate.update(Query.UPDATE_COURSE_QUERY,
                 course.getName(), course.getDescription(), course.getStartDate(), course.getEndDate(),
                 course.getProfessor().getId(), course.getLocation().getCity(), course.getLocation().getAddress(),
@@ -67,7 +67,7 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     @Override
-    public Optional<Course> find(int id) {
+    public Optional<Course> find(Integer id) {
         Optional<Course> course = jdbcTemplate.queryObject(Query.FIND_COURSE_QUERY, CourseMapper::map, id);
 
         if(course.isPresent()) {

@@ -10,7 +10,7 @@ import java.util.Optional;
  *
  * @author Yaroslav Baranov
  */
-public interface UserDao extends AbstractDao<User>{
+public interface UserDao extends AbstractDao<User, Integer>{
 
     /**
      * Method that extract user from database.

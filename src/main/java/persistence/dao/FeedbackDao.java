@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Yaroslav Baranov
  */
-public interface FeedbackDao extends AbstractDao<Feedback> {
+public interface FeedbackDao extends AbstractDao<Feedback, Integer> {
 
     /**
      * Method that extract all feedbacks for given course.

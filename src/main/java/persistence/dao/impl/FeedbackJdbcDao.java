@@ -42,7 +42,7 @@ public class FeedbackJdbcDao implements FeedbackDao {
     }
 
     @Override
-    public int add(Feedback feedback) {
+    public Integer add(Feedback feedback) {
         return jdbcTemplate.insert(Query.INSERT_FEEDBACK_QUERY,
                                    feedback.getScore(), feedback.getComment(), feedback.getCourse().getId(),
                                    feedback.getStudent().getId());
@@ -54,13 +54,13 @@ public class FeedbackJdbcDao implements FeedbackDao {
     }
 
     @Override
-    public int update(Feedback feedback) {
+    public Integer update(Feedback feedback) {
         return jdbcTemplate.update(Query.UPDATE_FEEDBACK_QUERY, feedback.getScore(),
                                    feedback.getComment(), feedback.getId());
     }
 
     @Override
-    public Optional<Feedback> find(int id) {
+    public Optional<Feedback> find(Integer id) {
         Optional<Feedback> feedback = jdbcTemplate.queryObject(Query.FIND_FEEDBACK_QUERY, FeedbackMapper::map, id);
         if(feedback.isPresent()) {
             feedback.get().setCourse(courseDao.find(feedback.get().getCourse().getId()).get());

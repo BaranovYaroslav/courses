@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Yaroslav Baranov
  */
-public interface CourseDao extends AbstractDao<Course> {
+public interface CourseDao extends AbstractDao<Course, Integer> {
 
     /**
      * Method that delete entity from database.

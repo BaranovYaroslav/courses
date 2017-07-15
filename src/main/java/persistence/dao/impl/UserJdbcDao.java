@@ -35,7 +35,7 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public int add(User user) {
+    public Integer add(User user) {
         int id = jdbcTemplate.insert(Query.INSERT_USER_QUERY, user.getLogin(), user.getFullName(),
                             user.getEmail(), user.getPassword());
         addRole(id, user.getRole());
@@ -48,13 +48,13 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public int update(User user) {
+    public Integer update(User user) {
         return jdbcTemplate.update(Query.UPDATE_USER_QUERY, user.getLogin(), user.getFullName(), user.getEmail(),
                                                             user.getPassword(), user.getId());
     }
 
     @Override
-    public Optional<User> find(int id) {
+    public Optional<User> find(Integer id) {
         return jdbcTemplate.queryObject(Query.FIND_USER_QUERY, UserMapper::map, id);
     }
 
