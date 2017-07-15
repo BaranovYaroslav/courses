@@ -74,7 +74,7 @@ public class Application {
         CourseService courseService = new CourseServiceImpl(daoFactory, connectionManager);
         UserService userService = new UserServiceImpl(daoFactory);
         ProfessorService professorService = new ProfessorServiceImpl(daoFactory);
-        StudentService studentService = new StudentServiceImpl(daoFactory);
+        StudentService studentService = new StudentServiceImpl(daoFactory, connectionManager);
         FeedbackService feedbackService = new FeedbackServiceImpl(daoFactory);
 
         AuthenticationService authenticationService = new AuthenticationServiceImpl(daoFactory);
@@ -120,6 +120,7 @@ public class Application {
                .addEntry("/professor/feedback", new LoadFeedbackPageController())
                .addEntry("/professor/feedback/save", new SaveFeedbackController())
                .addEntry("/student", new LoadStudentPageController())
+               .addEntry("/student/course/details", new CourseDetailsController())
                .addEntry("/student/register", new RegisterStudentController())
                .addEntry("/student/courses", new LoadStudentCoursesPageController())
                .addEntry("/student/courses/unregister", new UnregisterStudentController())

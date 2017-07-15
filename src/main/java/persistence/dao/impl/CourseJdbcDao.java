@@ -112,7 +112,7 @@ public class CourseJdbcDao implements CourseDao {
 
     private void setStudents(Course course) {
         List<User> students = new ArrayList<>();
-        students = jdbcTemplate.queryObjects(Query.GET_STUDENTS_FOR_COURSE_QUERY, UserMapper::map);
+        students = jdbcTemplate.queryObjects(Query.GET_STUDENTS_FOR_COURSE_QUERY, UserMapper::map, course.getId());
         course.setStudents(students);
     }
 }

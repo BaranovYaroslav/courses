@@ -3,6 +3,7 @@ package service.impl;
 import entities.Course;
 import entities.Feedback;
 import entities.User;
+import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
@@ -23,6 +24,8 @@ import java.util.stream.Collectors;
  * @author Yaroslav Baranov
  */
 public class StudentServiceImpl implements StudentService {
+
+    private static Logger LOGGER = Logger.getLogger(StudentService.class);
 
     private CourseDao courseDao;
 
@@ -55,8 +58,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Course> getCoursesForStudent(String login) {
+        LOGGER.error("in");
         List<Course> courses = courseDao.findAll();
         User user = userDao.getUser(login).get();
+        LOGGER.error(user);
+        courses.forEach(c -> LOGGER.error(c.getStudents().contains(user) + " " + c.getStudents()));
         return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
     }
 

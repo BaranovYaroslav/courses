@@ -21,6 +21,7 @@ public interface NavigationConstants {
     String STUDENT_FEEDBACKS_PAGE = "/pages/student/student-feedbacks.jsp";
     String USERS_LIST_PAGE = "/pages/admin/users-list.jsp";
     String NOTIFICATION_PAGE = "/pages/notification.jsp";
+    String COURSE_DETAILS_PAGE = "/pages/student/course-details.jsp";
 
     String ADMIN_ROOT_URL = "/app/admin";
     String STUDENT_ROOT_URL = "/app/student";

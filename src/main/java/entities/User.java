@@ -83,7 +83,7 @@ public class User {
         if (fullName != null ? !fullName.equals(user.fullName) : user.fullName != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+        if (role != null ? !role.getRole().equals(user.role.getRole()) : user.role != null) return false;
 
         return true;
     }

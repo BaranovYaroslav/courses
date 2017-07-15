@@ -22,7 +22,8 @@ public interface Query {
     String GET_STUDENTS_FOR_COURSE_QUERY = "SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
                                            "FROM `user` " +
                                            "JOIN `user_group` ON `id`=`user_group`.`user_id`" +
-                                           "JOIN `student_course` ON `student_id`=`id`;";
+                                           "JOIN `student_course` ON `student_id`=`id`" +
+                                           "WHERE `course_id`=?;";
     String INSERT_FEEDBACK_QUERY = "INSERT INTO `feedback` (`score`, `comment`, `course_id`, `user_id`) VALUES(?, ?, ?, ?);";
     String DELETE_FEEDBACK_QUERY = "DELETE FROM `feedback` where id=?;";
     String UPDATE_FEEDBACK_QUERY = "UPDATE `feedback` SET `score`=?, `comment`=? WHERE id=?;";

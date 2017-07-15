@@ -8,6 +8,7 @@ package constants;
 public interface RequestAttribute {
     String USER = "user";
     String USERS = "users";
+    String COURSE = "course";
     String COURSES_FOR_REGISTRATION = "coursesForRegistration";
     String TYPES = "types";
     String LOCATIONS = "locations";
