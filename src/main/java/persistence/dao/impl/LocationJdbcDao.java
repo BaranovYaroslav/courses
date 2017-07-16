@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 16.07.2017.
+ * Realization of LocationDao interface.
+ *
+ * @see persistence.dao.LocationDao
+ * @author Yaroslav Baranov
  */
 public class LocationJdbcDao implements LocationDao{
 

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Class that extract Feedback from database result set.
+ * Class that extract feedback from database result set.
  *
  * @author Yaroslav Baranov
  */

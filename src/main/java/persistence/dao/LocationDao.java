@@ -2,11 +2,17 @@ package persistence.dao;
 
 import entities.Location;
 
-
 /**
- * Created by Ярослав on 16.07.2017.
+ * Interface for location data access object.
+ *
+ * @author Yaroslav Baranov
  */
 public interface LocationDao extends AbstractDao<Location, Integer> {
 
+    /**
+     * Method that delete location from database.
+     *
+     * @param id id of location to be deleted
+     */
     public void delete(Integer id);
 }

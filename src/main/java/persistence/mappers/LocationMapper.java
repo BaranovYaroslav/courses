@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Ярослав on 16.07.2017.
+ * Class that extract location from database result set.
+ *
+ * @author Yaroslav Baranov
  */
 public class LocationMapper {
 

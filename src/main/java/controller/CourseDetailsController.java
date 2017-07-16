@@ -11,12 +11,21 @@ import service.NavigationService;
 import service.ServiceLoader;
 
 /**
- * Created by Ярослав on 15.07.2017.
+ * Controller that provide to user details information about course.
+ *
+ * @author Yaroslav Baranov
  */
 public class CourseDetailsController implements Controller {
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
+    /**
+     * Method that get course id from http request and forward to page
+     * that contain information about this course.
+     *
+     * @param httpWrapper holder of http request and response.
+     * @see dispatcher.HttpWrapper
+     */
     @Override
     public void execute(HttpWrapper httpWrapper) {
         Integer courseId = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.COURSE_ID));

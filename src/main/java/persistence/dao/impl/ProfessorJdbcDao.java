@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 16.07.2017.
+ * Realization of ProfessorDao interface.
+ *
+ * @see persistence.dao.ProfessorDao
+ * @author Yaroslav Baranov
  */
 public class ProfessorJdbcDao implements ProfessorDao {
 

@@ -6,9 +6,17 @@ import javax.swing.text.Style;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 16.07.2017.
+ * Interface for student data access object.
+ *
+ * @author Yaroslav Baranov
  */
 public interface StudentDao extends AbstractDao<Student, Integer> {
 
+    /**
+     * Method that extract student from database.
+     *
+     * @param login login of student
+     * @return Optional of found student
+     */
     public Optional<Student> findByLogin(String login);
 }

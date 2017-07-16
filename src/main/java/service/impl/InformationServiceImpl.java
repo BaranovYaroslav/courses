@@ -45,7 +45,7 @@ public class InformationServiceImpl implements InformationService{
         studentNumber = userDao.findAll().stream()
                                .filter(u -> u.getRole().getRole().equals(UserRole.STUDENT)).count();
         professorNumber = userDao.findAll().stream()
-                               .filter(p -> p.getRole().getRole().equals(UserRole.PROFESSOR)).count();
+                                 .filter(p -> p.getRole().getRole().equals(UserRole.PROFESSOR)).count();
     }
 
     private long getTimeFromLastAccess() {
