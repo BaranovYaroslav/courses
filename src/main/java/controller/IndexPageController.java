@@ -1,5 +1,6 @@
 package controller;
 
+import constants.ControllerConstants;
 import dispatcher.HttpWrapper;
 import service.InformationService;
 import service.ServiceLoader;
@@ -37,12 +38,10 @@ public class IndexPageController implements Controller {
      * @see service.InformationService
      */
     private String getInformationAsJSON() {
-        return String.format("{\"courseNumber\": %d," +
-                        "\"studentNumber\": %d," +
-                        "\"professorNumber\": %d}",
-                            informationService.getCoursesNumber(),
-                            informationService.getStudentsNumber(),
-                            informationService.getProfessorsNumber());
+        return String.format(ControllerConstants.INFORMATION_AS_JSON_PATTERN,
+                             informationService.getCoursesNumber(),
+                             informationService.getStudentsNumber(),
+                             informationService.getProfessorsNumber());
     }
 
 }

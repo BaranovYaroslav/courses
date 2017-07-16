@@ -142,7 +142,8 @@ public class NewCourseController implements Controller {
         request.setAttribute(RequestAttribute.PREVIOUS_START_DATE, startDate);
         request.setAttribute(RequestAttribute.PREVIOUS_END_DATE, endDate);
         request.setAttribute(RequestAttribute.PREVIOUS_PROFESSOR_LOGIN, professorLogin);
-        request.setAttribute(RequestAttribute.PREVIOUS_FREE, isFree == null ? "false" : "true");
+        request.setAttribute(RequestAttribute.PREVIOUS_FREE, isFree == null ? ControllerConstants.FALSE :
+                                                                              ControllerConstants.TRUE);
         request.setAttribute(RequestAttribute.PREVIOUS_X_COORDINATE, x);
         request.setAttribute(RequestAttribute.PREVIOUS_Y_COORDINATE, y);
         request.setAttribute(RequestAttribute.PREVIOUS_TYPE, type);

@@ -1,5 +1,6 @@
 package controller;
 
+import constants.ControllerConstants;
 import constants.RequestParameter;
 import dispatcher.HttpWrapper;
 
@@ -15,10 +16,6 @@ public class LocaleController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LocaleController.class);
 
-    private final String LANG = "lang";
-
-    private final String LOCALE = "locale";
-
     /**
      * Method that locale from request ans save it in session.
      *
@@ -30,17 +27,17 @@ public class LocaleController implements Controller {
         String lang = httpWrapper.getRequest().getParameter(RequestParameter.LANGUAGE);
 
         if(lang != null && !lang.isEmpty()) {
-            httpWrapper.getRequest().getSession().setAttribute(LANG, lang);
+            httpWrapper.getRequest().getSession().setAttribute(ControllerConstants.LANGUAGE, lang);
         } else {
-            lang = (String) httpWrapper.getRequest().getSession().getAttribute(LANG);
+            lang = (String) httpWrapper.getRequest().getSession().getAttribute(ControllerConstants.LANGUAGE);
             if(lang == null) {
-                lang = "en";
+                lang = ControllerConstants.DEFAULT_LANGUAGE_IDENTIFICATOR;
             }
         }
 
-        String langDescriptor = lang + "_" + lang.toUpperCase();
+        String langDescriptor = lang + ControllerConstants.UNDERSCORE_SYMBOL + lang.toUpperCase();
 
         Config.set(httpWrapper.getRequest().getSession(), Config.FMT_LOCALE, langDescriptor);
-        httpWrapper.getRequest().getSession().setAttribute(LOCALE, langDescriptor);
+        httpWrapper.getRequest().getSession().setAttribute(ControllerConstants.LOCALE, langDescriptor);
     }
 }

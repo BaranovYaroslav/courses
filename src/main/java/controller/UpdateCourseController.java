@@ -132,7 +132,8 @@ public class UpdateCourseController implements Controller {
         String startDate = request.getParameter(RequestParameter.START_DATE);
         String endDate = request.getParameter(RequestParameter.END_DATE);
         String professorLogin = request.getParameter(RequestParameter.PROFESSOR_LOGIN);
-        String isFree = request.getParameter(RequestParameter.IS_FREE) == null ? "false" : "true" ;
+        String isFree = request.getParameter(RequestParameter.IS_FREE) == null ? ControllerConstants.FALSE :
+                                                                                 ControllerConstants.TRUE;
         String x = request.getParameter(RequestParameter.X_COORDINATE);
         String y = request.getParameter(RequestParameter.Y_COORDINATE);
         String type = request.getParameter(RequestParameter.TYPE);

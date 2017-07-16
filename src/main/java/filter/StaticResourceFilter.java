@@ -1,5 +1,6 @@
 package filter;
 
+import constants.ApplicationConstants;
 import org.apache.log4j.Logger;
 import persistence.dao.UserDao;
 
@@ -31,16 +32,16 @@ public class StaticResourceFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         String path = req.getRequestURI().substring(req.getContextPath().length());
 
-        if(path.indexOf("/css") > 0){
+        if(path.indexOf(ApplicationConstants.STYLES_IDENTIFICATOR) > 0){
             chain.doFilter(request, response);
         }
-        else if(path.equals("/")) {
+        else if(path.indexOf(ApplicationConstants.JSP_IDENTIFICATOR) > 0){
             chain.doFilter(request, response);
         }
-        else if(path.indexOf(".jsp") > 0){
+        else  if(path.indexOf(ApplicationConstants.JS_IDENTIFICATOR) > 0) {
             chain.doFilter(request, response);
         }
-        else  if(path.indexOf(".js") > 0) {
+        else if(path.equals(ApplicationConstants.BASE_APPLICATION_URL)) {
             chain.doFilter(request, response);
         }
         else {

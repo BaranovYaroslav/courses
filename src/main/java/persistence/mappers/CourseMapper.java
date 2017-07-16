@@ -1,5 +1,6 @@
 package persistence.mappers;
 
+import constants.DatabaseColumn;
 import entities.*;
 
 import java.sql.ResultSet;
@@ -14,17 +15,17 @@ public class CourseMapper {
     public static Course map(ResultSet rs) throws SQLException{
         Course.Builder builder = Course.newBuilder();
 
-        builder.setId(rs.getInt("id"))
-               .setName(rs.getString("name"))
-               .setDescription(rs.getString("description"))
-               .setStartDate(rs.getString("start_date"))
-               .setEndDate(rs.getString("end_date"))
-               .setNumberOfStudents(rs.getInt("students_number"))
-               .setPrice(rs.getInt("price"))
-               .setFree(rs.getBoolean("is_free"))
+        builder.setId(rs.getInt(DatabaseColumn.ID))
+               .setName(rs.getString(DatabaseColumn.COURSE_NAME))
+               .setDescription(rs.getString(DatabaseColumn.COURSE_DESCRIPTION))
+               .setStartDate(rs.getString(DatabaseColumn.START_DATE))
+               .setEndDate(rs.getString(DatabaseColumn.END_DATE))
+               .setNumberOfStudents(rs.getInt(DatabaseColumn.STUDENTS_NUMBER))
+               .setPrice(rs.getInt(DatabaseColumn.PRICE))
+               .setFree(rs.getBoolean(DatabaseColumn.IS_FREE))
                .setProfessor(getProfessor(rs))
                .setLocation(getLocation(rs))
-               .setType(CourseType.valueOf(rs.getString("type").toUpperCase()));
+               .setType(CourseType.valueOf(rs.getString(DatabaseColumn.TYPE).toUpperCase()));
 
         return builder.build();
     }
@@ -32,12 +33,12 @@ public class CourseMapper {
     private static User getProfessor(ResultSet rs) throws SQLException {
         User.Builder builder = User.newBuilder();
 
-        builder.setId(rs.getInt("professor_id"))
-               .setFullName(rs.getString("full_name"))
-               .setEmail(rs.getString("email"))
-               .setPassword(rs.getString("password"))
-               .setLogin(rs.getString("login"))
-               .setRole(new Role(rs.getString("group")));
+        builder.setId(rs.getInt(DatabaseColumn.PROFESSOR_ID))
+               .setFullName(rs.getString(DatabaseColumn.FULL_NAME))
+               .setEmail(rs.getString(DatabaseColumn.EMAIL))
+               .setPassword(rs.getString(DatabaseColumn.PASSWORD))
+               .setLogin(rs.getString(DatabaseColumn.LOGIN))
+               .setRole(new Role(rs.getString(DatabaseColumn.GROUP)));
 
         return builder.build();
     }
@@ -45,11 +46,11 @@ public class CourseMapper {
     private static Location getLocation(ResultSet rs) throws SQLException {
         Location.Builder builder = Location.newBuilder();
 
-        builder.setId(rs.getInt("location_id"))
-               .setCity(rs.getString("city"))
-               .setAddress(rs.getString("address"))
-               .setXCoordinate(rs.getDouble("x"))
-               .setYCoordinate(rs.getDouble("y"));
+        builder.setId(rs.getInt(DatabaseColumn.LOCATION_ID))
+               .setCity(rs.getString(DatabaseColumn.CITY))
+               .setAddress(rs.getString(DatabaseColumn.ADDRESS))
+               .setXCoordinate(rs.getDouble(DatabaseColumn.X_COORDINATE))
+               .setYCoordinate(rs.getDouble(DatabaseColumn.Y_COORDINATE));
 
         return builder.build();
     }

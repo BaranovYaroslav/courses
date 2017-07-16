@@ -1,5 +1,6 @@
 package persistence.mappers;
 
+import constants.DatabaseColumn;
 import entities.Role;
 
 import java.sql.ResultSet;
@@ -12,6 +13,6 @@ import java.sql.SQLException;
  */
 public class RoleMapper {
     public static Role map(ResultSet rs) throws SQLException {
-        return new Role(rs.getString("group"));
+        return new Role(rs.getString(DatabaseColumn.GROUP));
     }
 }

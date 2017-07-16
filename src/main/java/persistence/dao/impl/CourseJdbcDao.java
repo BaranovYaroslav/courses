@@ -8,9 +8,7 @@ import persistence.Query;
 import persistence.dao.CourseDao;
 import persistence.dao.UserDao;
 import persistence.mappers.CourseMapper;
-import persistence.mappers.StudentIndexMapper;
 import persistence.mappers.StudentMapper;
-import persistence.mappers.UserMapper;
 
 import java.util.ArrayList;
 import java.util.List;
