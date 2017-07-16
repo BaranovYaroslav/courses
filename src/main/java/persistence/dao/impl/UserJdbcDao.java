@@ -25,12 +25,9 @@ public class UserJdbcDao implements UserDao {
 
     private static Logger LOGGER = Logger.getLogger(UserJdbcDao.class);
 
-    private ConnectionManager connectionManager;
-
     private JdbcTemplate jdbcTemplate;
 
     public UserJdbcDao(ConnectionManager connectionManager) {
-        this.connectionManager = connectionManager;
         jdbcTemplate = new JdbcTemplate(connectionManager);
     }
 

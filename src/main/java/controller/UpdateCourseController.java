@@ -59,10 +59,11 @@ public class UpdateCourseController implements Controller {
         Course.Builder builder = Course.newBuilder();
 
         Location.Builder locationBuilder = Location.newBuilder();
-        locationBuilder.setCity(request.getParameter(RequestParameter.CITY))
-                .setAddress(request.getParameter(RequestParameter.ADDRESS))
-                .setXCoordinate(Double.parseDouble(request.getParameter(RequestParameter.X_COORDINATE)))
-                .setYCoordinate(Double.parseDouble(request.getParameter(RequestParameter.Y_COORDINATE)));
+        locationBuilder.setId(Integer.parseInt(request.getParameter(RequestParameter.LOCATION_ID)))
+                       .setCity(request.getParameter(RequestParameter.CITY))
+                       .setAddress(request.getParameter(RequestParameter.ADDRESS))
+                       .setXCoordinate(Double.parseDouble(request.getParameter(RequestParameter.X_COORDINATE)))
+                       .setYCoordinate(Double.parseDouble(request.getParameter(RequestParameter.Y_COORDINATE)));
 
         User professor = userService.getUserByLogin(request.getParameter(RequestParameter.PROFESSOR_LOGIN));
 
@@ -127,6 +128,7 @@ public class UpdateCourseController implements Controller {
         String id = request.getParameter(RequestParameter.ID);
         String name = request.getParameter(RequestParameter.COURSE_NAME);
         String description = request.getParameter(RequestParameter.DESCRIPTION);
+        String locationId = request.getParameter(RequestParameter.LOCATION_ID);
         String city = request.getParameter(RequestParameter.CITY);
         String address = request.getParameter(RequestParameter.ADDRESS);
         String numberOfStudents = request.getParameter(RequestParameter.STUDENTS_NUMBER);
@@ -140,6 +142,7 @@ public class UpdateCourseController implements Controller {
         String type = request.getParameter(RequestParameter.TYPE);
 
         request.setAttribute(RequestAttribute.ID, id);
+        request.setAttribute(RequestAttribute.LOCATION_ID, locationId);
         request.setAttribute(RequestAttribute.PREVIOUS_COURSE_NAME, name);
         request.setAttribute(RequestAttribute.PREVIOUS_DESCRIPTION, description);
         request.setAttribute(RequestAttribute.PREVIOUS_CITY, city);

@@ -19,6 +19,7 @@ public interface RequestParameter {
     String COURSE_ID = "courseId";
     String COURSE_NAME = "name";
     String DESCRIPTION = "description";
+    String LOCATION_ID = "locationId";
     String CITY = "city";
     String ADDRESS = "address";
     String X_COORDINATE = "x";

@@ -66,6 +66,7 @@
                    pattern="^(0?[1-9]|[12][0-9]|3[01])[\.\-](0?[1-9]|1[012])[\.\-]\d{4}$">
             <p><fmt:message key="admin.new.course.professor" bundle="${rb}"/>:</p>
             <input type="text" name="professor" value="${previousProfessorLogin}" required>
+            <input name="locationId" type="text" class="hidden" value="${locationId}">
             <input id="x" type="text" class="hidden" name="x" value="${previousX}">
             <input id="y" type="text" class="hidden" name="y" value="${previousY}">
             <input type="submit" value="<fmt:message key="admin.edit.update" bundle="${rb}"/>">

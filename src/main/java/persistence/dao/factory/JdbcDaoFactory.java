@@ -5,9 +5,11 @@ import entities.Student;
 import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
+import persistence.dao.LocationDao;
 import persistence.dao.UserDao;
 import persistence.dao.impl.CourseJdbcDao;
 import persistence.dao.impl.FeedbackJdbcDao;
+import persistence.dao.impl.LocationJdbcDao;
 import persistence.dao.impl.UserJdbcDao;
 
 /**
@@ -37,5 +39,10 @@ public class JdbcDaoFactory implements DaoFactory {
     @Override
     public FeedbackDao getFeedbackDao() {
         return new FeedbackJdbcDao(connectionManager);
+    }
+
+    @Override
+    public LocationDao getLocationDao() {
+        return new LocationJdbcDao(connectionManager);
     }
 }

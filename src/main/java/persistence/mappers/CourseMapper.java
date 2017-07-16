@@ -1,9 +1,6 @@
 package persistence.mappers;
 
-import entities.Course;
-import entities.CourseType;
-import entities.Location;
-import entities.User;
+import entities.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,22 +31,26 @@ public class CourseMapper {
 
     private static User getProfessor(ResultSet rs) throws SQLException {
         User.Builder builder = User.newBuilder();
-        builder.setId(rs.getInt("professor_id"));
+
+        builder.setId(rs.getInt("professor_id"))
+               .setFullName(rs.getString("full_name"))
+               .setEmail(rs.getString("email"))
+               .setPassword(rs.getString("password"))
+               .setLogin(rs.getString("login"))
+               .setRole(new Role(rs.getString("group")));
+
         return builder.build();
     }
 
     private static Location getLocation(ResultSet rs) throws SQLException {
         Location.Builder builder = Location.newBuilder();
 
-        builder.setCity(rs.getString("city"))
-                .setAddress(rs.getString("address"))
-                .setXCoordinate(rs.getDouble("x"))
-                .setYCoordinate(rs.getDouble("y"));
+        builder.setId(rs.getInt("location_id"))
+               .setCity(rs.getString("city"))
+               .setAddress(rs.getString("address"))
+               .setXCoordinate(rs.getDouble("x"))
+               .setYCoordinate(rs.getDouble("y"));
 
         return builder.build();
-    }
-
-    private static void setStudentIndexes(Course course, ResultSet rs) throws SQLException {
-
     }
 }

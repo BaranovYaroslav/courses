@@ -7,6 +7,8 @@ package entities;
  */
 public class Location {
 
+    private int id;
+
     private String city;
 
     private String address;
@@ -14,6 +16,10 @@ public class Location {
     private double xCoordinate;
 
     private double yCoordinate;
+
+    public int getId() {
+        return id;
+    }
 
     public String getCity() {
         return city;
@@ -38,7 +44,8 @@ public class Location {
     @Override
     public String toString() {
         return "Location{" +
-                "city='" + city + '\'' +
+                "id=" + id +
+                ", city='" + city + '\'' +
                 ", address='" + address + '\'' +
                 ", xCoordinate=" + xCoordinate +
                 ", yCoordinate=" + yCoordinate +
@@ -52,6 +59,7 @@ public class Location {
 
         Location location = (Location) o;
 
+        if (id != location.id) return false;
         if (Double.compare(location.xCoordinate, xCoordinate) != 0) return false;
         if (Double.compare(location.yCoordinate, yCoordinate) != 0) return false;
         if (address != null ? !address.equals(location.address) : location.address != null) return false;
@@ -64,7 +72,8 @@ public class Location {
     public int hashCode() {
         int result;
         long temp;
-        result = city != null ? city.hashCode() : 0;
+        result = id;
+        result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         temp = Double.doubleToLongBits(xCoordinate);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -75,7 +84,13 @@ public class Location {
 
     public class Builder {
 
-        private Builder() {}
+        private Builder() {
+        }
+
+        public Builder setId(int id) {
+            Location.this.id = id;
+            return this;
+        }
 
         public Builder setCity(String city) {
             Location.this.city = city;

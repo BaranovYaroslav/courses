@@ -15,6 +15,7 @@ public interface RequestAttribute {
     String MAX_COURSE_PRICE = "maxPrice";
     String COURSES = "courses";
     String ID = "id";
+    String LOCATION_ID = "locationId";
     String PREVIOUS_COURSE_NAME = "previousName";
     String PREVIOUS_DESCRIPTION = "previousDescription";
     String PREVIOUS_CITY = "previousCity";

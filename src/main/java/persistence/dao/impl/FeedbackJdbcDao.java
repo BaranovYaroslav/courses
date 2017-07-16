@@ -26,8 +26,6 @@ public class FeedbackJdbcDao implements FeedbackDao {
 
     private static Logger LOGGER = Logger.getLogger(UserDao.class);
 
-    private ConnectionManager connectionManager;
-
     private JdbcTemplate jdbcTemplate;
 
     private UserDao userDao;
@@ -35,7 +33,6 @@ public class FeedbackJdbcDao implements FeedbackDao {
     private CourseDao courseDao;
 
     public FeedbackJdbcDao(ConnectionManager connectionManager) {
-        this.connectionManager = connectionManager;
         jdbcTemplate = new JdbcTemplate(connectionManager);
         userDao = new UserJdbcDao(connectionManager);
         courseDao = new CourseJdbcDao(connectionManager);

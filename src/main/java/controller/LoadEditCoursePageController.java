@@ -44,6 +44,7 @@ public class LoadEditCoursePageController implements Controller {
         request.setAttribute(RequestAttribute.ID, course.getId());
         request.setAttribute(RequestAttribute.PREVIOUS_COURSE_NAME, course.getName());
         request.setAttribute(RequestAttribute.PREVIOUS_DESCRIPTION, course.getDescription());
+        request.setAttribute(RequestAttribute.LOCATION_ID, course.getLocation().getId());
         request.setAttribute(RequestAttribute.PREVIOUS_CITY, course.getLocation().getCity());
         request.setAttribute(RequestAttribute.PREVIOUS_ADDRESS, course.getLocation().getAddress());
         request.setAttribute(RequestAttribute.PREVIOUS_STUDENTS_NUMBER, course.getNumberOfStudents());

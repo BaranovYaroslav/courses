@@ -41,7 +41,9 @@ public class JdbcTemplate {
         }
 
         try {
+            System.out.println(1111);
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            System.out.println(111111111);
             for (int i = 0; i < parameters.length; i++) {
                 statement.setObject(i + 1, parameters[i]);
             }

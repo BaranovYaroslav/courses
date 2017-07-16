@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
+import persistence.dao.LocationDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
 import persistence.transaction.Transaction;
@@ -16,6 +17,7 @@ import service.util.CourseSearchParameters;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -32,15 +34,20 @@ public class CourseServiceImpl implements CourseService {
 
     private ConnectionManager connectionManager;
 
-    public CourseServiceImpl(CourseDao courseDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
+    private LocationDao locationDao;
+
+    public CourseServiceImpl(CourseDao courseDao, FeedbackDao feedbackDao, LocationDao locationDao,
+                             ConnectionManager connectionManager) {
         this.courseDao = courseDao;
         this.feedbackDao = feedbackDao;
+        this.locationDao = locationDao;
         this.connectionManager = connectionManager;
     }
 
     public CourseServiceImpl(DaoFactory daoFactory, ConnectionManager connectionManager) {
         courseDao = daoFactory.getCourseDao();
         feedbackDao = daoFactory.getFeedbackDao();
+        locationDao = daoFactory.getLocationDao();
         this.connectionManager = connectionManager;
     }
 
@@ -61,21 +68,28 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourse(int id) {
-        Transaction.of(connectionManager, () -> {
-            feedbackDao.deleteFeedbacksByCourseId(id);
-            courseDao.unregisterUsersFromCourse(id);
-            courseDao.delete(id);
-        });
+        Optional<Course> course = courseDao.find(id);
+        if(course.isPresent()) {
+            deleteCourse(course.get());
+        }
     }
 
     @Override
     public void deleteCourse(Course course) {
-
+        Transaction.of(connectionManager, () -> {
+            feedbackDao.deleteFeedbacksByCourseId(course.getId());
+            courseDao.unregisterUsersFromCourse(course.getId());
+            courseDao.delete(course.getId());
+            locationDao.delete(course.getLocation().getId());
+        });
     }
 
     @Override
     public void updateCourse(Course course) {
-        courseDao.update(course);
+        Transaction.of(connectionManager, () -> {
+            courseDao.update(course);
+            locationDao.update(course.getLocation());
+        });
     }
 
     @Override

@@ -5,6 +5,7 @@ import entities.Student;
 import entities.User;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
+import persistence.dao.LocationDao;
 import persistence.dao.UserDao;
 
 /**
@@ -18,4 +19,6 @@ public interface DaoFactory {
     public CourseDao getCourseDao();
 
     public FeedbackDao getFeedbackDao();
+
+    public LocationDao getLocationDao();
 }

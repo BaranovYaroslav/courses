@@ -7,7 +7,7 @@
             maxIdle="30"
             maxWait="10000"
             driverClassName="com.mysql.jdbc.Driver"
-            url="jdbc:mysql://localhost:3306/project"
+            url="jdbc:mysql://localhost:3306/courses?characterEncoding=utf-8&amp;allowMultiQueries=true"
             username="root"
             password="root"
             />
