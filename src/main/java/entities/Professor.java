@@ -18,6 +18,10 @@ public class Professor extends User {
         super(builder);
         courses = builder.courses;
     }
+    public Professor(User user) {
+        super(user);
+        this.courses = new ArrayList<>();
+    }
 
     public static Builder newBuilder(){
         return new Builder();

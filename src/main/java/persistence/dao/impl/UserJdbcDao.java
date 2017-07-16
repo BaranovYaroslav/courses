@@ -7,9 +7,7 @@ import persistence.JdbcTemplate;
 import persistence.Query;
 import persistence.dao.UserDao;
 import org.apache.log4j.Logger;
-import persistence.exeptions.RuntimeSqlException;
 import persistence.mappers.RoleMapper;
-import persistence.mappers.StringMapper;
 import persistence.mappers.UserMapper;
 
 import java.util.List;
@@ -61,7 +59,7 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public Optional<User> getUser(String login) {
+    public Optional<User> findByLogin(String login) {
         return jdbcTemplate.queryObject(Query.FIND_USER_BY_LOGIN_QUERY, UserMapper::map, login);
     }
 
@@ -77,7 +75,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public Optional<Role> getUserRole(String login) {
-        Optional<User> user = getUser(login);
+        Optional<User> user = findByLogin(login);
         if(user.isPresent()) {
             return jdbcTemplate.queryObject(Query.GET_USER_ROLE_BY_LOGIN_QUERY, RoleMapper::map, user.get().getId());
         }

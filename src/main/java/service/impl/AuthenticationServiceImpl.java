@@ -10,7 +10,6 @@ import persistence.dao.factory.DaoFactory;
 import security.BaseResourceToRoleMapper;
 import service.AuthenticationService;
 import service.NavigationService;
-import org.apache.log4j.Logger;
 import util.EncodingProvider;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +50,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public boolean checkLoginWithPassword(String login, String password) {
-        Optional<User> user = userDao.getUser(login);
+        Optional<User> user = userDao.findByLogin(login);
 
         if(!user.isPresent()) {
             return false;

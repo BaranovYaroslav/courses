@@ -18,7 +18,7 @@ public interface UserDao extends AbstractDao<User, Integer>{
      * @param login login of user
      * @return Optional of found user
      */
-    public Optional<User> getUser(String login);
+    public Optional<User> findByLogin(String login);
 
     /**
      * Method that extract user role from database.

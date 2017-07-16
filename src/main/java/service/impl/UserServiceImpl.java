@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByLogin(String login) {
-        Optional<User> user = userDao.getUser(login);
+        Optional<User> user = userDao.findByLogin(login);
         if(!user.isPresent()) {
             return null;
         }

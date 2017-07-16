@@ -60,7 +60,7 @@ public class StudentServiceImpl implements StudentService {
     public List<Course> getCoursesForStudent(String login) {
         LOGGER.error("in");
         List<Course> courses = courseDao.findAll();
-        User user = userDao.getUser(login).get();
+        User user = userDao.findByLogin(login).get();
         LOGGER.error(user);
         courses.forEach(c -> LOGGER.error(c.getStudents().contains(user) + " " + c.getStudents()));
         return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
@@ -68,7 +68,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Course> getCoursesForRegistrationWithSearch(String login, CourseSearchParameters parameters) {
-        User user = userDao.getUser(login).get();
+        User user = userDao.findByLogin(login).get();
         List<Course> courses = courseDao.findAll();
 
         if(parameters.getType().length() != 0) {

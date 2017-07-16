@@ -25,6 +25,12 @@ public class Student extends User {
         feedbacks = builder.feedbacks;
     }
 
+    public Student(User user) {
+        super(user);
+        this.courses = new ArrayList<>();
+        this.feedbacks = new ArrayList<>();
+    }
+
     public static Builder newBuilder(){
         return new Builder();
     }

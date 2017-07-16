@@ -30,6 +30,15 @@ public class User {
         this.role = b.role;
     }
 
+    public User(User user) {
+        this.id = user.getId();
+        this.login = user.getLogin();
+        this.fullName = user.getFullName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.role = user.getRole();
+    }
+
     public int getId() {
         return id;
     }

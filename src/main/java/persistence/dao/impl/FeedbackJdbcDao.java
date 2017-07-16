@@ -93,7 +93,7 @@ public class FeedbackJdbcDao implements FeedbackDao {
     @Override
     public List<Feedback> getFeedBacksForStudentByLogin(String login) {
         List<Feedback> feedbacks = new ArrayList<>();
-        Optional<User> student = userDao.getUser(login);
+        Optional<User> student = userDao.findByLogin(login);
         if(student.isPresent()) {
             feedbacks = jdbcTemplate.queryObjects(Query.GET_FEEDBACKS_FOR_STUDENT_QUERY,
                     FeedbackMapper::map, student.get().getId());

@@ -3,14 +3,8 @@ package persistence.dao.factory;
 import entities.Professor;
 import entities.Student;
 import persistence.ConnectionManager;
-import persistence.dao.CourseDao;
-import persistence.dao.FeedbackDao;
-import persistence.dao.LocationDao;
-import persistence.dao.UserDao;
-import persistence.dao.impl.CourseJdbcDao;
-import persistence.dao.impl.FeedbackJdbcDao;
-import persistence.dao.impl.LocationJdbcDao;
-import persistence.dao.impl.UserJdbcDao;
+import persistence.dao.*;
+import persistence.dao.impl.*;
 
 /**
  * Realization of DaoFactory interface.
@@ -29,6 +23,16 @@ public class JdbcDaoFactory implements DaoFactory {
     @Override
     public UserDao getUserDao() {
         return new UserJdbcDao(connectionManager);
+    }
+
+    @Override
+    public ProfessorDao getProfessorDao() {
+        return new ProfessorJdbcDao(connectionManager, this.getUserDao());
+    }
+
+    @Override
+    public StudentDao getStudentDao() {
+        return new StudentJdbcDao(connectionManager, this.getUserDao());
     }
 
     @Override

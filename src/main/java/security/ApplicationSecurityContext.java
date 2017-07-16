@@ -31,7 +31,7 @@ public class ApplicationSecurityContext {
      * @param login login of user
      */
     public void login(HttpServletRequest request, String login) {
-        User user = userDao.getUser(login).get();
+        User user = userDao.findByLogin(login).get();
         request.getSession().setAttribute(RequestAttribute.USER, user.getLogin());
     }
 
@@ -54,7 +54,7 @@ public class ApplicationSecurityContext {
      * @return result of determination
      */
     public boolean isUserInRole(String login, String role) {
-        User user = userDao.getUser(login).get();
+        User user = userDao.findByLogin(login).get();
         if(user == null) {
             return false;
         }

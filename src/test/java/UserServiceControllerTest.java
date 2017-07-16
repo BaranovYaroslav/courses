@@ -5,7 +5,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import persistence.dao.UserDao;
-import persistence.dao.factory.DaoFactory;
 import service.impl.UserServiceImpl;
 
 import static org.mockito.Mockito.*;
@@ -39,7 +38,7 @@ public class UserServiceControllerTest {
 
     @Test
     public void testGetUserByLogin() {
-        when(userDao.getUser("login")).thenReturn(Optional.of(new User()));
+        when(userDao.findByLogin("login")).thenReturn(Optional.of(new User()));
         assertNotEquals(userService.getUserByLogin("login"), null);
     }
 }
