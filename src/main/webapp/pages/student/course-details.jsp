@@ -14,11 +14,9 @@
 <c:import url="/resources/components/header-component.jsp"/>
 <c:import url="/resources/components/locale-component.jsp"/>
 
-<div class="logout">
-  <form method="get" action="<c:url value="/app/logout"/>">
-    <img src="<c:url value="/resources/images/logout.png"/>" onclick="this.parentNode.submit()"/>
-  </form>
-</div>
+<form class="goBack" method="get" action="<c:url value="/app/student"/>">
+  <img src="<c:url value="/resources/images/return_icon.png"/>" onclick="this.parentNode.submit()"/>
+</form>
 
 <div id="backgroundLayer" class="backgroundLayer">
 </div>

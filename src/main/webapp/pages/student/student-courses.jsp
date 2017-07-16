@@ -28,6 +28,10 @@
   <c:import url="/resources/components/header-component.jsp"/>
   <c:import url="/resources/components/locale-component.jsp"/>
 
+  <form class="goBack" method="get" action="<c:url value="/app/student"/>">
+    <img src="<c:url value="/resources/images/return_icon.png"/>" onclick="this.parentNode.submit()"/>
+  </form>
+
   <div id="courseContainer" class="courseContainer">
     <c:forEach items="${courses}" var="course">
       <div class="course">

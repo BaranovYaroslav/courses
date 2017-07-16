@@ -14,6 +14,10 @@
     <c:import url="/resources/components/header-component.jsp"/>
     <c:import url="/resources/components/locale-component.jsp"/>
 
+    <form class="goBack" method="get" action="<c:url value="/app/admin"/>">
+        <img src="<c:url value="/resources/images/return_icon.png"/>" onclick="this.parentNode.submit()"/>
+    </form>
+
     <div class="form">
         <form method="post" action="<c:url value="/app/admin/new-professor/save"/>">
             <p><fmt:message key="admin.new.professor.login" bundle="${rb}"/>:</p>

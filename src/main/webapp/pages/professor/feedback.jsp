@@ -14,6 +14,11 @@
   <c:import url="/resources/components/header-component.jsp"/>
   <c:import url="/resources/components/locale-component.jsp"/>
 
+  <form class="goBack" method="get" action="<c:url value="/app/professor/feedbacks"/>">
+      <input class="hidden" type="text" name="id" value="${feedback.course.id}">
+      <img src="<c:url value="/resources/images/return_icon.png"/>" onclick="this.parentNode.submit()"/>
+  </form>
+
   <div class="feedBackForm">
     <form method="post" action="<c:url value="/app/professor/feedback/save"/>">
       <p><fmt:message key="professor.feedback.student" bundle="${rb}"/>: ${feedback.student.fullName}</p>

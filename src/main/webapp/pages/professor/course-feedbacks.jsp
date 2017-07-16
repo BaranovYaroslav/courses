@@ -14,6 +14,10 @@
     <c:import url="/resources/components/header-component.jsp"/>
     <c:import url="/resources/components/locale-component.jsp"/>
 
+    <form class="goBack" method="get" action="<c:url value="/app/professor"/>">
+        <img src="<c:url value="/resources/images/return_icon.png"/>" onclick="this.parentNode.submit()"/>
+    </form>
+
     <div class="studentList">
         <c:forEach items="${feedbacks}" var="feedback">
             <div class="student">

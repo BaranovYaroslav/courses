@@ -36,8 +36,8 @@ public interface Query {
                                     "INNER JOIN location ON location.id = c.location_id " +
                                     "INNER JOIN user ON user.id = c.professor_id " +
                                     "INNER JOIN user_group ON user_group.user_id = c.professor_id;";
-    String REGISTER_STUDENT_QUERY = "INSERT INTO `student_course` (`student_id`, `course_id`) VALUES (?, ?);";
-    String UNREGISTER_STUDENT_QUERY = "DELETE FROM `student_course` WHERE `student_id`=? AND `course_id`=?;";
+    String REGISTER_STUDENT_QUERY = "INSERT INTO `student_course` (`user_id`, `course_id`) VALUES (?, ?);";
+    String UNREGISTER_STUDENT_QUERY = "DELETE FROM `student_course` WHERE `user_id`=? AND `course_id`=?;";
     String GET_STUDENTS_FOR_COURSE_QUERY = "SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +
                                            "FROM `user` " +
                                            "JOIN `user_group` ON `id`=`user_group`.`user_id`" +

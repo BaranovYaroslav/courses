@@ -7,6 +7,21 @@ body{
     padding: 0;
 }
 
+.goBack {
+    top: 10px;
+    left: 10px;
+    float: left;
+}
+
+.goBack:hover {
+    cursor: pointer;
+}
+
+.goBack img {
+    max-width: 40px;
+    max-height: 40px;
+}
+
 .backgroundLayer {
     position: fixed;
     top: 0;
