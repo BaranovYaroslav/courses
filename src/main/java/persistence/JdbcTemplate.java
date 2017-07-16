@@ -87,7 +87,7 @@ public class JdbcTemplate {
             return statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error("Cannot execute update query", e);
-            return -1;
+            throw new RuntimeSqlException(e);
         } finally {
             closeConnection(connection);
         }
@@ -117,6 +117,7 @@ public class JdbcTemplate {
             withRs(rs, fn);
         } catch (SQLException e) {
             LOGGER.error("Error creating prepared statement. Query: " + query, e);
+            throw new RuntimeSqlException(e);
         } finally {
             closeConnection(connection);
         }
@@ -133,6 +134,7 @@ public class JdbcTemplate {
             fn.apply(rs);
         } catch (Exception e) {
             LOGGER.error("ResultSetFunctions has thrown an exception", e);
+            throw new RuntimeSqlException(e);
         } finally {
             try {
                 rs.close();
