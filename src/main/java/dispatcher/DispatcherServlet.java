@@ -77,6 +77,7 @@ public class DispatcherServlet extends HttpServlet {
             entry.get().executeController(httpWrapper);
         }
         else {
+            LOGGER.warn("Try to access incorrect resource: " + httpWrapper.getRequest().getPathInfo());
             NotificationService.notify(httpWrapper, Messages.MESSAGE_404);
         }
 

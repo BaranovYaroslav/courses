@@ -1,5 +1,7 @@
 package app;
 
+import constants.ApplicationConstants;
+import constants.NavigationConstants;
 import controller.*;
 import dispatcher.HttpMatcher;
 import persistence.ConnectionManager;
@@ -44,14 +46,14 @@ public class Application {
      */
     public void initializeSecurity() {
         ResourceToRoleMapper.getInstance()
-                .addConstrains("/admin", UserRole.ADMIN)
-                .addConstrains("/student", UserRole.STUDENT)
-                .addConstrains("/professor", UserRole.PROFESSOR);
+                .addConstrains(NavigationConstants.ADMIN_URL, UserRole.ADMIN)
+                .addConstrains(NavigationConstants.PROFESSOR_URL, UserRole.PROFESSOR)
+                .addConstrains(NavigationConstants.STUDENT_URL, UserRole.STUDENT);
 
         BaseResourceToRoleMapper.getInstance()
-                .addMapping(UserRole.STUDENT, "/app/student")
-                .addMapping(UserRole.PROFESSOR, "/app/professor")
-                .addMapping(UserRole.ADMIN, "/app/admin");
+                .addMapping(UserRole.ADMIN, NavigationConstants.ADMIN_ROOT_URL)
+                .addMapping(UserRole.STUDENT, NavigationConstants.STUDENT_ROOT_URL)
+                .addMapping(UserRole.PROFESSOR, NavigationConstants.PROFESSOR_ROOT_URL);
     }
 
     /**
@@ -60,7 +62,7 @@ public class Application {
      * @see persistence
      */
     public void initializePersistence() {
-        connectionManager = ConnectionManager.fromJndi("jdbc/courses");
+        connectionManager = ConnectionManager.fromJndi(ApplicationConstants.CONNECTION_POOL_JNDI_NAME);
         daoFactory = new JdbcDaoFactory(connectionManager);
     }
 

@@ -29,6 +29,7 @@ public class DeleteCourseController implements Controller {
     public void execute(HttpWrapper httpWrapper) {
         Integer id = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.ID));
         courseService.deleteCourse(id);
+        LOGGER.info("Course deleted: " + id);
         NavigationService.redirectTo(httpWrapper, NavigationConstants.ADMIN_ROOT_URL);
     }
 }

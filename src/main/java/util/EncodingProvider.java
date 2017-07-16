@@ -31,7 +31,7 @@ public class EncodingProvider {
             byte[] hash = messageDigest.digest(string.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(hash);
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.error("Invalid hash algorithm! " + e);
+            LOGGER.error("Invalid hashing algorithm! " + e);
         }
 
         return "";

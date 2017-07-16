@@ -38,8 +38,9 @@ public class NewProfessorController implements Controller {
 
         if(validateInputData(httpWrapper)) {
             if (userService.getUserByLogin(login) == null) {
-                User user = constructProfessor(httpWrapper.getRequest());
-                userService.addUser(user);
+                Professor professor = constructProfessor(httpWrapper.getRequest());
+                userService.addUser(professor);
+                LOGGER.info("New professor account created: " + professor);
                 NavigationService.redirectTo(httpWrapper, NavigationConstants.ADMIN_ROOT_URL);
             } else {
                 returnToPreviousPage(httpWrapper, Messages.ON_LOGIN_OCCUPIED_MESSAGE);

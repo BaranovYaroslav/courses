@@ -8,6 +8,7 @@ package constants;
 public interface ApplicationConstants {
     String APPLICATION_IDENTIFICATOR = "application";
     String BASE_APPLICATION_URL = "/";
+    String CONNECTION_POOL_JNDI_NAME = "jdbc/courses";
     String RESOURCES_LOCATION = "/resources/";
     String PAGES_LOCATION = "/pages";
     String URL_FOR_LOGIN = "/app/login";

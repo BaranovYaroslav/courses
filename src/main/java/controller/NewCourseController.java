@@ -37,6 +37,7 @@ public class NewCourseController implements Controller {
             if(userService.userHasRole(httpWrapper.getRequest().getParameter(RequestParameter.PROFESSOR_LOGIN), UserRole.PROFESSOR)) {
                 Course course = constructCourse(httpWrapper.getRequest());
                 courseService.addNewCourse(course);
+                LOGGER.info("New course created: " + course);
                 NavigationService.redirectTo(httpWrapper, NavigationConstants.ADMIN_ROOT_URL);
             }
             else {

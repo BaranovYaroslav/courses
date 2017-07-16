@@ -53,6 +53,7 @@ public class SimpleSecuredAccessStrategy implements SecuredAccessStrategy {
                 filterChain.doFilter(httpWrapper.getRequest(), httpWrapper.getResponse());
             }
             else {
+                LOGGER.warn("Unsuccessful access to resource: " + url);
                 if(securityContext.getCurrentUser(httpWrapper.getRequest()) == null) {
                     NavigationService.navigateTo(httpWrapper, ApplicationConstants.URL_FOR_LOGIN);
                 }

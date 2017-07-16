@@ -23,7 +23,11 @@ public interface NavigationConstants {
     String NOTIFICATION_PAGE = "/pages/notification.jsp";
     String COURSE_DETAILS_PAGE = "/pages/student/course-details.jsp";
 
+    String ADMIN_URL = "/admin";
+    String PROFESSOR_URL = "/professor";
+    String STUDENT_URL = "/student";
     String ADMIN_ROOT_URL = "/app/admin";
+    String PROFESSOR_ROOT_URL = "/app/professor";
     String STUDENT_ROOT_URL = "/app/student";
     String LOGIN_URL = "/app/login";
     String STUDENT_REGISTRATION_URL = "/app/registration";

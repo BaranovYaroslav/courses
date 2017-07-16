@@ -8,6 +8,7 @@ import persistence.dao.UserDao;
 import persistence.dao.impl.UserJdbcDao;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 /**
  * Class that provide functionality that need to be secured.
@@ -54,11 +55,11 @@ public class ApplicationSecurityContext {
      * @return result of determination
      */
     public boolean isUserInRole(String login, String role) {
-        User user = userDao.findByLogin(login).get();
-        if(user == null) {
+        Optional<User> user = userDao.findByLogin(login);
+        if(!user.isPresent()) {
             return false;
         }
-        return userDao.getUserRole(login).get().getRole().equals(role);
+        return user.get().getRole().getRole().equals(role);
     }
 
 

@@ -35,6 +35,7 @@ public class LoginController implements Controller {
                 authenticationService.processIncorrectLogin(httpWrapper, login);
             }
             else{
+                LOGGER.warn("Unsuccessful login:" + login + " " + password);
                 authenticationService.processCorrectLogin(httpWrapper, login);
             }
         }
