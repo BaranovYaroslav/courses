@@ -42,7 +42,7 @@ public class JdbcDaoFactory implements DaoFactory {
 
     @Override
     public FeedbackDao getFeedbackDao() {
-        return new FeedbackJdbcDao(connectionManager);
+        return new FeedbackJdbcDao(connectionManager, this.getStudentDao(), this.getCourseDao());
     }
 
     @Override

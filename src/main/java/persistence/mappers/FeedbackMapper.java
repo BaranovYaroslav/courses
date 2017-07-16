@@ -2,6 +2,7 @@ package persistence.mappers;
 
 import entities.Course;
 import entities.Feedback;
+import entities.Student;
 import entities.User;
 
 import java.sql.ResultSet;
@@ -19,14 +20,14 @@ public class FeedbackMapper {
         builder.setId(resultSet.getInt("id"))
                .setScore(resultSet.getDouble("score"))
                .setComment(resultSet.getString("comment"))
-               .setStudent(initializeUser(resultSet))
+               .setStudent(initializeStudent(resultSet))
                .setCourse(initializeCourse(resultSet));
 
         return builder.build();
     }
 
-    private static User initializeUser(ResultSet resultSet) throws SQLException {
-        User.Builder builder = User.newBuilder();
+    private static Student initializeStudent(ResultSet resultSet) throws SQLException {
+        Student.Builder builder = Student.newBuilder();
         builder.setId(resultSet.getInt("user_id"));
         return builder.build();
     }

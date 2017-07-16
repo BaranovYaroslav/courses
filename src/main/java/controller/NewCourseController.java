@@ -2,18 +2,13 @@ package controller;
 
 import constants.*;
 import dispatcher.HttpWrapper;
-import entities.Course;
-import entities.CourseType;
-import entities.Location;
-import entities.User;
+import entities.*;
 import org.apache.log4j.Logger;
 import security.UserRole;
-import service.CourseService;
-import service.NavigationService;
-import service.ServiceLoader;
-import service.UserService;
+import service.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.PrivateKey;
 
 /**
  * Controller that provide to admin possibility to create new course.
@@ -27,6 +22,8 @@ public class NewCourseController implements Controller {
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+
+    private ProfessorService professorService = ServiceLoader.getInstance().getService(ProfessorService.class);
 
     /**
      * Method that provide processing of new course creation.
@@ -65,7 +62,7 @@ public class NewCourseController implements Controller {
                 .setXCoordinate(Double.parseDouble(request.getParameter(RequestParameter.X_COORDINATE)))
                 .setYCoordinate(Double.parseDouble(request.getParameter(RequestParameter.Y_COORDINATE)));
 
-        User professor = userService.getUserByLogin(request.getParameter(RequestParameter.PROFESSOR_LOGIN));
+        Professor professor = professorService.getProfessorByLogin(request.getParameter(RequestParameter.PROFESSOR_LOGIN));
 
         builder.setName(request.getParameter(RequestParameter.COURSE_NAME))
                .setDescription(request.getParameter(RequestParameter.DESCRIPTION))

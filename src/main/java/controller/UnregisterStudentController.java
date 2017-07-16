@@ -4,6 +4,7 @@ import constants.RequestAttribute;
 import constants.RequestParameter;
 import dispatcher.HttpWrapper;
 import entities.Course;
+import entities.Student;
 import entities.User;
 import service.*;
 
@@ -16,14 +17,12 @@ public class UnregisterStudentController implements Controller {
 
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
-
     private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
 
     private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
 
     /**
-     * Method that unregister user from course. Parameters are passed by http request.
+     * Method that unregister student from course. Parameters are passed by http request.
      *
      * @param httpWrapper holder of http request and response.
      * @see dispatcher.HttpWrapper
@@ -34,9 +33,9 @@ public class UnregisterStudentController implements Controller {
         int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.COURSE_ID));
 
         Course course = courseService.getCourse(courseId);
-        User user = userService.getUserByLogin(login);
+        Student student = studentService.getStudentByLogin(login);
 
-        studentService.unregisterStudent(course, user);
-        feedbackService.deleteFeedback(course.getId(), user.getId());
+        studentService.unregisterStudent(course, student);
+        feedbackService.deleteFeedback(course.getId(), student.getId());
     }
 }

@@ -15,6 +15,14 @@ import java.util.List;
 public interface StudentService {
 
     /**
+     * Method to get student by login.
+     *
+     * @param login login of user
+     * @return found user
+     */
+    public Student getStudentByLogin(String login);
+
+    /**
      * Method to give all courses of student.
      *
      * @param login login of student to give courses
@@ -41,18 +49,18 @@ public interface StudentService {
     public List<Course> getCoursesForRegistrationWithSearch(String login, CourseSearchParameters parameters);
 
     /**
-     * Method that register given user to given course.
+     * Method that register given student to given course.
      *
      * @param course course for registration
-     * @param user user to be register
+     * @param student student to be register
      */
-    public void registerStudent(Course course, User user);
+    public void registerStudent(Course course, Student student);
 
     /**
-     * Method that unregister given user from given course.
+     * Method that unregister given student from given course.
      *
      * @param course course for unregister
-     * @param user user to be unregister
+     * @param student student to be unregister
      */
-    public void unregisterStudent(Course course, User user);
+    public void unregisterStudent(Course course, Student student);
 }

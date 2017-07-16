@@ -2,6 +2,7 @@ package service;
 
 import entities.Course;
 import entities.Feedback;
+import entities.Student;
 import entities.User;
 
 import java.util.List;
@@ -56,16 +57,16 @@ public interface FeedbackService {
      * Method to create empty feedback.
      *
      * @param course course of feedback
-     * @param user user of feedback
+     * @param student student of feedback
      *
      * @return created feedback
      */
-    public static Feedback createEmptyFeedback(Course course, User user) {
+    public static Feedback createEmptyFeedback(Course course, Student student) {
         Feedback.Builder builder = Feedback.newBuilder();
 
         builder.setComment("")
                 .setScore(0)
-                .setStudent(user)
+                .setStudent(student)
                 .setCourse(course);
 
         return builder.build();

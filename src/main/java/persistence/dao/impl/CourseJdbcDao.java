@@ -9,6 +9,7 @@ import persistence.dao.CourseDao;
 import persistence.dao.UserDao;
 import persistence.mappers.CourseMapper;
 import persistence.mappers.StudentIndexMapper;
+import persistence.mappers.StudentMapper;
 import persistence.mappers.UserMapper;
 
 import java.util.ArrayList;
@@ -27,11 +28,8 @@ public class CourseJdbcDao implements CourseDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    private UserDao userDao;
-
     public CourseJdbcDao(ConnectionManager connectionManager) {
         jdbcTemplate = new JdbcTemplate(connectionManager);
-        userDao = new UserJdbcDao(connectionManager);
     }
 
     @Override
@@ -86,13 +84,13 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     @Override
-    public void registerStudent(Course course, User user) {
+    public void registerStudent(Course course, Student user) {
         jdbcTemplate.insert(Query.REGISTER_STUDENT_QUERY, user.getId(), course.getId());
     }
 
     @Override
-    public void unregisterStudent(Course course, User user) {
-        jdbcTemplate.update(Query.UNREGISTER_STUDENT_QUERY, user.getId(), course.getId());
+    public void unregisterStudent(Course course, Student student) {
+        jdbcTemplate.update(Query.UNREGISTER_STUDENT_QUERY, student.getId(), course.getId());
     }
 
     @Override
@@ -101,8 +99,8 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     private void setStudents(Course course) {
-        List<User> students = new ArrayList<>();
-        students = jdbcTemplate.queryObjects(Query.GET_STUDENTS_FOR_COURSE_QUERY, UserMapper::map, course.getId());
+        List<Student> students = new ArrayList<>();
+        students = jdbcTemplate.queryObjects(Query.GET_STUDENTS_FOR_COURSE_QUERY, StudentMapper::map, course.getId());
         course.setStudents(students);
     }
 }

@@ -5,6 +5,7 @@ import constants.RequestAttribute;
 import constants.RequestParameter;
 import dispatcher.HttpWrapper;
 import entities.Course;
+import entities.Student;
 import entities.User;
 import service.*;
 
@@ -33,8 +34,8 @@ public class RegisterStudentController implements Controller{
         int courseId = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.COURSE_ID));
 
         Course course = courseService.getCourse(courseId);
-        User user = userService.getUserByLogin(login);
-        studentService.registerStudent(course, user);
+        Student student = studentService.getStudentByLogin(login);
+        studentService.registerStudent(course, student);
 
         NavigationService.redirectTo(httpWrapper, NavigationConstants.STUDENT_ROOT_URL);
     }

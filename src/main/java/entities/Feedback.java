@@ -13,7 +13,7 @@ public class Feedback {
 
     private String comment;
 
-    private User student;
+    private Student student;
 
     private Course course;
 
@@ -39,7 +39,7 @@ public class Feedback {
         return course;
     }
 
-    public void setStudent(User student) {
+    public void setStudent(Student student) {
         this.student = student;
     }
 
@@ -110,7 +110,7 @@ public class Feedback {
             return this;
         }
 
-        public Builder setStudent(User student) {
+        public Builder setStudent(Student student) {
             Feedback.this.student = student;
             return this;
         }

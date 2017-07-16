@@ -2,6 +2,8 @@ package service;
 
 import entities.Course;
 import entities.Feedback;
+import entities.Professor;
+import entities.User;
 
 import java.util.List;
 
@@ -11,6 +13,14 @@ import java.util.List;
  * @author Yaroslav Baranov
  */
 public interface ProfessorService {
+
+    /**
+     * Method to get professor by login.
+     *
+     * @param login login of user
+     * @return found user
+     */
+    public Professor getProfessorByLogin(String login);
 
     /**
      * Method to get all courses for professor

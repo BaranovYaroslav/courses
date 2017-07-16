@@ -32,7 +32,7 @@ public class Course {
 
     private Location location;
 
-    private List<User> students;
+    private List<Student> students;
 
     public Course() {}
 
@@ -64,7 +64,7 @@ public class Course {
         return professor;
     }
 
-    public List<User> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
@@ -84,7 +84,7 @@ public class Course {
         return location;
     }
 
-    public void setStudents(List<User> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
@@ -191,7 +191,7 @@ public class Course {
             return this;
         }
 
-        public Builder setStudents(List<User> students) {
+        public Builder setStudents(List<Student> students) {
             Course.this.students = students;
             return this;
         }

@@ -1,12 +1,11 @@
 package service.impl;
 
-import entities.Course;
-import entities.Feedback;
-import entities.User;
+import entities.*;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
 import persistence.dao.CourseDao;
 import persistence.dao.FeedbackDao;
+import persistence.dao.StudentDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
 import persistence.transaction.Transaction;
@@ -15,6 +14,7 @@ import service.StudentService;
 import service.util.CourseSearchParameters;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -29,15 +29,15 @@ public class StudentServiceImpl implements StudentService {
 
     private CourseDao courseDao;
 
-    private UserDao userDao;
+    private StudentDao studentDao;
 
     private FeedbackDao feedbackDao;
 
     private ConnectionManager connectionManager;
 
-    public StudentServiceImpl(CourseDao courseDao, UserDao userDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
+    public StudentServiceImpl(CourseDao courseDao, StudentDao userDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
         this.courseDao = courseDao;
-        this.userDao = userDao;
+        this.studentDao = studentDao;
         this.feedbackDao = feedbackDao;
         this.connectionManager = connectionManager;
     }
@@ -45,8 +45,19 @@ public class StudentServiceImpl implements StudentService {
     public StudentServiceImpl(DaoFactory daoFactory, ConnectionManager connectionManager) {
         courseDao = daoFactory.getCourseDao();
         feedbackDao = daoFactory.getFeedbackDao();
-        userDao = daoFactory.getUserDao();
+        studentDao = daoFactory.getStudentDao();
         this.connectionManager = connectionManager;
+    }
+
+    @Override
+    public Student getStudentByLogin(String login) {
+        Optional<Student> student = studentDao.findByLogin(login);
+
+        if(!student.isPresent()) {
+            return null;
+        }
+
+        return student.get();
     }
 
     @Override
@@ -58,17 +69,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Course> getCoursesForStudent(String login) {
-        LOGGER.error("in");
         List<Course> courses = courseDao.findAll();
-        User user = userDao.findByLogin(login).get();
-        LOGGER.error(user);
-        courses.forEach(c -> LOGGER.error(c.getStudents().contains(user) + " " + c.getStudents()));
-        return courses.stream().filter(course -> course.getStudents().contains(user)).collect(Collectors.toList());
+        Student student = studentDao.findByLogin(login).get();
+        return courses.stream().filter(course -> course.getStudents().contains(student)).collect(Collectors.toList());
     }
 
     @Override
     public List<Course> getCoursesForRegistrationWithSearch(String login, CourseSearchParameters parameters) {
-        User user = userDao.findByLogin(login).get();
+        Student student = studentDao.findByLogin(login).get();
         List<Course> courses = courseDao.findAll();
 
         if(parameters.getType().length() != 0) {
@@ -87,22 +95,22 @@ public class StudentServiceImpl implements StudentService {
                     .collect(Collectors.toList());
         }
 
-        return courses;
+        return courses.stream().filter(course -> !course.getStudents().contains(student)).collect(Collectors.toList());
     }
 
     @Override
-    public synchronized void registerStudent(Course course, User user) {
+    public synchronized void registerStudent(Course course, Student student) {
         if(course.getStudents().size() < course.getNumberOfStudents()) {
             Transaction.of(connectionManager, () -> {
-                courseDao.registerStudent(course, user);
-                Feedback feedback = FeedbackService.createEmptyFeedback(course, user);
+                courseDao.registerStudent(course, student);
+                Feedback feedback = FeedbackService.createEmptyFeedback(course, student);
                 feedbackDao.add(feedback);}
             );
         }
     }
 
     @Override
-    public void unregisterStudent(Course course, User user) {
-        courseDao.unregisterStudent(course, user);
+    public void unregisterStudent(Course course, Student student) {
+        courseDao.unregisterStudent(course, student);
     }
 }

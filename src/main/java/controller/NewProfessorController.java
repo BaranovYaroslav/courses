@@ -3,6 +3,7 @@ package controller;
 import constants.*;
 import dispatcher.HttpWrapper;
 
+import entities.Professor;
 import entities.Role;
 import entities.User;
 import org.apache.log4j.Logger;
@@ -74,8 +75,8 @@ public class NewProfessorController implements Controller {
      *
      * @param request http request that contains parameters of new course.
      */
-    private User constructProfessor(HttpServletRequest request) {
-        User.Builder builder = User.newBuilder();
+    private Professor constructProfessor(HttpServletRequest request) {
+        Professor.Builder builder = Professor.newBuilder();
 
         builder.setLogin(request.getParameter(RequestParameter.LOGIN))
                .setFullName(request.getParameter(RequestParameter.FULL_NAME))

@@ -21,20 +21,20 @@ public interface CourseDao extends AbstractDao<Course, Integer> {
     public void delete(int id);
 
     /**
-     * Method that register given user to given course.
+     * Method that register given student to given course.
      *
      * @param course course for registration
-     * @param user user to be register
+     * @param student student to be register
      */
-    public void registerStudent(Course course, User user);
+    public void registerStudent(Course course, Student student);
 
     /**
-     * Method that unregister given user from given course.
+     * Method that unregister given student from given course.
      *
      * @param course course for unregister
-     * @param user user to be unregister
+     * @param student student to be unregister
      */
-    public void unregisterStudent(Course course, User user);
+    public void unregisterStudent(Course course, Student student);
 
     /**
      * Method that unregister all users from course.

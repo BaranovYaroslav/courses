@@ -21,7 +21,6 @@ public class LocationJdbcDao implements LocationDao{
         this.jdbcTemplate = new JdbcTemplate(connectionManager);
     }
 
-
     @Override
     public Integer add(Location location) {
         return jdbcTemplate.insert(Query.INSERT_LOCATION_QUERY, location.getCity(), location.getAddress(),

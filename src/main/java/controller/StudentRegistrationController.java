@@ -3,6 +3,7 @@ package controller;
 import constants.*;
 import dispatcher.HttpWrapper;
 import entities.Role;
+import entities.Student;
 import entities.User;
 import org.apache.log4j.Logger;
 import security.UserRole;
@@ -41,7 +42,7 @@ public class StudentRegistrationController implements Controller {
             String login = httpWrapper.getRequest().getParameter(RequestParameter.LOGIN);
 
             if (userService.getUserByLogin(login) == null) {
-                User student = constructStudent(httpWrapper.getRequest());
+                Student student = constructStudent(httpWrapper.getRequest());
                 userService.addUser(student);
                 NavigationService.redirectTo(httpWrapper, ApplicationConstants.BASE_APPLICATION_URL);
             } else {
@@ -54,12 +55,12 @@ public class StudentRegistrationController implements Controller {
     }
 
     /**
-     * Method that construct new user account from request parameters.
+     * Method that construct new student from request parameters.
      *
      * @param request http request that contains parameters of new course.
      */
-    private User constructStudent(HttpServletRequest request) {
-        User.Builder builder = User.newBuilder();
+    private Student constructStudent(HttpServletRequest request) {
+        Student.Builder builder = Student.newBuilder();
 
         builder.setLogin(request.getParameter(RequestParameter.LOGIN))
                .setFullName(request.getParameter(RequestParameter.FULL_NAME))

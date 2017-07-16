@@ -2,16 +2,10 @@ package controller;
 
 import constants.*;
 import dispatcher.HttpWrapper;
-import entities.Course;
-import entities.CourseType;
-import entities.Location;
-import entities.User;
+import entities.*;
 import org.apache.log4j.Logger;
 import security.UserRole;
-import service.CourseService;
-import service.NavigationService;
-import service.ServiceLoader;
-import service.UserService;
+import service.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +21,8 @@ public class UpdateCourseController implements Controller {
     private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
 
     private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+
+    private ProfessorService professorService = ServiceLoader.getInstance().getService(ProfessorService.class);
 
     /**
      * Method that process editing of course and forward to admin base page.
@@ -65,7 +61,7 @@ public class UpdateCourseController implements Controller {
                        .setXCoordinate(Double.parseDouble(request.getParameter(RequestParameter.X_COORDINATE)))
                        .setYCoordinate(Double.parseDouble(request.getParameter(RequestParameter.Y_COORDINATE)));
 
-        User professor = userService.getUserByLogin(request.getParameter(RequestParameter.PROFESSOR_LOGIN));
+        Professor professor = professorService.getProfessorByLogin(request.getParameter(RequestParameter.PROFESSOR_LOGIN));
 
         builder.setId(Integer.parseInt(request.getParameter(RequestParameter.ID)))
                .setName(request.getParameter(RequestParameter.COURSE_NAME))
