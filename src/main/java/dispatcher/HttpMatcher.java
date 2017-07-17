@@ -2,8 +2,10 @@ package dispatcher;
 
 import controller.Controller;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -15,25 +17,24 @@ public class HttpMatcher {
 
     private static HttpMatcher instance;
 
-    private List<HttpMatcherEntry> entries;
+    private Map<String, Controller> entries;
 
     private HttpMatcher() {
-        entries = new ArrayList<>();
+        entries = new HashMap<>();
     }
 
     /**
-     * Method to retrieve holder of controller by giver url.
+     * Method to retrieve controller by giver url.
      *
      * @param url url to find controller.
-     * @return Optional of holder.
+     * @return Optional of controller.
      */
-    public Optional<HttpMatcherEntry> getMatcherEntry(String url){
-        for(HttpMatcherEntry entry: entries){
-            if(entry.url.equals(url)){
-                return Optional.of(entry);
-            }
+    public Optional<Controller> getMatcherEntry(String url){
+        Controller controller = entries.get(url);
+        if(controller == null) {
+            return Optional.empty();
         }
-        return Optional.empty();
+        return Optional.of(controller);
     }
 
     public static HttpMatcher getInstance() {
@@ -54,38 +55,12 @@ public class HttpMatcher {
     public class Builder {
 
         public Builder addEntry(String url, Controller controller) {
-            HttpMatcherEntry httpMatcherEntry = new HttpMatcherEntry(url, controller);
-            HttpMatcher.this.entries.add(httpMatcherEntry);
+            HttpMatcher.this.entries.put(url, controller);
             return this;
         }
 
         public HttpMatcher build() {
             return HttpMatcher.this;
-        }
-    }
-
-    /**
-     * Inner class that hold url and controller.
-     *
-     * @author Yaroslav Baranov
-     */
-    public static class HttpMatcherEntry {
-
-        private String url;
-
-        private final Controller controller;
-
-        public HttpMatcherEntry (String url, Controller controller){
-            this.url = url;
-            this.controller = controller;
-        }
-
-        public void executeController(HttpWrapper httpWrapper){
-            this.controller.execute(httpWrapper);
-        }
-
-        public String getUrl() {
-            return url;
         }
     }
 }

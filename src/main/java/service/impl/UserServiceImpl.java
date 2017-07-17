@@ -27,8 +27,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(User user) {
-        userDao.add(user);
+    public synchronized void addUser(User user) {
+        if(!userDao.findByLogin(user.getLogin()).isPresent()) {
+            userDao.add(user);
+        }
     }
 
     @Override

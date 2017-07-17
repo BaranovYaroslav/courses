@@ -70,11 +70,11 @@ public class DispatcherServlet extends HttpServlet {
      * @param httpWrapper holder of http request and response.
      */
     private void dispatchRequest(HttpWrapper httpWrapper) {
-        Optional<HttpMatcher.HttpMatcherEntry> entry = HttpMatcher.getInstance()
+        Optional<Controller> controller = HttpMatcher.getInstance()
                                                                   .getMatcherEntry(httpWrapper.getRequest().getPathInfo());
 
-        if(entry.isPresent()) {
-            entry.get().executeController(httpWrapper);
+        if(controller.isPresent()) {
+            controller.get().execute(httpWrapper);
         }
         else {
             LOGGER.warn("Try to access incorrect resource: " + httpWrapper.getRequest().getPathInfo());
