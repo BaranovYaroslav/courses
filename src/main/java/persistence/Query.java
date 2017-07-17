@@ -86,6 +86,7 @@ public interface Query {
     String DELETE_FEEDBACK_BY_COURSE_AND_STUDENT_ID_QUERY = "DELETE FROM `feedback` WHERE `course_id`=? AND `student_id`=?;";
     String INSERT_USER_QUERY = "INSERT INTO `user` (`login`, `full_name`, `email`, `password`) " +
                                "VALUES (?, ?, ?, ?);";
+    String DELETE_USER_ROLE_QUERY = "DELETE FROM `user_group` WHERE `user_id`=?;";
     String DELETE_USER_QUERY = "DELETE FROM `user` WHERE `id`=?;";
     String UPDATE_USER_QUERY = "UPDATE `user` SET `login`=?, `full_name`=?, `email`=?, `password`=? WHERE `id`=?;";
     String FIND_USER_QUERY = "SELECT `id`, `login`, `full_name`, `email`, `password`, `user_group`.`group` " +

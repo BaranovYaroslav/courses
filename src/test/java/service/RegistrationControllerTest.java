@@ -1,3 +1,5 @@
+package service;
+
 import controller.RegisterStudentController;
 import controller.StudentRegistrationController;
 import dispatcher.HttpWrapper;
@@ -16,9 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by Ярослав on 05.07.2017.
+ * Tests for RegistrationController
+ *
+ * @see controller.StudentRegistrationController
+ * @author Yaroslav Baranov
  */
-
 @RunWith(MockitoJUnitRunner.class)
 public class RegistrationControllerTest {
 

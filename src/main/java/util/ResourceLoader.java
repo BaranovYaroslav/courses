@@ -3,12 +3,10 @@ package util;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -16,9 +14,9 @@ import java.util.Properties;
  *
  * @author Yaroslav Baranov
  */
-public class PropertiesLoader {
+public class ResourceLoader {
 
-    private static Logger LOGGER = Logger.getLogger(PropertiesLoader.class);
+    private static Logger LOGGER = Logger.getLogger(ResourceLoader.class);
 
     /**
      * Method that create object of properties.
@@ -39,4 +37,25 @@ public class PropertiesLoader {
 
         return properties;
     }
+
+    public static File getFile(String path) {
+        URL url = ResourceLoader.class.getClassLoader().getResource(path);
+
+        File file = null;
+        try {
+            file = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            LOGGER.warn("Bad path", e);
+            return null;
+        }
+
+
+        if (file.exists()) {
+            return file;
+        }
+
+        LOGGER.info("Cannot load resource");
+        return null;
+    }
 }
+

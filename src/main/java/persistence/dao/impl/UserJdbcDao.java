@@ -39,6 +39,7 @@ public class UserJdbcDao implements UserDao {
 
     @Override
     public void delete(User user) {
+        deleteUserRole(user.getId());
         jdbcTemplate.update(Query.DELETE_USER_QUERY, user.getId());
     }
 
@@ -71,6 +72,11 @@ public class UserJdbcDao implements UserDao {
     @Override
     public void addRole(int id, Role role) {
         jdbcTemplate.insert(Query.INSERT_USER_ROLE_QUERY, id, role.getRole());
+    }
+
+    @Override
+    public void deleteUserRole(int userId) {
+        jdbcTemplate.update(Query.DELETE_USER_ROLE_QUERY, userId);
     }
 
     @Override

@@ -1,3 +1,5 @@
+package service;
+
 import entities.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,10 +16,13 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * Created by Ярослав on 05.07.2017.
+ * Tests for UserService
+ *
+ * @see service.UserService
+ * @author Yaroslav Baranov
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UserServiceControllerTest {
+public class UserServiceTest {
 
     @Mock UserDao userDao;
 

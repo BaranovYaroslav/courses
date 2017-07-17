@@ -4,10 +4,15 @@ import org.apache.log4j.Logger;
 import persistence.dao.UserDao;
 import persistence.exeptions.RuntimeSqlException;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Class that provide template for base operation with database.
@@ -41,9 +46,7 @@ public class JdbcTemplate {
         }
 
         try {
-            System.out.println(1111);
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            System.out.println(111111111);
             for (int i = 0; i < parameters.length; i++) {
                 statement.setObject(i + 1, parameters[i]);
             }
@@ -182,6 +185,47 @@ public class JdbcTemplate {
         }, parameters);
 
         return entities;
+    }
+
+    /**
+     * Method that execute given sql file.
+     *
+     * @param file ti be executed
+     * @return result of executing
+     */
+    public boolean executeSqlFile(File file) {
+        try {
+            if (file.exists()) {
+                String content = new String(Files.readAllBytes(file.toPath()));
+                List<String> queries = Arrays.asList(content.split(";"))
+                        .stream()
+                        .map(String::trim)
+                        .filter(s -> !s.isEmpty())
+                        .collect(Collectors.toList());
+
+                Connection connection = connectionManager.getConnection();
+
+                try {
+                    for (String query : queries) {
+                        try (Statement stmt = connection.createStatement()) {
+                            stmt.execute(query.trim());
+                        }
+                    }
+                } finally {
+                    closeConnection(connection);
+                }
+
+                return true;
+            }
+        } catch (IOException e) {
+            LOGGER.warn("SQL script file not found");
+            return false;
+        }catch (SQLException e) {
+            LOGGER.trace("Errors while executing SQL script: " + e);
+            return false;
+        }
+
+        return false;
     }
 
     /**

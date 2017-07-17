@@ -37,10 +37,17 @@ public interface UserDao extends AbstractDao<User, Integer>{
     public Optional<Role> getUserRole(String login);
 
     /**
-     * Method that role into database.
+     * Method that add user role into database.
      *
      * @param userId id of user
      * @param role role to be added
      */
     public void addRole(int userId, Role role);
+
+    /**
+     * Method that delete user role from database.
+     *
+     * @param userId id of user
+     */
+    public void deleteUserRole(int userId);
 }
