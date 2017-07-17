@@ -70,9 +70,7 @@ public class DispatcherServlet extends HttpServlet {
      * @param httpWrapper holder of http request and response.
      */
     private void dispatchRequest(HttpWrapper httpWrapper) {
-        Optional<Controller> controller = HttpMatcher.getInstance()
-                                                                  .getMatcherEntry(httpWrapper.getRequest().getPathInfo());
-
+        Optional<Controller> controller = HttpMatcher.getInstance().getMatcherEntry(httpWrapper.getRequest().getPathInfo());
         if(controller.isPresent()) {
             controller.get().execute(httpWrapper);
         }
