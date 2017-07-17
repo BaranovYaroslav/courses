@@ -20,7 +20,7 @@ public interface Query {
                                  "`professor_id`=?, `students_number`=?, `price`=?, `is_free`=?, `type`=? " +
                                  "WHERE id=?;";
     String FIND_COURSE_QUERY = "SELECT c.id, c.name, c.description, c.start_date, c.end_date, c.professor_id, " +
-                               "c.students_number, c.price, c.is_free, type, c.location_id, location.city, " +
+                               "c.students_number, c.price, c.is_free, c.type, c.location_id, location.city, " +
                                "location.address, location.x, location.y, user.id, user.full_name, user.email, " +
                                "user.login, user.password, user_group.group " +
                                "FROM course c " +
@@ -29,7 +29,7 @@ public interface Query {
                                "INNER JOIN user_group ON user_group.user_id = c.professor_id " +
                                "WHERE c.id=?;";
     String FIND_ALL_COURSES_QUERY = "SELECT c.id, c.name, c.description, c.start_date, c.end_date, c.professor_id, " +
-                                    "c.students_number, c.price, c.is_free, type, c.location_id, location.city, " +
+                                    "c.students_number, c.price, c.is_free, c.type, c.location_id, location.city, " +
                                     "location.address, location.x, location.y, user.id, user.full_name, user.email, " +
                                     "user.login, user.password, user_group.group " +
                                     "FROM course c " +
@@ -48,15 +48,42 @@ public interface Query {
     String UPDATE_LOCATION_QUERY = "UPDATE `location` SET `city`=?, `address`=?, `x`=?, `y`=? WHERE `id`=?;";
     String FIND_LOCATION_QUERY = "SELECT * FROM `location` WHERE `id`=?;";
     String FIND_ALL_LOCATIONS_QUERY = "SELECT * FROM `location`;";
-    String INSERT_FEEDBACK_QUERY = "INSERT INTO `feedback` (`score`, `comment`, `course_id`, `user_id`) VALUES(?, ?, ?, ?);";
+    String INSERT_FEEDBACK_QUERY = "INSERT INTO `feedback` (`score`, `comment`, `course_id`, `student_id`) VALUES(?, ?, ?, ?);";
     String DELETE_FEEDBACK_QUERY = "DELETE FROM `feedback` where id=?;";
     String UPDATE_FEEDBACK_QUERY = "UPDATE `feedback` SET `score`=?, `comment`=? WHERE id=?;";
-    String FIND_FEEDBACK_QUERY = "SELECT * FROM `feedback` WHERE `id`=?";
-    String FIND_ALL_FEEDBACKS_QUERY = "SELECT * FROM `feedback`;";
-    String GET_FEEDBACKS_FOR_COURSE_QUERY = "SELECT * FROM `feedback` WHERE `course_id`=?";
-    String GET_FEEDBACKS_FOR_STUDENT_QUERY = "SELECT * FROM `feedback` WHERE `user_id`=?;";
+    String FIND_FEEDBACK_QUERY = "SELECT f.id, f.score, f.comment, f.student_id, f.course_id, user.id, user.login, " +
+                                 "user.full_name, user.email, user.password, course.id, course.name, course.description, " +
+                                 "course.start_date, course.end_date, course.professor_id, course.students_number, " +
+                                 "course.price, course.is_free, course.type " +
+                                 "FROM feedback f " +
+                                 "INNER JOIN user ON user.id = f.student_id " +
+                                 "INNER JOIN course ON course.id = f.course_id " +
+                                 "WHERE f.id=?;";
+    String FIND_ALL_FEEDBACKS_QUERY = "SELECT f.id, f.score, f.comment, f.student_id, f.course_id, user.id, user.login, " +
+                                      "user.full_name, user.email, user.password, course.id, course.name, course.description, " +
+                                      "course.start_date, course.end_date, course.professor_id, course.students_number, " +
+                                      "course.price, course.is_free, course.type " +
+                                      "FROM feedback f " +
+                                      "INNER JOIN user ON user.id = f.student_id " +
+                                      "INNER JOIN course ON course.id = f.course_id;";
+    String GET_FEEDBACKS_FOR_COURSE_QUERY = "SELECT f.id, f.score, f.comment, f.student_id, f.course_id, user.id, user.login, " +
+                                            "user.full_name, user.email, user.password, course.id, course.name, course.description, " +
+                                            "course.start_date, course.end_date, course.professor_id, course.students_number, " +
+                                            "course.price, course.is_free, course.type " +
+                                            "FROM feedback f " +
+                                            "INNER JOIN user ON user.id = f.student_id " +
+                                            "INNER JOIN course ON course.id = f.course_id " +
+                                            "WHERE f.course_id=?;";
+    String GET_FEEDBACKS_FOR_STUDENT_QUERY = "SELECT f.id, f.score, f.comment, f.student_id, f.course_id, user.id, user.login, " +
+                                             "user.full_name, user.email, user.password, course.id, course.name, course.description, " +
+                                             "course.start_date, course.end_date, course.professor_id, course.students_number, " +
+                                             "course.price, course.is_free, course.type " +
+                                             "FROM feedback f " +
+                                             "INNER JOIN user ON user.id = f.student_id " +
+                                             "INNER JOIN course ON course.id = f.course_id " +
+                                             "WHERE user.login=?;";
     String DELETE_FEEDBACKS_BY_COURSE_QUERY = "DELETE FROM `feedback` WHERE `course_id`=?;";
-    String DELETE_FEEDBACK_BY_COURSE_AND_STUDENT_ID_QUERY = "DELETE FROM `feedback` WHERE `course_id`=? AND `user_id`=?;";
+    String DELETE_FEEDBACK_BY_COURSE_AND_STUDENT_ID_QUERY = "DELETE FROM `feedback` WHERE `course_id`=? AND `student_id`=?;";
     String INSERT_USER_QUERY = "INSERT INTO `user` (`login`, `full_name`, `email`, `password`) " +
                                "VALUES (?, ?, ?, ?);";
     String DELETE_USER_QUERY = "DELETE FROM `user` WHERE `id`=?;";

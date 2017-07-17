@@ -16,6 +16,7 @@ public interface DatabaseColumn {
     String PRICE = "price";
     String IS_FREE = "is_free";
     String TYPE = "type";
+    String STUDENT_ID = "student_id";
     String PROFESSOR_ID = "professor_id";
     String FULL_NAME = "full_name";
     String LOGIN = "login";

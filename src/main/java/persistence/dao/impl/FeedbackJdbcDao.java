@@ -60,53 +60,24 @@ public class FeedbackJdbcDao implements FeedbackDao {
 
     @Override
     public Optional<Feedback> find(Integer id) {
-        Optional<Feedback> feedback = jdbcTemplate.queryObject(Query.FIND_FEEDBACK_QUERY, FeedbackMapper::map, id);
-        if(feedback.isPresent()) {
-            feedback.get().setCourse(courseDao.find(feedback.get().getCourse().getId()).get());
-            feedback.get().setStudent(studentDao.find(feedback.get().getStudent().getId()).get());
-        }
-
-        return feedback;
+        return jdbcTemplate.queryObject(Query.FIND_FEEDBACK_QUERY, FeedbackMapper::map, id);
     }
 
     @Override
     public List<Feedback> findAll() {
-        List<Feedback> feedbacks = jdbcTemplate.queryObjects(Query.FIND_ALL_FEEDBACKS_QUERY, FeedbackMapper::map);
-        feedbacks.forEach(feedback -> {
-            feedback.setStudent(studentDao.find(feedback.getStudent().getId()).get());
-            feedback.setCourse(courseDao.find(feedback.getCourse().getId()).get());
-        });
-
-        return feedbacks;
+        return jdbcTemplate.queryObjects(Query.FIND_ALL_FEEDBACKS_QUERY, FeedbackMapper::map);
     }
 
     @Override
     public List<Feedback> getFeedbacksForCourse(int id) {
-        List<Feedback> feedbacks = jdbcTemplate.queryObjects(Query.GET_FEEDBACKS_FOR_COURSE_QUERY,
-                                                            FeedbackMapper::map, id);
-        feedbacks.forEach(feedback -> {
-            feedback.setStudent(studentDao.find(feedback.getStudent().getId()).get());
-            feedback.setCourse(courseDao.find(feedback.getCourse().getId()).get());
-        });
-
-        return feedbacks;
+        return jdbcTemplate.queryObjects(Query.GET_FEEDBACKS_FOR_COURSE_QUERY, FeedbackMapper::map, id);
     }
 
     @Override
     public List<Feedback> getFeedBacksForStudentByLogin(String login) {
-        List<Feedback> feedbacks = new ArrayList<>();
-        Optional<Student> student = studentDao.findByLogin(login);
-        if(student.isPresent()) {
-            feedbacks = jdbcTemplate.queryObjects(Query.GET_FEEDBACKS_FOR_STUDENT_QUERY,
-                    FeedbackMapper::map, student.get().getId());
-            feedbacks = feedbacks.stream().filter(this::isGraded).collect(Collectors.toList());
-            feedbacks.forEach(feedback -> {
-                feedback.setStudent(studentDao.find(feedback.getStudent().getId()).get());
-                feedback.setCourse(courseDao.find(feedback.getCourse().getId()).get());
-            });
-        }
-
-        return feedbacks;
+        List<Feedback> feedbacks =jdbcTemplate.queryObjects(Query.GET_FEEDBACKS_FOR_STUDENT_QUERY,
+                                                            FeedbackMapper::map, login);
+        return feedbacks.stream().filter(this::isGraded).collect(Collectors.toList());
     }
 
     @Override
