@@ -12,14 +12,17 @@ body{
     margin-left: 5px;
     margin-top: 10px;
     float: left;
-    max-width: 50px;
-    max-height: 50px;
 }
 
 .logout img {
-    max-width: 50px;
-    max-height: 50px;
+    max-width: 40px;
+    max-height: 40px;
 }
+
+.logout img:hover {
+    cursor: pointer;
+}
+
 
 .backgroundLayer {
     position: fixed;

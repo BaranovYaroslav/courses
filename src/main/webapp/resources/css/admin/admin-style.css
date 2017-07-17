@@ -3,6 +3,10 @@ p {
     font-family: "Roboto", sans-serif;
 }
 
+#login {
+    background-color: red;
+}
+
 .logout {
     margin-left: 5px;
     margin-top: 10px;

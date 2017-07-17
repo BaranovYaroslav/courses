@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix = "user" uri = "/WEB-INF/usertag.tld"%>
 
 <fmt:setBundle basename="lang" var="rb"/>
 <html>
@@ -20,13 +21,14 @@
     </div>
 
     <c:import url="/resources/components/header-component.jsp"/>
-    <c:import url="/resources/components/locale-component.jsp"/>
-
     <div class="logout">
-        <form method="get" action="<c:url value="/app/logout"/>">
-            <img src="<c:url value="/resources/images/logout.png"/>" onclick="this.parentNode.submit()"/>
-        </form>
+        <p id="login">
+            <fmt:message key="user.welcome" bundle="${rb}"/>
+            <user:login/>
+        </p>
+        <c:import url="/resources/components/logout-component.jsp"/>
     </div>
+    <c:import url="/resources/components/locale-component.jsp"/>
 
     <div class="wrapper">
         <div class="courseContainer">
