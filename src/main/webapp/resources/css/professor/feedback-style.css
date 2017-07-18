@@ -43,7 +43,7 @@ body {
 .feedBackForm {
     width: 250px;
     height: 400px;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-left: calc(50% - 135px);
     padding: 20px;
     border: 2px solid black;

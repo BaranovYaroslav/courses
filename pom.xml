@@ -7,7 +7,7 @@
     <groupId>lab</groupId>
     <artifactId>lab1</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>pro</name>
+    <name>project</name>
     <packaging>war</packaging>
 
     <dependencies>
@@ -94,7 +94,7 @@
     </dependencies>
 
     <build>
-        <finalName>pro</finalName>
+        <finalName>project</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -33,5 +33,5 @@ public interface NavigationConstants {
     String STUDENT_REGISTRATION_URL = "/app/registration";
     String FEEDBACKS_FOR_COURSE_URL = "/app/professor/feedbacks?id=";
     String FEEDBACK_URL = "/app/professor/feedback?id=";
-    String BASE_APPLICATION_URL = "/pro";
+    String BASE_APPLICATION_URL = "/project";
 }
