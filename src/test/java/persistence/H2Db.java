@@ -18,6 +18,11 @@ public class H2Db {
         return connectionManager;
     }
 
+    /**
+     * Method to obtain datasource for H2 database.
+     *
+     * @return object of DataSource
+     */
     private static JdbcDataSource getH2DS() {
         JdbcDataSource ds = new JdbcDataSource();
         ds.setUrl("jdbc:h2:mem:test;Mode=MYSQL;DB_CLOSE_DELAY=-1");
