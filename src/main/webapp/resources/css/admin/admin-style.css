@@ -3,10 +3,6 @@ p {
     font-family: "Roboto", sans-serif;
 }
 
-#login {
-    background-color: red;
-}
-
 .logout {
     margin-left: 5px;
     margin-top: 10px;
@@ -37,7 +33,7 @@ p {
     width: 300px;
     height: 150px;
     padding: 20px;
-    top: 300px;
+    top: 200px;
     left: calc(50% - 160px);
     display: none;
     background-color: #a0a0a0;
