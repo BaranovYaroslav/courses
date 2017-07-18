@@ -17,7 +17,15 @@ public class DeleteCourseController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(DeleteCourseController.class);
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private CourseService courseService;
+
+    public DeleteCourseController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    }
+
+    public DeleteCourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     /**
      * Method that get course id from http request and delete it.

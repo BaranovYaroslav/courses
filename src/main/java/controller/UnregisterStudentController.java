@@ -15,11 +15,18 @@ import service.*;
  */
 public class UnregisterStudentController implements Controller {
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private CourseService courseService;
 
-    private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    private StudentService studentService;
 
-    private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    private FeedbackService feedbackService;
+
+    public UnregisterStudentController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+        studentService = ServiceLoader.getInstance().getService(StudentService.class);
+        feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    }
+
 
     /**
      * Method that unregister student from course. Parameters are passed by http request.

@@ -18,11 +18,23 @@ public class UpdateCourseController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(UpdateCourseController.class);
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private CourseService courseService;
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+    private UserService userService;
 
-    private ProfessorService professorService = ServiceLoader.getInstance().getService(ProfessorService.class);
+    private ProfessorService professorService;
+
+    public UpdateCourseController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+        userService = ServiceLoader.getInstance().getService(UserService.class);
+        professorService = ServiceLoader.getInstance().getService(ProfessorService.class);
+    }
+
+    public UpdateCourseController(CourseService courseService, UserService userService, ProfessorService professorService) {
+        this.courseService = courseService;
+        this.userService = userService;
+        this.professorService = professorService;
+    }
 
     /**
      * Method that process editing of course and forward to admin base page.

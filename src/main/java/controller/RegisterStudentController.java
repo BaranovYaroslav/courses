@@ -16,11 +16,19 @@ import service.*;
  */
 public class RegisterStudentController implements Controller{
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private CourseService courseService;
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+    private StudentService studentService;
 
-    private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    public RegisterStudentController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+        studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    }
+
+    public RegisterStudentController(CourseService courseService, StudentService studentService) {
+        this.courseService = courseService;
+        this.studentService = studentService;
+    }
 
     /**
      * Method that process registration and forward to student base page.

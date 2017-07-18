@@ -19,9 +19,15 @@ public class LoadFeedbacksListPageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoadFeedbacksListPageController.class);
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+    private FeedbackService feedbackService;
 
-    private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    public LoadFeedbacksListPageController() {
+        feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    }
+
+    public LoadFeedbacksListPageController(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
+    }
 
     /**
      * Method that get course id from http request and forward to page

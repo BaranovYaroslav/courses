@@ -22,9 +22,11 @@ public class StudentRegistrationController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(StudentRegistrationController.class);
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+    private UserService userService;
 
-    public StudentRegistrationController() {}
+    public StudentRegistrationController() {
+        userService = ServiceLoader.getInstance().getService(UserService.class);
+    }
 
     public StudentRegistrationController(UserService userService) {
         this.userService = userService;

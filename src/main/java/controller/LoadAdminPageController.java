@@ -18,7 +18,15 @@ public class LoadAdminPageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoadAdminPageController.class);
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private CourseService courseService;
+
+    public LoadAdminPageController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    }
+
+    public LoadAdminPageController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     /**
      * Method that get course id from http request and delete it.

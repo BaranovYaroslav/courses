@@ -19,9 +19,19 @@ public class CourseSearchController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(CourseSearchController.class);
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private CourseService courseService;
 
-    private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    private StudentService studentService;
+
+    public CourseSearchController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+        studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    }
+
+    public CourseSearchController(CourseService courseService, StudentService studentService) {
+        this.courseService = courseService;
+        this.studentService = studentService;
+    }
 
     /**
      * Method that construct list of courses according search parameters

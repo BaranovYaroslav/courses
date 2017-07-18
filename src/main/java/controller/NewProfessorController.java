@@ -22,9 +22,17 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class NewProfessorController implements Controller {
 
-    private Logger LOGGER = Logger.getLogger(NewProfessorController.class);
+    private static Logger LOGGER = Logger.getLogger(NewProfessorController.class);
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+    private UserService userService;
+
+    public NewProfessorController() {
+        userService = ServiceLoader.getInstance().getService(UserService.class);
+    }
+
+    public NewProfessorController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Method that provide creation of new professor account.

@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import service.AuthenticationService;
 import service.NavigationService;
 import service.ServiceLoader;
+import service.StudentService;
 
 /**
  * Controller of login case.
@@ -17,7 +18,15 @@ public class LoginController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoginController.class);
 
-    private AuthenticationService authenticationService = ServiceLoader.getInstance().getService(AuthenticationService.class);
+    private AuthenticationService authenticationService;
+
+    public LoginController() {
+        authenticationService = ServiceLoader.getInstance().getService(AuthenticationService.class);
+    }
+
+    public LoginController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     /**
      * Method that compare user inputs with account info and provide processing of login case.

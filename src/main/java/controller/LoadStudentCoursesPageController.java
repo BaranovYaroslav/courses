@@ -14,7 +14,15 @@ import service.StudentService;
  */
 public class LoadStudentCoursesPageController implements Controller {
 
-    private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    private StudentService studentService;
+
+    public LoadStudentCoursesPageController() {
+        studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    }
+
+    public LoadStudentCoursesPageController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
     /**
      * Method that student login from session and forward to page that contain all

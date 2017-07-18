@@ -22,7 +22,15 @@ public class LoadEditCoursePageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoginController.class);
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private CourseService courseService;
+
+    public LoadEditCoursePageController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    }
+
+    public LoadEditCoursePageController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     /**
      * Method that set previous course information to request and forward admin to edit page.

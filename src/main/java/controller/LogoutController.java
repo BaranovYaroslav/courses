@@ -13,7 +13,15 @@ import service.ServiceLoader;
  */
 public class LogoutController implements Controller {
 
-    private AuthenticationService authenticationService = ServiceLoader.getInstance().getService(AuthenticationService.class);
+    private AuthenticationService authenticationService;
+
+    public LogoutController() {
+        authenticationService = ServiceLoader.getInstance().getService(AuthenticationService.class);
+    }
+
+    public LogoutController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     /**
      * Method invalidate user session and forward base page.

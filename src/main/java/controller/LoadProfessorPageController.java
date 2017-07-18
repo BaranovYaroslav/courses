@@ -14,7 +14,15 @@ import service.ServiceLoader;
  */
 public class LoadProfessorPageController implements Controller {
 
-    private ProfessorService professorService = ServiceLoader.getInstance().getService(ProfessorService.class);
+    private ProfessorService professorService;
+
+    public LoadProfessorPageController() {
+        professorService =ServiceLoader.getInstance().getService(ProfessorService.class);
+    }
+
+    public LoadProfessorPageController(ProfessorService professorService) {
+        this.professorService = professorService;
+    }
 
     /**
      * Method that get professor login from session and forward

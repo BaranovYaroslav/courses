@@ -15,7 +15,15 @@ import service.ServiceLoader;
  */
 public class LoadFeedbackPageController implements Controller {
 
-    private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    private FeedbackService feedbackService;
+
+    public LoadFeedbackPageController() {
+        feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    }
+
+    public LoadFeedbackPageController(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
+    }
 
     /**
      * Method that get feedback id from http request forward to

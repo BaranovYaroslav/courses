@@ -14,7 +14,15 @@ import service.ServiceLoader;
  */
 public class LoadStudentFeedbacksPageController implements Controller {
 
-    private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    private FeedbackService feedbackService;
+
+    public LoadStudentFeedbacksPageController() {
+        feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    }
+
+    public LoadStudentFeedbacksPageController(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
+    }
 
     /**
      * Method that get student login from session and forward to page that contains all

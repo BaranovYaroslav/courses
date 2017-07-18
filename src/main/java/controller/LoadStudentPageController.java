@@ -13,11 +13,24 @@ import service.*;
  */
 public class LoadStudentPageController implements Controller {
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+    private CourseService courseService;
 
-    private StudentService studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    private UserService userService;
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private StudentService studentService;
+
+
+    public LoadStudentPageController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+        userService = ServiceLoader.getInstance().getService(UserService.class);
+        studentService = ServiceLoader.getInstance().getService(StudentService.class);
+    }
+
+    public LoadStudentPageController(UserService userService, StudentService studentService, CourseService courseService) {
+        this.userService = userService;
+        this.studentService = studentService;
+        this.courseService = courseService;
+    }
 
     /**
      * Method that forward to student base page.

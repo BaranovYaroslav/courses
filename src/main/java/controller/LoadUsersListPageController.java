@@ -17,7 +17,15 @@ public class LoadUsersListPageController implements Controller {
 
     private static Logger LOGGER = Logger.getLogger(LoadNewProfessorPageController.class);
 
-    private UserService userService = ServiceLoader.getInstance().getService(UserService.class);
+    private UserService userService;
+
+    public LoadUsersListPageController() {
+        userService = ServiceLoader.getInstance().getService(UserService.class);
+    }
+
+    public LoadUsersListPageController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Method that forward to page that contains list of users.

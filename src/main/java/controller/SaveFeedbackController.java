@@ -16,7 +16,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SaveFeedbackController implements Controller {
 
-    private FeedbackService feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    private FeedbackService feedbackService;
+
+    public SaveFeedbackController() {
+        feedbackService = ServiceLoader.getInstance().getService(FeedbackService.class);
+    }
+
+    public SaveFeedbackController(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
+    }
 
     /**
      * Method that process feedback editing.

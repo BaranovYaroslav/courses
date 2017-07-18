@@ -17,7 +17,15 @@ import service.ServiceLoader;
  */
 public class CourseDetailsController implements Controller {
 
-    private CourseService courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    private CourseService courseService;
+
+    public CourseDetailsController() {
+        courseService = ServiceLoader.getInstance().getService(CourseService.class);
+    }
+
+    public CourseDetailsController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     /**
      * Method that get course id from http request and forward to page

@@ -14,7 +14,15 @@ import java.io.IOException;
  */
 public class IndexPageController implements Controller {
 
-    private InformationService informationService = ServiceLoader.getInstance().getService(InformationService.class);
+    private InformationService informationService;
+
+    public IndexPageController() {
+        informationService = ServiceLoader.getInstance().getService(InformationService.class);
+    }
+
+    public IndexPageController(InformationService informationService) {
+        this.informationService = informationService;
+    }
 
     /**
      * Method that send response to user browser.
