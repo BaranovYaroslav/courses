@@ -36,7 +36,7 @@ public interface StudentService {
      * @param user user to give courses
      * @return list of courses
      */
-    public List<Course> getCoursesForRegistration(User user);
+    public List<Course> getCoursesForRegistration(Student student);
 
     /**
      * Method to give student all courses for registration according search parameters.

@@ -13,6 +13,7 @@ import service.FeedbackService;
 import service.StudentService;
 import service.util.CourseSearchParameters;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
 
     private ConnectionManager connectionManager;
 
-    public StudentServiceImpl(CourseDao courseDao, StudentDao userDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
+    public StudentServiceImpl(CourseDao courseDao, StudentDao studentDao, FeedbackDao feedbackDao, ConnectionManager connectionManager) {
         this.courseDao = courseDao;
         this.studentDao = studentDao;
         this.feedbackDao = feedbackDao;
@@ -61,9 +62,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Course> getCoursesForRegistration(User user) {
+    public List<Course> getCoursesForRegistration(Student student) {
         List<Course> courses = courseDao.findAll();
-        return courses.stream().filter(course -> !course.getStudents().contains(user))
+        LocalDate now = LocalDate.now();
+        return courses.stream().filter(course -> !course.getStudents().contains(student))
+                               .filter(course -> now.isBefore(course.getStartDate()))
                                .collect(Collectors.toList());
     }
 
