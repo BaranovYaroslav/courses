@@ -41,8 +41,8 @@
                        <fmt:message key="professor.show.map" bundle="${rb}"/></span></p>
         <p><fmt:message key="course.description" bundle="${rb}"/>: ${course.description}</p>
         <p><fmt:message key="course.price" bundle="${rb}"/>: ${course.price}</p>
-        <p><fmt:message key="course.start" bundle="${rb}"/>: ${course.startDate}</p>
-        <p><fmt:message key="course.end" bundle="${rb}"/>: ${course.endDate}</p>
+        <p><fmt:message key="course.start" bundle="${rb}"/>: ${course.startDateToString}</p>
+        <p><fmt:message key="course.end" bundle="${rb}"/>: ${course.endDateToString}</p>
         <p><fmt:message key="course.professor" bundle="${rb}"/>: ${course.professor.fullName}</p>
         <p><fmt:message key="course.maxNumber" bundle="${rb}"/>: ${course.numberOfStudents}</p>
         <p><fmt:message key="course.number" bundle="${rb}"/>: ${course.students.size()}</p>

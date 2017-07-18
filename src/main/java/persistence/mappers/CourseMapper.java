@@ -5,6 +5,7 @@ import entities.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  * Class that extract course from database result set.
@@ -18,8 +19,8 @@ public class CourseMapper {
         builder.setId(rs.getInt(DatabaseColumn.ID))
                .setName(rs.getString(DatabaseColumn.COURSE_NAME))
                .setDescription(rs.getString(DatabaseColumn.COURSE_DESCRIPTION))
-               .setStartDate(rs.getString(DatabaseColumn.START_DATE))
-               .setEndDate(rs.getString(DatabaseColumn.END_DATE))
+               .setStartDate(LocalDate.parse(rs.getString(DatabaseColumn.START_DATE)))
+               .setEndDate(LocalDate.parse(rs.getString(DatabaseColumn.END_DATE)))
                .setNumberOfStudents(rs.getInt(DatabaseColumn.STUDENTS_NUMBER))
                .setPrice(rs.getInt(DatabaseColumn.PRICE))
                .setFree(rs.getBoolean(DatabaseColumn.IS_FREE))

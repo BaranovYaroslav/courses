@@ -4,10 +4,12 @@ import constants.*;
 import dispatcher.HttpWrapper;
 import entities.*;
 import org.apache.log4j.Logger;
+import persistence.dao.LocationDao;
 import security.UserRole;
 import service.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 
 /**
  * Controller that provide to admin possibility to update course.
@@ -79,8 +81,8 @@ public class UpdateCourseController implements Controller {
         builder.setId(Integer.parseInt(request.getParameter(RequestParameter.ID)))
                .setName(request.getParameter(RequestParameter.COURSE_NAME))
                .setDescription(request.getParameter(RequestParameter.DESCRIPTION))
-               .setStartDate(request.getParameter(RequestParameter.START_DATE))
-               .setEndDate(request.getParameter(RequestParameter.END_DATE))
+               .setStartDate(LocalDate.parse(request.getParameter(RequestParameter.START_DATE)))
+               .setEndDate(LocalDate.parse(request.getParameter(RequestParameter.END_DATE)))
                .setNumberOfStudents(Integer.parseInt(request.getParameter(RequestParameter.STUDENTS_NUMBER)))
                .setPrice(Double.parseDouble(request.getParameter(RequestParameter.PRICE)))
                .setFree(request.getParameter(RequestParameter.IS_FREE) != null)

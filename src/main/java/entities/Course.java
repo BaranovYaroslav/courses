@@ -1,5 +1,6 @@
 package entities;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,9 +17,9 @@ public class Course {
 
     private String description;
 
-    private String startDate;
+    private LocalDate startDate;
 
-    private String endDate;
+    private LocalDate endDate;
 
     private User professor;
 
@@ -44,11 +45,11 @@ public class Course {
         return name;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
@@ -82,6 +83,14 @@ public class Course {
 
     public Location getLocation() {
         return location;
+    }
+
+    public String getStartDateToString() {
+        return startDate.getDayOfMonth()+ "." + startDate.getMonthValue() + "." + startDate.getYear();
+    }
+
+    public String getEndDateToString() {
+        return  endDate.getDayOfMonth()+ "." + endDate.getMonthValue() + "." + endDate.getYear();
     }
 
     public void setStudents(List<Student> students) {
@@ -166,12 +175,12 @@ public class Course {
             return this;
         }
 
-        public Builder setStartDate(String startDate) {
+        public Builder setStartDate(LocalDate startDate) {
             Course.this.startDate = startDate;
             return this;
         }
 
-        public Builder setEndDate(String endDate) {
+        public Builder setEndDate(LocalDate endDate) {
             Course.this.endDate = endDate;
             return this;
         }

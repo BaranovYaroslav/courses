@@ -8,6 +8,7 @@ import entities.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 /**
  * Class that extract feedback from database result set.
@@ -45,8 +46,8 @@ public class FeedbackMapper {
         builder.setId(resultSet.getInt(DatabaseColumn.COURSE_ID))
                 .setName(resultSet.getString(DatabaseColumn.COURSE_NAME))
                 .setDescription(resultSet.getString(DatabaseColumn.COURSE_DESCRIPTION))
-                .setStartDate(resultSet.getString(DatabaseColumn.START_DATE))
-                .setEndDate(resultSet.getString(DatabaseColumn.END_DATE))
+                .setStartDate(LocalDate.parse(resultSet.getString(DatabaseColumn.START_DATE)))
+                .setEndDate(LocalDate.parse(resultSet.getString(DatabaseColumn.END_DATE)))
                 .setNumberOfStudents(resultSet.getInt(DatabaseColumn.STUDENTS_NUMBER))
                 .setPrice(resultSet.getInt(DatabaseColumn.PRICE))
                 .setFree(resultSet.getBoolean(DatabaseColumn.IS_FREE))

@@ -9,6 +9,7 @@ import service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.PrivateKey;
+import java.time.LocalDate;
 
 /**
  * Controller that provide to admin possibility to create new course.
@@ -79,8 +80,8 @@ public class NewCourseController implements Controller {
 
         builder.setName(request.getParameter(RequestParameter.COURSE_NAME))
                .setDescription(request.getParameter(RequestParameter.DESCRIPTION))
-               .setStartDate(request.getParameter(RequestParameter.START_DATE))
-               .setEndDate(request.getParameter(RequestParameter.END_DATE))
+               .setStartDate(LocalDate.parse(request.getParameter(RequestParameter.START_DATE)))
+               .setEndDate(LocalDate.parse(request.getParameter(RequestParameter.END_DATE)))
                .setNumberOfStudents(Integer.parseInt(request.getParameter(RequestParameter.STUDENTS_NUMBER)))
                .setPrice(Double.parseDouble(request.getParameter(RequestParameter.PRICE)))
                .setFree(request.getParameter(RequestParameter.IS_FREE) != null)
