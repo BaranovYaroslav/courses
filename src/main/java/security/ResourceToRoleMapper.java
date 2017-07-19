@@ -3,6 +3,7 @@ package security;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import entities.UserRole;
 import org.apache.log4j.Logger;
 
 /**
@@ -16,7 +17,7 @@ public class ResourceToRoleMapper {
 
     private static ResourceToRoleMapper instance;
 
-    private Map<String, String> matches = new ConcurrentHashMap<>();
+    private Map<String, UserRole> matches = new ConcurrentHashMap<>();
 
     private ResourceToRoleMapper() {
     }
@@ -29,26 +30,26 @@ public class ResourceToRoleMapper {
         return instance;
     }
 
-    public ResourceToRoleMapper addConstrains(String url, String role) {
+    public ResourceToRoleMapper addConstrains(String url, UserRole role) {
         matches.put(url, role);
         return this;
     }
 
-    public String getAccessibleRoleForUrl(String url) {
+    public UserRole getAccessibleRoleForUrl(String url) {
         for(Map.Entry entry: matches.entrySet()) {
             if(url.contains((String) entry.getKey())) {
-                return (String) entry.getValue();
+                return (UserRole) entry.getValue();
             }
         }
 
         return null;
     }
 
-    public Map<String, String> getMatches() {
+    public Map<String, UserRole> getMatches() {
         return matches;
     }
 
-    public void setMatches(Map<String, String> matches) {
+    public void setMatches(Map<String, UserRole> matches) {
         this.matches = matches;
     }
 }

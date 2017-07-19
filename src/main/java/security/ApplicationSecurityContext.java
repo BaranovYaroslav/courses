@@ -2,6 +2,7 @@ package security;
 
 import constants.RequestAttribute;
 import entities.User;
+import entities.UserRole;
 import org.apache.log4j.Logger;
 import persistence.ConnectionManager;
 import persistence.dao.UserDao;
@@ -54,12 +55,12 @@ public class ApplicationSecurityContext {
      *
      * @return result of determination
      */
-    public boolean isUserInRole(String login, String role) {
+    public boolean isUserInRole(String login, UserRole role) {
         Optional<User> user = userDao.findByLogin(login);
         if(!user.isPresent()) {
             return false;
         }
-        return user.get().getRole().getRole().equals(role);
+        return user.get().getRole().equals(role);
     }
 
 

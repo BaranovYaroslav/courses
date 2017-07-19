@@ -59,7 +59,6 @@ public class RegistrationControllerTest {
     private HttpServletRequest createHttpRequest (String... params) {
         HttpServletRequest request = mock(HttpServletRequest.class);
 
-
         when(request.getParameter("login")).thenReturn(params[0]);
         when(request.getParameter("fullName")).thenReturn(params[1]);
         when(request.getParameter("email")).thenReturn(params[2]);

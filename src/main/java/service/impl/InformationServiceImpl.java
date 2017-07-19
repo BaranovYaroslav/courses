@@ -2,10 +2,10 @@ package service.impl;
 
 import constants.ApplicationConstants;
 import entities.User;
+import entities.UserRole;
 import persistence.dao.CourseDao;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
-import security.UserRole;
 import service.InformationService;
 
 /**
@@ -43,9 +43,9 @@ public class InformationServiceImpl implements InformationService{
     private void refreshInformation() {
         courseNumber = courseDao.findAll().size();
         studentNumber = userDao.findAll().stream()
-                               .filter(u -> u.getRole().getRole().equals(UserRole.STUDENT)).count();
+                               .filter(u -> u.getRole().equals(UserRole.STUDENT)).count();
         professorNumber = userDao.findAll().stream()
-                                 .filter(p -> p.getRole().getRole().equals(UserRole.PROFESSOR)).count();
+                                 .filter(p -> p.getRole().equals(UserRole.PROFESSOR)).count();
     }
 
     private long getTimeFromLastAccess() {

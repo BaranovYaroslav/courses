@@ -2,8 +2,8 @@ package persistence;
 
 import entities.Feedback;
 import entities.Location;
-import entities.Role;
 import entities.User;
+import entities.UserRole;
 import org.junit.Before;
 import org.junit.Test;
 import persistence.dao.FeedbackDao;
@@ -80,7 +80,7 @@ public class UserDaoTest {
                .setLogin("tetUser")
                .setEmail("test@email.com")
                .setPassword("qwer1234")
-               .setRole(new Role("admin"));
+               .setRole(UserRole.STUDENT);
 
         return builder;
     }

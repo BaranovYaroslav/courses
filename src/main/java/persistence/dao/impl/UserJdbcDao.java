@@ -1,7 +1,7 @@
 package persistence.dao.impl;
 
-import entities.Role;
 import entities.User;
+import entities.UserRole;
 import persistence.ConnectionManager;
 import persistence.JdbcTemplate;
 import persistence.Query;
@@ -65,12 +65,12 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public Optional<Role> getUserRole(int id) {
+    public Optional<UserRole> getUserRole(int id) {
         return jdbcTemplate.queryObject(Query.GET_USER_ROLE_QUERY, RoleMapper::map, id);
     }
 
     @Override
-    public void addRole(int id, Role role) {
+    public void addRole(int id, UserRole role) {
         jdbcTemplate.insert(Query.INSERT_USER_ROLE_QUERY, id, role.getRole());
     }
 
@@ -80,7 +80,7 @@ public class UserJdbcDao implements UserDao {
     }
 
     @Override
-    public Optional<Role> getUserRole(String login) {
+    public Optional<UserRole> getUserRole(String login) {
         Optional<User> user = findByLogin(login);
         if(user.isPresent()) {
             return jdbcTemplate.queryObject(Query.GET_USER_ROLE_BY_LOGIN_QUERY, RoleMapper::map, user.get().getId());

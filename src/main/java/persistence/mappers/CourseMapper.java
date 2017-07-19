@@ -39,7 +39,7 @@ public class CourseMapper {
                .setEmail(rs.getString(DatabaseColumn.EMAIL))
                .setPassword(rs.getString(DatabaseColumn.PASSWORD))
                .setLogin(rs.getString(DatabaseColumn.LOGIN))
-               .setRole(new Role(rs.getString(DatabaseColumn.GROUP)));
+               .setRole(UserRole.valueOf(rs.getString(DatabaseColumn.GROUP).toUpperCase()));
 
         return builder.build();
     }

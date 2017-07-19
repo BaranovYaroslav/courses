@@ -4,12 +4,12 @@ import constants.ApplicationConstants;
 import constants.NavigationConstants;
 import controller.*;
 import dispatcher.HttpMatcher;
+import entities.UserRole;
 import persistence.ConnectionManager;
 import persistence.dao.factory.DaoFactory;
 import persistence.dao.factory.JdbcDaoFactory;
 import security.BaseResourceToRoleMapper;
 import security.ResourceToRoleMapper;
-import security.UserRole;
 import service.*;
 import service.impl.*;
 

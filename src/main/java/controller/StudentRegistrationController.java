@@ -2,11 +2,10 @@ package controller;
 
 import constants.*;
 import dispatcher.HttpWrapper;
-import entities.Role;
 import entities.Student;
 import entities.User;
+import entities.UserRole;
 import org.apache.log4j.Logger;
-import security.UserRole;
 import service.NavigationService;
 import service.ServiceLoader;
 import service.UserService;
@@ -68,7 +67,7 @@ public class StudentRegistrationController implements Controller {
                .setFullName(request.getParameter(RequestParameter.FULL_NAME))
                .setEmail(request.getParameter(RequestParameter.EMAIL))
                .setPassword(EncodingProvider.encode(request.getParameter(RequestParameter.PASSWORD)))
-               .setRole(new Role(UserRole.STUDENT));
+               .setRole(UserRole.STUDENT);
 
         return builder.build();
     }

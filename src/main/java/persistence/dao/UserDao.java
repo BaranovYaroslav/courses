@@ -1,7 +1,7 @@
 package persistence.dao;
 
-import entities.Role;
 import entities.User;
+import entities.UserRole;
 
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ public interface UserDao extends AbstractDao<User, Integer>{
      * @param id id of user
      * @return Optional of user role
      */
-    public Optional<Role> getUserRole(int id);
+    public Optional<UserRole> getUserRole(int id);
 
     /**
      * Method that extract user role from database.
@@ -34,7 +34,7 @@ public interface UserDao extends AbstractDao<User, Integer>{
      * @param login user login
      * @return Optional of user role
      */
-    public Optional<Role> getUserRole(String login);
+    public Optional<UserRole> getUserRole(String login);
 
     /**
      * Method that add user role into database.
@@ -42,7 +42,7 @@ public interface UserDao extends AbstractDao<User, Integer>{
      * @param userId id of user
      * @param role role to be added
      */
-    public void addRole(int userId, Role role);
+    public void addRole(int userId, UserRole role);
 
     /**
      * Method that delete user role from database.

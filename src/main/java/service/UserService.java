@@ -1,7 +1,7 @@
 package service;
 
-import entities.Role;
 import entities.User;
+import entities.UserRole;
 
 import java.util.List;
 
@@ -41,5 +41,5 @@ public interface UserService {
      * @param role given role
      * @return result of determination
      */
-    public boolean userHasRole(String login, String role);
+    public boolean userHasRole(String login, UserRole role);
 }

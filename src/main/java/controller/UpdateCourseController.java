@@ -4,7 +4,6 @@ import constants.*;
 import dispatcher.HttpWrapper;
 import entities.*;
 import org.apache.log4j.Logger;
-import security.UserRole;
 import service.*;
 
 import javax.servlet.http.HttpServletRequest;

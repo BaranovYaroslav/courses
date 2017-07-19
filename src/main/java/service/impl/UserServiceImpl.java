@@ -1,6 +1,7 @@
 package service.impl;
 
 import entities.User;
+import entities.UserRole;
 import persistence.dao.UserDao;
 import persistence.dao.factory.DaoFactory;
 import service.UserService;
@@ -49,14 +50,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean userHasRole(String login, String role) {
+    public boolean userHasRole(String login, UserRole role) {
         User user = getUserByLogin(login);
 
         if(user == null){
             return false;
         }
 
-        if(user.getRole().getRole().equals(role)) {
+        if(user.getRole().equals(role)) {
             return true;
         }
 

@@ -1,7 +1,7 @@
 package persistence.mappers;
 
 import constants.DatabaseColumn;
-import entities.Role;
+import entities.UserRole;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author Yaroslav Baranov
  */
 public class RoleMapper {
-    public static Role map(ResultSet rs) throws SQLException {
-        return new Role(rs.getString(DatabaseColumn.GROUP));
+    public static UserRole map(ResultSet rs) throws SQLException {
+        return UserRole.valueOf(rs.getString(DatabaseColumn.GROUP).toUpperCase());
     }
 }

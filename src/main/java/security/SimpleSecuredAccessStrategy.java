@@ -3,6 +3,7 @@ package security;
 import constants.ApplicationConstants;
 import constants.Messages;
 import dispatcher.HttpWrapper;
+import entities.UserRole;
 import service.NavigationService;
 
 import javax.servlet.FilterChain;
@@ -43,7 +44,7 @@ public class SimpleSecuredAccessStrategy implements SecuredAccessStrategy {
             url = ApplicationConstants.BASE_APPLICATION_URL;
         }
 
-        String accessibleRole = resourceToRoleMapper.getAccessibleRoleForUrl(url);
+        UserRole accessibleRole = resourceToRoleMapper.getAccessibleRoleForUrl(url);
         if (accessibleRole == null) {
             filterChain.doFilter(httpWrapper.getRequest(), httpWrapper.getResponse());
         }

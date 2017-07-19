@@ -17,7 +17,7 @@ public class User {
 
     protected String password;
 
-    protected Role role;
+    protected UserRole role;
 
     public User() {}
 
@@ -59,7 +59,7 @@ public class User {
         return password;
     }
 
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
@@ -92,7 +92,7 @@ public class User {
         if (fullName != null ? !fullName.equals(user.fullName) : user.fullName != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (role != null ? !role.getRole().equals(user.role.getRole()) : user.role != null) return false;
+        if (role != user.role) return false;
 
         return true;
     }
@@ -120,7 +120,7 @@ public class User {
 
         protected String password;
 
-        protected Role role;
+        protected UserRole role;
 
         protected Builder() {
         }
@@ -150,7 +150,7 @@ public class User {
             return (B) this;
         }
 
-        public B setRole(Role role) {
+        public B setRole(UserRole role) {
             this.role = role;
             return (B) this;
         }

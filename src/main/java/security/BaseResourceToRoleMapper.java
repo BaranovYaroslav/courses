@@ -1,5 +1,7 @@
 package security;
 
+import entities.UserRole;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,7 +14,7 @@ public class BaseResourceToRoleMapper {
 
     private static BaseResourceToRoleMapper instance;
 
-    private Map<String, String> baseResourceToRole = new ConcurrentHashMap<>();
+    private Map<UserRole, String> baseResourceToRole = new ConcurrentHashMap<>();
 
     private BaseResourceToRoleMapper() {}
 
@@ -24,12 +26,12 @@ public class BaseResourceToRoleMapper {
         return instance;
     }
 
-    public BaseResourceToRoleMapper addMapping(String role, String url) {
+    public BaseResourceToRoleMapper addMapping(UserRole role, String url) {
         baseResourceToRole.put(role, url);
         return instance;
     }
 
-    public String getBaseUrlForRole(String role) {
+    public String getBaseUrlForRole(UserRole role) {
         return baseResourceToRole.get(role);
     }
 }
