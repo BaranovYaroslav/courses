@@ -4,7 +4,6 @@ import constants.*;
 import dispatcher.HttpWrapper;
 import entities.*;
 import org.apache.log4j.Logger;
-import persistence.dao.LocationDao;
 import security.UserRole;
 import service.*;
 
@@ -119,10 +118,10 @@ public class UpdateCourseController implements Controller {
         String type = request.getParameter(RequestParameter.TYPE);
 
         return id.matches(ValidationConstants.INTEGER_GREATER_THAN_ZERO_REGEX) &&
-               name.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
-               description.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
-               city.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
-               address.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) &&
+               name.matches(ValidationConstants.UTF8_TRIMMED_STRING_REGEX) &&
+               description.matches(ValidationConstants.UTF8_TRIMMED_STRING_REGEX) &&
+               city.matches(ValidationConstants.UTF8_TRIMMED_STRING_REGEX) &&
+               address.matches(ValidationConstants.UTF8_TRIMMED_STRING_REGEX) &&
                x.matches(ValidationConstants.DOUBLE_REGEX) &&
                y.matches(ValidationConstants.DOUBLE_REGEX) &&
                numberOfStudents.matches(ValidationConstants.INTEGER_GREATER_THAN_ZERO_REGEX) &&
@@ -131,7 +130,7 @@ public class UpdateCourseController implements Controller {
                startDate.matches(ValidationConstants.DATE_REGEX) &&
                endDate.matches(ValidationConstants.DATE_REGEX) &&
                professorLogin.matches(ValidationConstants.LOGIN_REGEX) &&
-               (type.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX) && (CourseType.valueOf(type.toUpperCase()) != null));
+               (type.matches(ValidationConstants.UTF8_TRIMMED_STRING_REGEX) && (CourseType.valueOf(type.toUpperCase()) != null));
     }
 
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {

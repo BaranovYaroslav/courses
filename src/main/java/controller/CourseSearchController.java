@@ -65,8 +65,8 @@ public class CourseSearchController implements Controller {
         String max = httpWrapper.getRequest().getParameter(RequestParameter.MAX_COURSE_PRICE);
         String onlyFree = httpWrapper.getRequest().getParameter(RequestParameter.ONLY_FREE_COURSES);
 
-        return (type.length() == 0 || type.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX)) &&
-               (location.length() == 0 || location.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX)) &&
+        return (type.length() == 0 || type.matches(ValidationConstants.UTF8_TRIMMED_STRING_REGEX)) &&
+               (location.length() == 0 || location.matches(ValidationConstants.UTF8_TRIMMED_STRING_REGEX)) &&
                min.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
                max.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
                (onlyFree == null || onlyFree.equals(ControllerConstants.CHECKED_VALUE));

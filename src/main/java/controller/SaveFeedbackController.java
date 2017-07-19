@@ -60,7 +60,7 @@ public class SaveFeedbackController implements Controller {
 
         return id.matches(ValidationConstants.INTEGER_GREATER_THAN_ZERO_REGEX) &&
                score.matches(ValidationConstants.POSITIVE_DOUBLE_REGEX) &&
-               comment.matches(ValidationConstants.WHITESPACES_AND_MIN_TWO_CHARACTER_REGEX);
+               comment.matches(ValidationConstants.UTF8_TRIMMED_STRING_REGEX);
     }
 
     /**
