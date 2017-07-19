@@ -9,7 +9,7 @@
     <title>admin page</title>
     <link href="<c:url value="/resources/css/admin/admin-style.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/resources/css/locale-style.css"/>" rel="stylesheet"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"/>"></script>
 </head>
 <body>
     <div id="backgroundLayer" class="backgroundLayer">
