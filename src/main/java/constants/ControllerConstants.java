@@ -14,4 +14,5 @@ public interface ControllerConstants {
     String UNDERSCORE_SYMBOL = "_";
     String TRUE = "true";
     String FALSE = "false";
+    String DEFAULT_TIME_PATTERN = "dd.MM.yyyy";
 }

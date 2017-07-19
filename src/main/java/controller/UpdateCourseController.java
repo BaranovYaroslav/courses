@@ -8,6 +8,7 @@ import service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Controller that provide to admin possibility to update course.
@@ -66,6 +67,8 @@ public class UpdateCourseController implements Controller {
      */
     private Course constructCourse(HttpServletRequest request){
         Course.Builder builder = Course.newBuilder();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ControllerConstants.DEFAULT_TIME_PATTERN);
+
 
         Location.Builder locationBuilder = Location.newBuilder();
         locationBuilder.setId(Integer.parseInt(request.getParameter(RequestParameter.LOCATION_ID)))
@@ -79,8 +82,8 @@ public class UpdateCourseController implements Controller {
         builder.setId(Integer.parseInt(request.getParameter(RequestParameter.ID)))
                .setName(request.getParameter(RequestParameter.COURSE_NAME))
                .setDescription(request.getParameter(RequestParameter.DESCRIPTION))
-               .setStartDate(LocalDate.parse(request.getParameter(RequestParameter.START_DATE)))
-               .setEndDate(LocalDate.parse(request.getParameter(RequestParameter.END_DATE)))
+               .setStartDate(LocalDate.parse(request.getParameter(RequestParameter.START_DATE), formatter))
+               .setEndDate(LocalDate.parse(request.getParameter(RequestParameter.END_DATE), formatter))
                .setNumberOfStudents(Integer.parseInt(request.getParameter(RequestParameter.STUDENTS_NUMBER)))
                .setPrice(Double.parseDouble(request.getParameter(RequestParameter.PRICE)))
                .setFree(request.getParameter(RequestParameter.IS_FREE) != null)
