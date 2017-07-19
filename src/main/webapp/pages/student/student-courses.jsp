@@ -16,7 +16,7 @@
 
   <div id="map">
     <div id="mapCanvas"></div>
-    <input id="closeMap" type="button" value="Close">
+    <input id="closeMap" type="button" value="<fmt:message key="map.close" bundle="${rb}"/>"/>
   </div>
 
   <div id="confirmationForm" class="confirmationForm">

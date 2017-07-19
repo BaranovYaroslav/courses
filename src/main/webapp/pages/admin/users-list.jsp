@@ -21,14 +21,12 @@
     <div class="usersList">
         <table>
             <tr>
-                <th><fmt:message key="admin.users.id" bundle="${rb}"/></th>
                 <th><fmt:message key="admin.users.login" bundle="${rb}"/></th>
                 <th><fmt:message key="admin.users.name" bundle="${rb}"/></th>
                 <th><fmt:message key="admin.users.role" bundle="${rb}"/></th>
             </tr>
             <c:forEach items="${users}" var="user">
                 <tr>
-                    <td>${user.id}</td>
                     <td>${user.login}</td>
                     <td>${user.fullName}</td>
                     <td>${user.role.role}</td>

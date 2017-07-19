@@ -49,7 +49,7 @@
             <input type="text" name="city" value="${previousCity}" required>
             <p><fmt:message key="course.location.address" bundle="${rb}"/>:</p>
             <input type="text" name="address" value="${previousAddress}" required>
-            <p id="location"><fmt:message key="admin.new.course.coordinates" bundle="${rb}"/></p>
+            <p id="location"><fmt:message key="admin.edit.coordinates" bundle="${rb}"/></p>
             <p><fmt:message key="course.students" bundle="${rb}"/>:</p>
             <input type="number" name="students" value="${previousNumberOfStudents}" min="1" required>
             <p><fmt:message key="course.price" bundle="${rb}"/>:</p>

@@ -29,6 +29,7 @@ body{
     left: 0;
     width: 100%;
     height: 2000px;
+    z-index: 10;
     background-color: rgba(0, 0, 0, 0.85);
 }
 
@@ -155,13 +156,6 @@ body{
 }
 #cleanCoordinates:hover{
     cursor: pointer;
-}
-
-#message {
-    margin-top: 40px;
-    font-size: 20px;
-    text-align: center;
-    color: #ab473c;
 }
 
 #isFreeCourse {

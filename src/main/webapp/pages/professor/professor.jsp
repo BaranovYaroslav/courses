@@ -17,7 +17,7 @@
 
     <div id="map">
         <div id="mapCanvas"></div>
-        <input id="closeMap" type="button" value="Close">
+        <input id="closeMap" type="button" value="<fmt:message key="map.close" bundle="${rb}"/>"/>
     </div>
 
     <c:import url="/resources/components/header-component.jsp"/>
