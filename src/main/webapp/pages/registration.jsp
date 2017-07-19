@@ -32,6 +32,8 @@
             <input type="text" name="fullName" value="${previousName}" required>
             <p><fmt:message key="registration.password" bundle="${rb}"/>:</p>
             <input type="password" name="password" required>
+            <p><fmt:message key="registration.password.repeat" bundle="${rb}"/>:</p>
+            <input type="password" name="repeatedPassword" required>
             <input type="submit" width="100px" value="<fmt:message key="registration.register" bundle="${rb}"/>">
             </form>
         </div>

@@ -63,6 +63,7 @@ public class RegistrationControllerTest {
         when(request.getParameter("fullName")).thenReturn(params[1]);
         when(request.getParameter("email")).thenReturn(params[2]);
         when(request.getParameter("password")).thenReturn(params[3]);
+        when(request.getParameter("repeatedPassword")).thenReturn(params[3]);
         when(request.getRequestDispatcher(params[4])).thenReturn(mock(RequestDispatcher.class));
 
         return request;

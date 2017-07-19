@@ -15,6 +15,7 @@ public interface RequestParameter {
     String LANGUAGE = "lang";
     String LOGIN = "login";
     String PASSWORD = "password";
+    String REPEATED_PASSWORD = "repeatedPassword";
     String PROFESSOR_LOGIN = "professor";
     String COURSE_ID = "courseId";
     String COURSE_NAME = "name";

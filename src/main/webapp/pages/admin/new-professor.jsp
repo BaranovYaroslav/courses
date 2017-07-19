@@ -28,6 +28,8 @@
             <input type="email" name="email" value="${previousEmail}" required>
             <p><fmt:message key="admin.new.professor.password" bundle="${rb}"/>:</p>
             <input type="password" name="password" required="">
+            <p><fmt:message key="registration.password.repeat" bundle="${rb}"/>:</p>
+            <input type="password" name="repeatedPassword" required>
             <input type="submit" value="<fmt:message key="admin.add" bundle="${rb}"/>" >
         </form>
     </div>

@@ -86,11 +86,13 @@ public class StudentRegistrationController implements Controller {
         String fullName = request.getParameter(RequestParameter.FULL_NAME);
         String email = request.getParameter(RequestParameter.EMAIL);
         String password = request.getParameter(RequestParameter.PASSWORD);
+        String repeatedPassword = request.getParameter(RequestParameter.REPEATED_PASSWORD);
 
         return login.matches(ValidationConstants.LOGIN_REGEX) &&
                fullName.matches(ValidationConstants.NAME_REGEX) &&
                email.matches(ValidationConstants.EMAIL_REGEX) &&
-               password.matches(ValidationConstants.PASSWORD_REGEX);
+               password.matches(ValidationConstants.PASSWORD_REGEX) &&
+               password.equals(repeatedPassword);
     }
 
     private void returnToPreviousPage(HttpWrapper httpWrapper, String message) {
