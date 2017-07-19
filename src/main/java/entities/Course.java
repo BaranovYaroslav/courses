@@ -1,6 +1,9 @@
 package entities;
 
+import constants.ControllerConstants;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -86,11 +89,13 @@ public class Course {
     }
 
     public String getStartDateToString() {
-        return startDate.getDayOfMonth()+ "." + startDate.getMonthValue() + "." + startDate.getYear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ControllerConstants.DEFAULT_TIME_PATTERN);
+        return formatter.format(startDate);
     }
 
     public String getEndDateToString() {
-        return  endDate.getDayOfMonth()+ "." + endDate.getMonthValue() + "." + endDate.getYear();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(ControllerConstants.DEFAULT_TIME_PATTERN);
+        return  formatter.format(endDate);
     }
 
     public void setStudents(List<Student> students) {
