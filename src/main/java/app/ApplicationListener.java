@@ -5,6 +5,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import constants.ApplicationConstants;
+import constants.LoggerMessage;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -31,7 +32,7 @@ public class ApplicationListener implements ServletContextListener {
         application.setServletContext(servletContextEvent.getServletContext());
         application.init();
 
-        LOGGER.info("Application started");
+        LOGGER.info(LoggerMessage.ON_APPLICATION_STARTED_MESSAGE);
     }
 
     @Override

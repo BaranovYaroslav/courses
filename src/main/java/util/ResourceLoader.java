@@ -1,5 +1,6 @@
 package util;
 
+import constants.LoggerMessage;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -45,16 +46,15 @@ public class ResourceLoader {
         try {
             file = new File(url.toURI());
         } catch (URISyntaxException e) {
-            LOGGER.warn("Bad path", e);
+            LOGGER.warn(LoggerMessage.ON_BAD_PATH_MESSAGE + e);
             return null;
         }
-
 
         if (file.exists()) {
             return file;
         }
 
-        LOGGER.info("Cannot load resource");
+        LOGGER.warn(LoggerMessage.ON_UNRESOLVED_RESOURCE_MESSAGE);
         return null;
     }
 }

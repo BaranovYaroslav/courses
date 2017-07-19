@@ -1,6 +1,8 @@
 package persistence;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import constants.ApplicationConstants;
+import constants.LoggerMessage;
 import org.apache.log4j.Logger;
 import persistence.dao.UserDao;
 import persistence.transaction.DataSourceTxProxy;
@@ -41,7 +43,7 @@ public class ConnectionManager {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
-            LOGGER.error("Cannot create connection to the database", e);
+            LOGGER.error(LoggerMessage.ON_CANT_CREATE_CONNECTION_MESSAGE + e);
         }
 
         return null;
@@ -87,13 +89,13 @@ public class ConnectionManager {
     public static ConnectionManager fromJndi(String name) {
         try {
             Context initialContext = new InitialContext();
-            Context envContext = (Context) initialContext.lookup("java:comp/env");
+            Context envContext = (Context) initialContext.lookup(ApplicationConstants.CONTEXT_PATH);
             DataSource dataSource = (DataSource) envContext.lookup(name);
             DataSource txDataSource = new DataSourceTxProxy(dataSource);
 
             return new ConnectionManager(txDataSource);
         } catch (NamingException e) {
-            LOGGER.error("Can't create jndi context");
+            LOGGER.error(LoggerMessage.ON_CANT_CREATE_CONTEXT_MESSAGE + e);
             return null;
         }
     }

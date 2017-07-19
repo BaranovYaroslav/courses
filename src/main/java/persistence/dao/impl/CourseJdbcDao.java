@@ -22,8 +22,6 @@ import java.util.Optional;
  */
 public class CourseJdbcDao implements CourseDao {
 
-    private static Logger LOGGER = Logger.getLogger(UserDao.class);
-
     private JdbcTemplate jdbcTemplate;
 
     public CourseJdbcDao(ConnectionManager connectionManager) {
@@ -73,9 +71,7 @@ public class CourseJdbcDao implements CourseDao {
         List<Course> courses = jdbcTemplate.queryObjects(Query.FIND_ALL_COURSES_QUERY, CourseMapper::map);
 
         if(courses != null){
-            for(Course course: courses) {
-                setStudents(course);
-            }
+            courses.forEach(this::setStudents);
         }
 
         return courses;

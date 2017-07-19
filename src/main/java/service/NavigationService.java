@@ -1,5 +1,6 @@
 package service;
 
+import constants.LoggerMessage;
 import constants.NavigationConstants;
 import dispatcher.HttpWrapper;
 
@@ -28,7 +29,7 @@ public class NavigationService {
             httpWrapper.getRequest().getRequestDispatcher(url)
                                     .forward(httpWrapper.getRequest(), httpWrapper.getResponse());
         } catch (ServletException | IOException e) {
-            LOGGER.error("Error when trying forward to " + url + " " + e);
+            LOGGER.error(LoggerMessage.ON_FORWARD_EXCEPTION_MESSAGE + e);
         }
     }
 
@@ -42,7 +43,7 @@ public class NavigationService {
         try {
             httpWrapper.getResponse().sendRedirect(NavigationConstants.BASE_APPLICATION_URL + url);
         } catch (IOException e) {
-            LOGGER.error("Error when trying redirect to " + url + " " + e);
+            LOGGER.error(LoggerMessage.ON_REDIRECT_EXCEPTION_MESSAGE + e);
         }
     }
 }

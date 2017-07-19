@@ -26,18 +26,11 @@ import java.util.stream.Collectors;
  */
 public class FeedbackJdbcDao implements FeedbackDao {
 
-    private static Logger LOGGER = Logger.getLogger(UserDao.class);
-
     private JdbcTemplate jdbcTemplate;
 
-    private StudentDao studentDao;
 
-    private CourseDao courseDao;
-
-    public FeedbackJdbcDao(ConnectionManager connectionManager, StudentDao studentDao, CourseDao courseDao) {
+    public FeedbackJdbcDao(ConnectionManager connectionManager) {
         jdbcTemplate = new JdbcTemplate(connectionManager);
-        this.studentDao = studentDao;
-        this.courseDao = courseDao;
     }
 
     @Override

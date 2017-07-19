@@ -1,5 +1,6 @@
 package controller;
 
+import constants.LoggerMessage;
 import constants.NavigationConstants;
 import constants.RequestParameter;
 import dispatcher.HttpWrapper;
@@ -37,7 +38,7 @@ public class DeleteCourseController implements Controller {
     public void execute(HttpWrapper httpWrapper) {
         Integer id = Integer.parseInt(httpWrapper.getRequest().getParameter(RequestParameter.ID));
         courseService.deleteCourse(id);
-        LOGGER.info("Course deleted: " + id);
+        LOGGER.info(LoggerMessage.ON_COURSE_DELETED_MESSAGE + id);
         NavigationService.redirectTo(httpWrapper, NavigationConstants.ADMIN_ROOT_URL);
     }
 }

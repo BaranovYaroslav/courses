@@ -1,6 +1,7 @@
 package service;
 
 import com.sun.javafx.collections.MappingChange;
+import constants.LoggerMessage;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -40,7 +41,7 @@ public class ServiceLoader {
         try {
             loadedServices.put(clazz.getSimpleName(), clazz.newInstance());
         } catch (InstantiationException | IllegalAccessException e) {
-            LOGGER.error("Error in initializing of service: " + e);
+            LOGGER.error(LoggerMessage.ON_SERVICE_INITIALIZATION_EXCEPTION_MESSAGE + e);
         }
     }
 

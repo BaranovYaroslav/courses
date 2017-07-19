@@ -4,10 +4,13 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.logging.LogManager;
 
 import constants.ApplicationConstants;
+import constants.LoggerMessage;
 import constants.SecurityAccessConstants;
 import org.apache.log4j.Logger;
+import sun.rmi.runtime.Log;
 
 /**
  * Class that provide data encoding.
@@ -31,7 +34,7 @@ public class EncodingProvider {
             byte[] hash = messageDigest.digest(string.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(hash);
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.error("Invalid hashing algorithm! " + e);
+            LOGGER.error(LoggerMessage.ON_INVALID_HASHING_ALGORITHM_MESSAGE + e);
         }
 
         return "";

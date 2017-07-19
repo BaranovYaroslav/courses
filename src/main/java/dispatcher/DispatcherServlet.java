@@ -1,5 +1,6 @@
 package dispatcher;
 
+import constants.LoggerMessage;
 import constants.Messages;
 import controller.*;
 import org.apache.log4j.Logger;
@@ -67,7 +68,7 @@ public class DispatcherServlet extends HttpServlet {
             controller.get().execute(httpWrapper);
         }
         else {
-            LOGGER.warn("Try to access incorrect resource: " + httpWrapper.getRequest().getPathInfo());
+            LOGGER.warn(LoggerMessage.ON_INCORRECT_RESOURCE_ACCESS_MESSAGE + httpWrapper.getRequest().getPathInfo());
             NotificationService.notify(httpWrapper, Messages.MESSAGE_404);
         }
 

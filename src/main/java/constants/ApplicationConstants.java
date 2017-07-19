@@ -9,8 +9,7 @@ public interface ApplicationConstants {
     String APPLICATION_IDENTIFICATOR = "application";
     String BASE_APPLICATION_URL = "/";
     String CONNECTION_POOL_JNDI_NAME = "jdbc/courses";
-    String RESOURCES_LOCATION = "/resources/";
-    String PAGES_LOCATION = "/pages";
+    String CONTEXT_PATH = "java:comp/env";
     String URL_FOR_LOGIN = "/app/login";
     String STYLES_IDENTIFICATOR = "/css";
     String JS_IDENTIFICATOR = ".js";

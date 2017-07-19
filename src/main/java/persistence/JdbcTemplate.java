@@ -1,7 +1,7 @@
 package persistence;
 
+import constants.LoggerMessage;
 import org.apache.log4j.Logger;
-import persistence.dao.UserDao;
 import persistence.exeptions.RuntimeSqlException;
 
 import java.io.File;
@@ -60,7 +60,7 @@ public class JdbcTemplate {
 
             return -1;
         } catch (SQLException e) {
-            LOGGER.error("Exception when trying save entity to DB: " + e);
+            LOGGER.error(LoggerMessage.ON_SAVE_TO_DB_EXCEPTION_MESSAGE + e);
             throw new RuntimeSqlException(e);
         } finally {
             closeConnection(connection);
@@ -89,7 +89,7 @@ public class JdbcTemplate {
 
             return statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.error("Cannot execute update query", e);
+            LOGGER.error(LoggerMessage.ON_UPDATE_DATA_IN_DB_EXCEPTION_MESSAGE_ + e);
             throw new RuntimeSqlException(e);
         } finally {
             closeConnection(connection);
@@ -119,7 +119,7 @@ public class JdbcTemplate {
             ResultSet rs = stmt.executeQuery();
             withRs(rs, fn);
         } catch (SQLException e) {
-            LOGGER.error("Error creating prepared statement. Query: " + query, e);
+            LOGGER.error(LoggerMessage.ON_CANT_CREATE_PREPARED_STATEMENT_MESSAGE + query, e);
             throw new RuntimeSqlException(e);
         } finally {
             closeConnection(connection);
@@ -136,13 +136,13 @@ public class JdbcTemplate {
         try {
             fn.apply(rs);
         } catch (Exception e) {
-            LOGGER.error("ResultSetFunctions has thrown an exception", e);
+            LOGGER.error(LoggerMessage.ON_RESULT_SET_EXCEPTION_MESSAGE + e);
             throw new RuntimeSqlException(e);
         } finally {
             try {
                 rs.close();
             } catch (SQLException e) {
-                LOGGER.error("Cannot tryClose ResultSet", e);
+                LOGGER.error(LoggerMessage.ON_CANT_CLOSE_RESULT_SET_MESSAGE, e);
             }
         }
     }
@@ -218,10 +218,10 @@ public class JdbcTemplate {
                 return true;
             }
         } catch (IOException e) {
-            LOGGER.warn("SQL script file not found");
+            LOGGER.warn(LoggerMessage.ON_SQL_SCRIPT_NOT_FOUND_MESSAGE);
             return false;
         }catch (SQLException e) {
-            LOGGER.trace("Errors while executing SQL script: " + e);
+            LOGGER.trace(LoggerMessage.ON_EXECUTION_SQL_SCRIPT_EXCEPTION_MESSAGE + e);
             return false;
         }
 
@@ -239,7 +239,7 @@ public class JdbcTemplate {
                 connection.close();
             }
         } catch (SQLException e) {
-            LOGGER.error("Can't close connection: " + e);
+            LOGGER.error(LoggerMessage.ON_CANT_CLOSE_CONNECTION_MESSAGE + e);
         }
     }
 

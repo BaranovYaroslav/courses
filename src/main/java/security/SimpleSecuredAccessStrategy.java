@@ -1,6 +1,7 @@
 package security;
 
 import constants.ApplicationConstants;
+import constants.LoggerMessage;
 import constants.Messages;
 import dispatcher.HttpWrapper;
 import entities.UserRole;
@@ -54,7 +55,7 @@ public class SimpleSecuredAccessStrategy implements SecuredAccessStrategy {
                 filterChain.doFilter(httpWrapper.getRequest(), httpWrapper.getResponse());
             }
             else {
-                LOGGER.warn("Unsuccessful access to resource: " + url);
+                LOGGER.warn(LoggerMessage.ON_UNSUCCESSFUL_ACCESS_TO_RESOURCE_MESSAGE + url);
                 if(securityContext.getCurrentUser(httpWrapper.getRequest()) == null) {
                     NavigationService.navigateTo(httpWrapper, ApplicationConstants.URL_FOR_LOGIN);
                 }
